@@ -19,7 +19,16 @@ const Profile: React.FC<PropsType> = (props) => {
       <Stack.Screen
         name="ProfileMain"
         component={MainContainer}
-        options={({ navigation, route }: any) => ({})}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Профиль",
+          headerTitleAlign: "center",
+        })}
       />
     </Stack.Navigator>
   )

@@ -19,7 +19,16 @@ const Finances: React.FC<PropsType> = (props) => {
       <Stack.Screen
         name="FinancesMain"
         component={MainContainer}
-        options={({ navigation, route }: any) => ({})}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Финансы",
+          headerTitleAlign: "center",
+        })}
       />
     </Stack.Navigator>
   )

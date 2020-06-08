@@ -1,7 +1,7 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { StyleSheet } from "react-native"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 
 // COMPONENTS IMPORTS //
 import Dialogs from "~/Components/Content/Dialogs/Dialogs"
@@ -21,16 +21,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 type PropsType = {}
 
 const NavigationCenterContainer: React.FC<PropsType> = (props) => {
-  const Tab = createBottomTabNavigator()
+  const Tab = createMaterialBottomTabNavigator()
 
   return (
     <Tab.Navigator
       initialRouteName="Dialogs"
-      tabBarOptions={{
-        activeTintColor: "#006F5F",
-        inactiveTintColor: "#9E9E9E",
-        style: styles.tab_bar,
-      }}
+      barStyle={styles.tab_bar}
+      activeColor="#006F5F"
+      inactiveColor="#9E9E9E"
     >
       <Tab.Screen
         name="Dialogs"
@@ -50,7 +48,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
         name="Finances"
         component={Finances}
         options={{
-          tabBarLabel: "Диалоги",
+          tabBarLabel: "Финансы",
           tabBarIcon: ({ focused }: any) => (
             <FontAwesome
               name="dollar"
@@ -64,7 +62,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
         name="Statistics"
         component={Statistics}
         options={{
-          tabBarLabel: "Диалоги",
+          tabBarLabel: "Статистика",
           tabBarIcon: ({ focused }: any) => (
             <Ionicons
               name="ios-stats"
@@ -78,7 +76,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: "Диалоги",
+          tabBarLabel: "Профиль",
           tabBarIcon: ({ focused }: any) => (
             <MaterialCommunityIcons
               name="account-circle-outline"
@@ -92,7 +90,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
         name="More"
         component={More}
         options={{
-          tabBarLabel: "Диалоги",
+          tabBarLabel: "Ещё",
           tabBarIcon: ({ focused }: any) => (
             <Entypo
               name="dots-three-horizontal"
@@ -108,9 +106,8 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   tab_bar: {
-    height: 50,
-    paddingTop: 5,
-    paddingBottom: 5,
+    backgroundColor: "#E5E5E5",
+    elevation: 25,
   },
 })
 

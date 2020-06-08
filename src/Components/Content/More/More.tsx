@@ -19,7 +19,16 @@ const More: React.FC<PropsType> = (props) => {
       <Stack.Screen
         name="MoreMain"
         component={MainContainer}
-        options={({ navigation, route }: any) => ({})}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Тарифы",
+          headerTitleAlign: "center",
+        })}
       />
     </Stack.Navigator>
   )

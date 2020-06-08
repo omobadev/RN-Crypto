@@ -19,7 +19,16 @@ const Statistics: React.FC<PropsType> = (props) => {
       <Stack.Screen
         name="StatisticsMain"
         component={MainContainer}
-        options={({ navigation, route }: any) => ({})}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Cтатистика",
+          headerTitleAlign: "center",
+        })}
       />
     </Stack.Navigator>
   )

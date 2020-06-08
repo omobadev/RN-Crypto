@@ -19,7 +19,16 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <Stack.Screen
         name="DialogsMain"
         component={MainContainer}
-        options={({ navigation, route }: any) => ({})}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Диалоги",
+          headerTitleAlign: "center",
+        })}
       />
     </Stack.Navigator>
   )

@@ -16,13 +16,17 @@ import Auth from "~/Components/Content/Auth/Auth"
 
 type PropsType = {}
 
+console.disableYellowBox = true
+
 const App: React.FC<PropsType> = (props) => {
   const [isAuthentificated, setIsAuthentificated] = useState(true as boolean)
   const Stack = createStackNavigator()
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{ dark: true, colors: { background: "#E5E5E5" } }}
+      >
         {isAuthentificated ? (
           <Stack.Navigator initialRouteName="NavigationCenterContainer">
             <Stack.Screen
