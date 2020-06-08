@@ -27,7 +27,7 @@ const TransactionItem: React.FC<PropsType> = (props) => {
         <AntDesign
           name="wallet"
           size={24}
-          color={props.incomeData ? "#53DF77" : "#D50102"}
+          color={props.incomeData ? "#54bf70" : "#D50102"}
         />
         <View style={styles.text_wrap}>
           <Text style={styles.title}>
@@ -37,9 +37,18 @@ const TransactionItem: React.FC<PropsType> = (props) => {
         </View>
       </View>
       <View>
-        <Text>{props.date}</Text>
-        <View>
-          <Text>{props.positive ? "+" : "-"}</Text>
+        <Text style={styles.date}>{props.date}</Text>
+        <View style={styles.price_wrap}>
+          <Text
+            style={
+              props.positive
+                ? styles.positive_income_text
+                : styles.negative_income_text
+            }
+          >
+            {props.positive ? "+" : "-"}
+            {props.amountChanged}
+          </Text>
           <Text style={styles.letter}>{props.letter}</Text>
         </View>
       </View>
@@ -49,7 +58,10 @@ const TransactionItem: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginVertical: 12,
     flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   content_wrap: {
@@ -66,6 +78,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  date: {
+    textAlign: "right",
+    color: "gray",
+  },
+
+  price_wrap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: 55,
+  },
+
+  positive_income_text: {
+    color: "#54bf70",
+    fontSize: 18,
+  },
+
+  negative_income_text: {
+    color: "#D50102",
+    fontSize: 18,
+  },
+
   code: {
     lineHeight: 23,
     color: "#9E9E9E",
@@ -74,6 +108,8 @@ const styles = StyleSheet.create({
 
   letter: {
     color: "#00392D",
+    fontSize: 17,
+    fontWeight: "bold",
   },
 })
 

@@ -10,13 +10,19 @@ import { RectButton } from "react-native-gesture-handler"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  navigation: any
+  navigationDestination: any
+
   title: string
   icon: any
 }
 
 const BottomListItem: React.FC<PropsType> = (props) => {
   return (
-    <RectButton style={styles.container}>
+    <RectButton
+      style={styles.container}
+      onPress={() => props.navigation.navigate(props.navigationDestination)}
+    >
       {props.icon}
       <Text style={styles.text}>{props.title}</Text>
     </RectButton>
@@ -27,15 +33,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 30,
+    paddingVertical: 20,
     paddingHorizontal: 20,
   },
 
   text: {
     color: "#00392D",
     fontWeight: "700",
-    fontSize: 20,
-    marginLeft: 16,
+    fontSize: 19,
+    marginLeft: 13,
     letterSpacing: 0.4,
     marginTop: -3,
   },

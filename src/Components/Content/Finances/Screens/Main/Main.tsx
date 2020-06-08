@@ -18,7 +18,7 @@ const Main: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <TopBox navigation={props.navigation} />
-      <BottomSection />
+      <BottomSection navigation={props.navigation} />
     </View>
   )
 }

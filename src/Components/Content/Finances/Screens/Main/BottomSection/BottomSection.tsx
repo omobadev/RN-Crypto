@@ -10,12 +10,16 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const BottomSection: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <BottomListItem
+        navigation={props.navigation}
+        navigationDestination="MoneyMoveScreen"
         title="Перевод CGC"
         icon={
           <MaterialCommunityIcons
@@ -26,6 +30,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
         }
       />
       <BottomListItem
+        navigation={props.navigation}
         title="Вывод CGC"
         icon={
           <MaterialCommunityIcons
@@ -36,6 +41,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
         }
       />
       <BottomListItem
+        navigation={props.navigation}
         title="Купить CGC"
         icon={
           <MaterialCommunityIcons
@@ -46,6 +52,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
         }
       />
       <BottomListItem
+        navigation={props.navigation}
         title="Майнинг"
         icon={
           <MaterialCommunityIcons
@@ -61,7 +68,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 25,
+    marginVertical: 10,
   },
 })
 
