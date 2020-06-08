@@ -1,19 +1,45 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+// PLUGINS IMPORTS //
+import React, { useState } from "react"
 
-export default function App() {
+import { NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
+import { Provider } from "react-redux"
+import store from "~/Redux/ReduxStore"
+
+// COMPONENTS IMPORTS //
+import NavigationCenterContainer from "~/Components/NavigationCenterContainer/NavigationCenterContainer"
+import Auth from "~/Components/Content/Auth/Auth"
+
+// EXTRA IMPORTS //
+
+/////////////////////////////////////////////////////////////////////////////
+
+type PropsType = {}
+
+const App: React.FC<PropsType> = (props) => {
+  const [isAuthentificated, setIsAuthentificated] = useState(true as boolean)
+
+  const Stack = createStackNavigator()
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+    <Provider store={store}>
+      <NavigationContainer>
+        {isAuthentificated ? (
+          <Stack.Navigator initialRouteName="NavigationCenterContainer">
+            <Stack.Screen
+              name="NavigationCenterContainer"
+              component={NavigationCenterContainer}
+              options={({ navigation, route }: any) => ({
+                headerShown: false,
+              })}
+            />
+          </Stack.Navigator>
+        ) : (
+          <Auth />
+        )}
+      </NavigationContainer>
+    </Provider>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
