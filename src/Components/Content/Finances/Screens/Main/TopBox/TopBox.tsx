@@ -5,6 +5,7 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
+  Image,
   StyleSheet,
 } from "react-native"
 
@@ -17,7 +18,9 @@ import CustomHeader from "~/Components/Shared/CustomHeader/CustomHeader"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const TopBox: React.FC<PropsType> = (props) => {
   return (
@@ -40,7 +43,10 @@ const TopBox: React.FC<PropsType> = (props) => {
           Ваш уникальный адрес:
         </Text>
         <Text style={styles.text}>0x12334324jkldfji21</Text>
-        <TouchableOpacity style={styles.footer}>
+        <TouchableOpacity
+          style={styles.footer}
+          onPress={() => props.navigation.navigate("TransactionsHistory")}
+        >
           <AntDesign name="clockcircleo" size={20} color="#F2F2F2" />
           <Text style={styles.text}>Открыть историю транзакций</Text>
         </TouchableOpacity>

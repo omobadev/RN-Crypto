@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 // COMPONENTS IMPORTS //
 import MainContainer from "./Screens/Main/MainContainer"
+import TransactionsHistoryContainer from "./Screens/TransactionsHistory/TransactionsHistoryContainer"
 
 // EXTRA IMPORTS //
 
@@ -21,6 +22,12 @@ const Finances: React.FC<PropsType> = (props) => {
         component={MainContainer}
         options={({ navigation, route }: any) => ({
           headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name="TransactionsHistory"
+        component={TransactionsHistoryContainer}
+        options={({ navigation, route }: any) => ({
           headerStyle: {
             elevation: 0,
           },

@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import BottomListItem from "./BottomListItem/BottomListItem"

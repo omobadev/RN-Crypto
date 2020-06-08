@@ -10,12 +10,14 @@ import BottomSection from "./BottomSection/BottomSection"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const Main: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <TopBox />
+      <TopBox navigation={props.navigation} />
       <BottomSection />
     </View>
   )

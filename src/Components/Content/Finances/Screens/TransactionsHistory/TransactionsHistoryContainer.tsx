@@ -4,7 +4,7 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import Main from "./Main"
+import TransactionsHistory from "./TransactionsHistory"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
@@ -12,25 +12,21 @@ import { AppStateType } from "~/Redux/ReduxStore"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
-type MapStateToPropsType = {
-  navigation: any
-}
+type MapStateToPropsType = {}
 
 type MapDispatchToPropsType = {}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
-  return {
-    navigation: props.navigation,
-  }
+  return {}
 }
 
-const MainContainer = compose(
+const TransactionsHistoryContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {}
   )
-)(Main)
+)(TransactionsHistory)
 
-export default MainContainer
+export default TransactionsHistoryContainer
