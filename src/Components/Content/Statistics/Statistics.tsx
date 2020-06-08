@@ -11,13 +11,13 @@ import MainContainer from "./Screens/Main/MainContainer"
 
 type PropsType = {}
 
-const Dialogs: React.FC<PropsType> = (props) => {
+const Statistics: React.FC<PropsType> = (props) => {
   const Stack = createStackNavigator()
 
   return (
-    <Stack.Navigator initialRouteName="DialogsMain">
+    <Stack.Navigator initialRouteName="StatisticsMain">
       <Stack.Screen
-        name="DialogsMain"
+        name="StatisticsMain"
         component={MainContainer}
         options={({ navigation, route }: any) => ({})}
       />
@@ -25,4 +25,4 @@ const Dialogs: React.FC<PropsType> = (props) => {
   )
 }
 
-export default Dialogs
+export default Statistics

@@ -18,7 +18,6 @@ type PropsType = {}
 
 const App: React.FC<PropsType> = (props) => {
   const [isAuthentificated, setIsAuthentificated] = useState(true as boolean)
-
   const Stack = createStackNavigator()
 
   return (
