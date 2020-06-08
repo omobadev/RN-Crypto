@@ -20,6 +20,7 @@ const Finances: React.FC<PropsType> = (props) => {
         name="FinancesMain"
         component={MainContainer}
         options={({ navigation, route }: any) => ({
+          headerShown: false,
           headerStyle: {
             elevation: 0,
           },
