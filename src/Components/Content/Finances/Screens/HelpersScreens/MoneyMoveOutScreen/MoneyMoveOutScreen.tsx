@@ -29,7 +29,7 @@ const MoneyMoveOutScreen: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 20,
     marginTop: 30,
   },
 
@@ -41,9 +41,10 @@ const styles = StyleSheet.create({
 
   input: {
     marginTop: 20,
-    marginBottom: 50,
+    marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "rgba(0, 57, 45, 0.05)",
+    borderBottomColor: "rgba(0, 57, 45, 0.25)",
+    marginRight: 10,
     paddingBottom: 5,
     color: "#006F5F",
   },

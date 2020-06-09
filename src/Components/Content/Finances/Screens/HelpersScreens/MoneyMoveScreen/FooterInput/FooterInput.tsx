@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
   input: {
     borderBottomWidth: 1,
-    borderBottomColor: "rgba(0, 57, 45, 0.05)",
+    borderBottomColor: "rgba(0, 57, 45, 0.25)",
     width: 206,
     marginBottom: 20,
     marginTop: 10,
