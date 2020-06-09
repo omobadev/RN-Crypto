@@ -1,17 +1,22 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState } from "react"
+import { View, TouchableOpacity, StyleSheet } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 
 // COMPONENTS IMPORTS //
 import MainContainer from "./Screens/Main/MainContainer"
+import Settings from "./Screens/Settings/Settings"
 
 // EXTRA IMPORTS //
+import { Feather } from "@expo/vector-icons"
+import { FontAwesome } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {}
 
 const Profile: React.FC<PropsType> = (props) => {
+  const [isAdmin, setIsAdmin] = useState(true as boolean)
   const Stack = createStackNavigator()
 
   return (
@@ -26,12 +31,48 @@ const Profile: React.FC<PropsType> = (props) => {
           headerTitleStyle: {
             color: "#00392D",
           },
+          headerRight: () =>
+            isAdmin ? (
+              <View style={styles.icons_wrap}>
+                <TouchableOpacity>
+                  <FontAwesome
+                    name="pencil-square-o"
+                    size={24}
+                    color="#006F5F"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("ProfileSettings")}
+                >
+                  <Feather name="settings" size={24} color="#006F5F" />
+                </TouchableOpacity>
+              </View>
+            ) : null,
           title: "Профиль",
-          headerTitleAlign: "center",
+          headerTitleAlign: isAdmin ? "left" : "center",
+        })}
+        initialParams={{
+          isAdmin: isAdmin,
+        }}
+      />
+      <Stack.Screen
+        name="ProfileSettings"
+        component={Settings}
+        options={({ navigation, route }: any) => ({
+          headerShown: false,
         })}
       />
     </Stack.Navigator>
   )
 }
+
+const styles = StyleSheet.create({
+  icons_wrap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 65,
+    marginRight: 15,
+  },
+})
 
 export default Profile

@@ -4,7 +4,7 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import Main from "./Main"
+import Dashboard from "./Dashboard"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
@@ -28,11 +28,11 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   }
 }
 
-const MainContainer = compose(
+const DashboardContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {}
   )
-)(Main)
+)(Dashboard)
 
-export default MainContainer
+export default DashboardContainer

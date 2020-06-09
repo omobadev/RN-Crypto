@@ -15,6 +15,8 @@ type PropsType = {
 
   title: string
   icon: any
+
+  titleStyle?: any
 }
 
 const ListItem: React.FC<PropsType> = (props) => {
@@ -24,7 +26,7 @@ const ListItem: React.FC<PropsType> = (props) => {
       onPress={() => props.navigation.navigate(props.navigationDestination)}
     >
       {props.icon}
-      <Text style={styles.text}>{props.title}</Text>
+      <Text style={{ ...styles.text, ...props.titleStyle }}>{props.title}</Text>
     </RectButton>
   )
 }
