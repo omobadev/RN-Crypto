@@ -131,7 +131,7 @@ const Finances: React.FC<PropsType> = (props) => {
         })}
         initialParams={{
           currency: null as string | null,
-          price: null as number | null,
+          value: null as number | null,
         }}
       />
     </Stack.Navigator>
