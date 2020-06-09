@@ -1,6 +1,8 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet } from "react-native"
+import { Formik } from "formik"
+import * as yup from "yup"
 
 // COMPONENTS IMPORTS //
 
@@ -14,20 +16,53 @@ type PropsType = {
 }
 
 const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
-  const [value, setValue] = useState("0" as string)
+  const ValidationSchema = yup.object({
+    value: yup
+      .string()
+      .required(`Укажите адрес для вывода`)
+      .typeError(`Укажите адрес для вывода`),
+  })
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Укажите адрес для вывода:</Text>
-      <TextInput
-        style={styles.input}
-        value={value}
-        onChangeText={(text: string) => setValue(text)}
-      />
-      <Button
-        text="Готово"
-        buttonStyle={{ alignSelf: "center" }}
-        onPress={() => props.navigation.navigate("FinancesMain")}
-      />
+
+      <Formik
+        validationSchema={ValidationSchema}
+        initialValues={{
+          value: null as string | null,
+        }}
+        onSubmit={(values: any) => {
+          props.navigation.navigate("FinancesMain")
+        }}
+      >
+        {(FormikProps) => (
+          <>
+            <TextInput
+              style={styles.input}
+              keyboardType="number-pad"
+              placeholder="0"
+              placeholderTextColor="rgba(0, 57, 45, 0.5)"
+              value={FormikProps.values.value as any}
+              onChangeText={FormikProps.handleChange("value")}
+              onBlur={() => {
+                FormikProps.handleBlur("value")
+              }}
+            />
+            {FormikProps.touched.value && FormikProps.errors.value && (
+              <Text style={styles.error_message}>
+                {FormikProps.touched.value && FormikProps.errors.value}
+              </Text>
+            )}
+
+            <Button
+              text={"Готово"}
+              buttonStyle={{ alignSelf: "center" }}
+              onPress={FormikProps.handleSubmit}
+            />
+          </>
+        )}
+      </Formik>
     </View>
   )
 }
@@ -53,6 +88,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
     paddingBottom: 5,
     color: "#006F5F",
+  },
+
+  error_message: {
+    color: "red",
+    marginBottom: 15,
+    marginTop: -8,
   },
 })
 

@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, ScrollView, Text, TextInput, StyleSheet } from "react-native"
+import { ScrollView, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import UserListItem from "./UserListItem/UserListItem"

@@ -15,20 +15,20 @@ type PropsType = {
   navigation: any
 
   valueName: string
+  errorText: string
   buttonText: string
   destination: string
+
+  containerStyle?: any
 }
 
 const FooterInputSection: React.FC<PropsType> = (props) => {
   const ValidationSchema = yup.object({
-    value: yup
-      .string()
-      .required(`Укажите ${props.valueName}`)
-      .typeError(`Укажите ${props.valueName}`),
+    value: yup.string().required(props.errorText).typeError(props.errorText),
   })
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...props.containerStyle }}>
       <Text style={styles.title}>{props.valueName}</Text>
 
       <Formik

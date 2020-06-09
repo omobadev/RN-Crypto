@@ -26,6 +26,10 @@ const MoneyMoveInScreen: React.FC<PropsType> = (props) => {
         buttonText="Перевод"
         destination="FinancesMain"
         valueName="Укажите сумму"
+        errorText="Укажите сумму"
+        containerStyle={{
+          marginBottom: 40,
+        }}
       />
     </View>
   )

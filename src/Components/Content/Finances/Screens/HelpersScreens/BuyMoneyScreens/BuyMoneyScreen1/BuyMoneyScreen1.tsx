@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, ScrollView, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import RadioItem from "./RadioItem/RadioItem"
@@ -18,7 +18,7 @@ const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
   const [selectedCurrency, setSelectedCurrency] = useState("ETH" as string)
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>
         Вы собираетесь пополнить баланс вашего персонального кошелька
       </Text>
@@ -45,9 +45,13 @@ const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
           buttonText="Далее"
           destination="BuyMoneyScreen2"
           valueName="Количество"
+          errorText="Укажите количество"
+          containerStyle={{
+            marginTop: 260,
+          }}
         />
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

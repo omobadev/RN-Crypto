@@ -31,6 +31,10 @@ const MoneyMoveOutScreen1: React.FC<PropsType> = (props) => {
         buttonText="Далее"
         destination="MoneyMoveOutScreen2"
         valueName="Количество"
+        errorText="Укажите количество"
+        containerStyle={{
+          marginTop: 135,
+        }}
       />
     </ScrollView>
   )
