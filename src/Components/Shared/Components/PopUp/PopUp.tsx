@@ -18,6 +18,8 @@ type PropsType = {
   description?: string
   buttonsArray: Array<any>
 
+  containerStyle?: any
+
   setPopupVisible: (popupVisibilityStatus: boolean) => void
 }
 
@@ -29,7 +31,7 @@ const PopUp: React.FC<PropsType> = (props) => {
         props.setPopupVisible(false)
       }}
     >
-      <DialogContent style={styles.container}>
+      <DialogContent style={{ ...styles.container, ...props.containerStyle }}>
         <View style={styles.content_wrap}>
           <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.description}>{props.description}</Text>

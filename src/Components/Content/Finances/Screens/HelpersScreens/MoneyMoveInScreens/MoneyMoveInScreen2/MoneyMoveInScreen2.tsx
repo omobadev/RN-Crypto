@@ -1,13 +1,12 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, StyleSheet } from "react-native"
+import React, { useState } from "react"
+import { View, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import Header from "./Header/Header"
-import UsersList from "./UsersList/UsersList"
-import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
+import Button from "~/Components/Shared/Components/Button/Button"
+import Popup from "~/Components/Shared/Components/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -16,36 +15,57 @@ type PropsType = {
 }
 
 const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
+  const [popupVisible, setPopupVisible] = useState(false as boolean)
+
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.divider} />
-      <UsersList />
-      <FooterInput
-        navigation={props.navigation}
-        buttonText="Перевод"
-        destination="FinancesMain"
-        valueName="Укажите сумму"
-        errorText="Укажите сумму"
-        containerStyle={{
-          marginBottom: 40,
-        }}
+    <>
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>
+          <Text style={styles.bold}>Внимание!</Text> Вы собираетесь сделать
+          перевод средств.
+        </Text>
+        <Text style={styles.paragraph}>
+          Имейте ввиду что перевод средств, как правило, занимает 1-2 часа с
+          момента осуществления перевода.
+        </Text>
+        <Button
+          text="Оплатить"
+          onPress={() => setPopupVisible(true)}
+          buttonStyle={{ alignSelf: "center", marginTop: 15 }}
+        />
+      </View>
+      <Popup
+        title="Спасибо!"
+        description="Ваш перевод прошёл успешно!"
+        containerStyle={{ width: "80%" }}
+        buttonsArray={[
+          {
+            text: "OK",
+            action: () => props.navigation.navigate("FinancesMain"),
+          },
+        ]}
+        popupVisible={popupVisible}
+        setPopupVisible={setPopupVisible}
       />
-    </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 20,
+    marginTop: 10,
   },
 
-  divider: {
-    borderBottomColor: "rgba(0, 57, 45, 0.05)",
-    borderWidth: 1,
-    opacity: 0.2,
-    marginVertical: 10,
+  paragraph: {
+    color: "#00392D",
+    fontSize: 18,
+    marginBottom: 16,
+  },
+
+  bold: {
+    fontWeight: "bold",
   },
 })
 

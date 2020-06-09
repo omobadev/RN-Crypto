@@ -78,11 +78,6 @@ const Finances: React.FC<PropsType> = (props) => {
           headerStyle: {
             elevation: 0,
           },
-          headerRight: () => (
-            <TouchableOpacity style={styles.right_icon}>
-              <Feather name="info" size={24} color="#006F5F" />
-            </TouchableOpacity>
-          ),
           headerTitleStyle: {
             color: "#00392D",
           },
