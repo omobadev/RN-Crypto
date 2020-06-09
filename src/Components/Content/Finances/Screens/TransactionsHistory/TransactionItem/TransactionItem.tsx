@@ -10,8 +10,6 @@ import { AntDesign } from "@expo/vector-icons"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  incomeData: boolean
-
   code: string
   date: string
   letter: string
@@ -27,11 +25,11 @@ const TransactionItem: React.FC<PropsType> = (props) => {
         <AntDesign
           name="wallet"
           size={24}
-          color={props.incomeData ? "#54bf70" : "#D50102"}
+          color={props.positive ? "#54bf70" : "#D50102"}
         />
         <View style={styles.text_wrap}>
           <Text style={styles.title}>
-            {props.incomeData ? "Входящие средства" : "Исходящие средства"}
+            {props.positive ? "Входящие средства" : "Исходящие средства"}
           </Text>
           <Text style={styles.code}>{props.code}</Text>
         </View>

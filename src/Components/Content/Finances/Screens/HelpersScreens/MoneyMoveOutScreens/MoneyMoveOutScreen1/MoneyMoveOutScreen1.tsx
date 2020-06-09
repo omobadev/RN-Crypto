@@ -27,9 +27,8 @@ const MoneyMoveOutScreen1: React.FC<PropsType> = (props) => {
       />
 
       <FooterInput
-        navigation={props.navigation}
         buttonText="Далее"
-        destination="MoneyMoveOutScreen2"
+        action={() => props.navigation.navigate("MoneyMoveOutScreen2")}
         valueName="Количество"
         errorText="Укажите количество"
         containerStyle={{

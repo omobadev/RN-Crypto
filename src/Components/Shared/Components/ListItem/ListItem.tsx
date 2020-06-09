@@ -17,7 +17,7 @@ type PropsType = {
   icon: any
 }
 
-const BottomListItem: React.FC<PropsType> = (props) => {
+const ListItem: React.FC<PropsType> = (props) => {
   return (
     <RectButton
       style={styles.container}
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BottomListItem
+export default ListItem

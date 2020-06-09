@@ -15,7 +15,6 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
   return (
     <ScrollView style={styles.container}>
       <TransactionItem
-        incomeData={true}
         amountChanged={423}
         positive={false}
         letter={"B"}
@@ -23,7 +22,6 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
         code={"B29831FDUHSUH289"}
       />
       <TransactionItem
-        incomeData={true}
         amountChanged={423}
         positive={false}
         letter={"B"}
@@ -31,7 +29,6 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
         code={"B29831FDUHSUH289"}
       />
       <TransactionItem
-        incomeData={true}
         amountChanged={423}
         positive={false}
         letter={"B"}
@@ -39,7 +36,6 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
         code={"B29831FDUHSUH289"}
       />
       <TransactionItem
-        incomeData={true}
         amountChanged={423}
         positive={true}
         letter={"B"}

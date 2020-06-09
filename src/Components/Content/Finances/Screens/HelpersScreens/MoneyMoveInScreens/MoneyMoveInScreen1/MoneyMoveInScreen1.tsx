@@ -22,9 +22,8 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
       <View style={styles.divider} />
       <UsersList />
       <FooterInput
-        navigation={props.navigation}
         buttonText="Перевод"
-        destination="MoneyMoveInScreen2"
+        action={() => props.navigation.navigate("MoneyMoveInScreen2")}
         valueName="Укажите сумму"
         errorText="Укажите сумму"
         containerStyle={{

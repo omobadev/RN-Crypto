@@ -3,7 +3,7 @@ import React from "react"
 import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import BottomListItem from "./BottomListItem/BottomListItem"
+import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
 
 // EXTRA IMPORTS //
 import { MaterialCommunityIcons } from "@expo/vector-icons"
@@ -17,7 +17,7 @@ type PropsType = {
 const BottomSection: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <BottomListItem
+      <ListItem
         navigation={props.navigation}
         navigationDestination="MoneyMoveInScreen1"
         title="Перевод CGC"
@@ -29,7 +29,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
           />
         }
       />
-      <BottomListItem
+      <ListItem
         navigation={props.navigation}
         navigationDestination="MoneyMoveOutScreen1"
         title="Вывод CGC"
@@ -41,7 +41,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
           />
         }
       />
-      <BottomListItem
+      <ListItem
         navigation={props.navigation}
         navigationDestination="BuyMoneyScreen1"
         title="Купить CGC"
@@ -53,8 +53,9 @@ const BottomSection: React.FC<PropsType> = (props) => {
           />
         }
       />
-      <BottomListItem
+      <ListItem
         navigation={props.navigation}
+        navigationDestination="MiningMainScreen"
         title="Майнинг"
         icon={
           <MaterialCommunityIcons

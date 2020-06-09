@@ -9,10 +9,16 @@ import TransactionsHistoryContainer from "./Screens/TransactionsHistory/Transact
 
 import MoneyMoveInScreen1 from "./Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen1/MoneyMoveInScreen1Container"
 import MoneyMoveInScreen2 from "./Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen2/MoneyMoveInScreen2Container"
+
 import MoneyMoveOutScreen1Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen1/MoneyMoveOutScreen1Container"
 import MoneyMoveOutScreen2Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen2/MoneyMoveOutScreen2Container"
+
 import BuyMoneyScreen1Container from "./Screens/HelpersScreens/BuyMoneyScreens/BuyMoneyScreen1/BuyMoneyScreen1Container"
 import BuyMoneyScreen2Container from "./Screens/HelpersScreens/BuyMoneyScreens/BuyMoneyScreen2/BuyMoneyScreen2Container"
+
+import MiningMainScreen from "./Screens/HelpersScreens/MiningScreens/MiningMainScreen/MiningMainScreen"
+import MiningInMoneyScreenContainer from "./Screens/HelpersScreens/MiningScreens/MiningInMoneyScreen/MiningInMoneyScreenContainer"
+import MiningOutMoneyScreenContainer from "./Screens/HelpersScreens/MiningScreens/MiningOutMoneyScreen/MiningOutMoneyScreenContainer"
 
 // EXTRA IMPORTS //
 import { Feather } from "@expo/vector-icons"
@@ -48,8 +54,8 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
         })}
       />
-
       {/* HELPERS SCREENS */}
+      {/* ПЕРЕВОД CGC */}
       <Stack.Screen
         name="MoneyMoveInScreen1"
         component={MoneyMoveInScreen1}
@@ -85,6 +91,7 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
         })}
       />
+      {/* Вывод CGC */}
       <Stack.Screen
         name="MoneyMoveOutScreen1"
         component={MoneyMoveOutScreen1Container}
@@ -115,7 +122,7 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
         })}
       />
-
+      {/* Покупка CGC */}
       <Stack.Screen
         name="BuyMoneyScreen1"
         component={BuyMoneyScreen1Container}
@@ -143,6 +150,71 @@ const Finances: React.FC<PropsType> = (props) => {
             color: "#00392D",
           },
           title: "Пополнение",
+          headerTitleAlign: "center",
+        })}
+        initialParams={{
+          currency: null as string | null,
+          value: null as number | null,
+        }}
+      />
+      {/* Майнинг CGC */}
+      <Stack.Screen
+        name="MiningMainScreen"
+        component={MiningMainScreen}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerRight: () => (
+            <TouchableOpacity
+              style={styles.right_icon}
+              onPress={() => navigation.setParams({ infoPopupOpened: true })}
+            >
+              <Feather name="info" size={24} color="#006F5F" />
+            </TouchableOpacity>
+          ),
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Сделать перевод",
+          headerTitleAlign: "center",
+        })}
+        initialParams={{
+          infoPopupOpened: false as boolean,
+        }}
+      />
+      <Stack.Screen
+        name="MiningInMoneyScreen"
+        component={MiningInMoneyScreenContainer}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Майнинг депозит",
+          headerTitleAlign: "center",
+        })}
+        initialParams={{
+          currency: null as string | null,
+          value: null as number | null,
+        }}
+      />
+      <Stack.Screen
+        name="MiningOutMoneyScreen"
+        component={MiningOutMoneyScreenContainer}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Майнинг вывод",
           headerTitleAlign: "center",
         })}
         initialParams={{

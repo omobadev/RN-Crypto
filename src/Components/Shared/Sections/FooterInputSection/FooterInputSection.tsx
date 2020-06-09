@@ -12,13 +12,11 @@ import Button from "~/Components/Shared/Components/Button/Button"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-
   valueName: string
   errorText: string
   buttonText: string
-  destination: string
-  destinationParams?: any
+
+  action: () => void
 
   containerStyle?: any
 }
@@ -38,10 +36,7 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
           value: null as string | null,
         }}
         onSubmit={(values: any) => {
-          props.navigation.navigate(props.destination, {
-            ...props.destinationParams,
-            value: values.value,
-          })
+          props.action()
         }}
       >
         {(FormikProps) => (

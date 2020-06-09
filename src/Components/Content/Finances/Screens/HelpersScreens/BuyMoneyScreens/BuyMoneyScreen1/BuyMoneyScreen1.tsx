@@ -41,12 +41,12 @@ const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
 
       <View>
         <FooterInput
-          navigation={props.navigation}
-          destinationParams={{
-            currency: selectedCurrency,
-          }}
+          action={() =>
+            props.navigation.navigate("BuyMoneyScreen2", {
+              currency: selectedCurrency,
+            })
+          }
           buttonText="Далее"
-          destination="BuyMoneyScreen2"
           valueName="Количество"
           errorText="Укажите количество"
           containerStyle={{
