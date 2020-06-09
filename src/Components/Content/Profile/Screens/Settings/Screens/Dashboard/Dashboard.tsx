@@ -62,7 +62,7 @@ const Dashboard: React.FC<PropsType> = (props) => {
         navigation={props.navigation}
         navigationDestination=""
         title="О программе"
-        icon={<SimpleLineIcons name="logout" size={24} color="#006F5F" />}
+        icon={<SimpleLineIcons name="question" size={24} color="#006F5F" />}
         titleStyle={{
           fontWeight: null,
         }}
@@ -71,7 +71,7 @@ const Dashboard: React.FC<PropsType> = (props) => {
         navigation={props.navigation}
         navigationDestination=""
         title="Выход"
-        icon={<SimpleLineIcons name="question" size={24} color="#006F5F" />}
+        icon={<SimpleLineIcons name="logout" size={24} color="#006F5F" />}
         titleStyle={{
           fontWeight: null,
         }}
