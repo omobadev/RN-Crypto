@@ -5,13 +5,15 @@ import { View, StyleSheet } from "react-native"
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
 import UsersList from "./UsersList/UsersList"
-import FooterInput from "./FooterInput/FooterInput"
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const MoneyMoveInScreen: React.FC<PropsType> = (props) => {
   return (
@@ -19,7 +21,12 @@ const MoneyMoveInScreen: React.FC<PropsType> = (props) => {
       <Header />
       <View style={styles.divider} />
       <UsersList />
-      <FooterInput />
+      <FooterInput
+        navigation={props.navigation}
+        buttonText="Перевод"
+        destination="FinancesMain"
+        valueName="Укажите сумму"
+      />
     </View>
   )
 }

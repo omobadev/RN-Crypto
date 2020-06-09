@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet } from "react-native"
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
 import Body from "./Body/Body"
-import FooterInput from "./FooterInput/FooterInput"
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
 
@@ -26,7 +26,12 @@ const MoneyMoveOutScreen1: React.FC<PropsType> = (props) => {
         setSelectedComission={setSelectedComission}
       />
 
-      <FooterInput navigation={props.navigation} />
+      <FooterInput
+        navigation={props.navigation}
+        buttonText="Далее"
+        destination="MoneyMoveOutScreen2"
+        valueName="Количество"
+      />
     </ScrollView>
   )
 }

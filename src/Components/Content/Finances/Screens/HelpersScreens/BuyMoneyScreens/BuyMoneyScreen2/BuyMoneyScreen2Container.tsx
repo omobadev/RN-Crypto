@@ -4,7 +4,7 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import MoneyMoveInScreen from "./MoneyMoveInScreen"
+import BuyMoneyScreen2 from "./BuyMoneyScreen2"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
@@ -14,6 +14,7 @@ import { AppStateType } from "~/Redux/ReduxStore"
 // TYPES
 type MapStateToPropsType = {
   navigation: any
+  route: any
 }
 
 type MapDispatchToPropsType = {}
@@ -23,14 +24,15 @@ type MapDispatchToPropsType = {}
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
+    route: props.route,
   }
 }
 
-const MoneyMoveInScreenContainer = compose(
+const BuyMoneyScreen2Container = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {}
   )
-)(MoneyMoveInScreen)
+)(BuyMoneyScreen2)
 
-export default MoneyMoveInScreenContainer
+export default BuyMoneyScreen2Container

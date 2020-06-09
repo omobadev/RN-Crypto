@@ -24,7 +24,7 @@ const Header: React.FC<PropsType> = (props) => {
         <Text style={{ ...styles.text, fontWeight: "bold" }}>50 CGC </Text>
       </View>
 
-      <Text style={{ ...styles.text, marginTop: 30 }}>
+      <Text style={{ ...styles.text, marginTop: 30, fontSize: 17 }}>
         Вы переводили ранее:
       </Text>
     </>
