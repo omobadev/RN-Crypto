@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: "gray",
+    color: "#00392D",
     fontSize: 18,
   },
 
   desc: {
-    color: "#9E9E9E",
+    color: "gray",
     fontSize: 17,
   },
 })
