@@ -17,6 +17,7 @@ type PropsType = {
   title?: string
   description?: string
   buttonsArray: Array<any>
+  elements?: any
 
   containerStyle?: any
   descriptionStyle?: any
@@ -35,9 +36,12 @@ const PopUp: React.FC<PropsType> = (props) => {
       <DialogContent style={{ ...styles.container, ...props.containerStyle }}>
         <View style={styles.content_wrap}>
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={{ ...styles.description, ...props.descriptionStyle }}>
-            {props.description}
-          </Text>
+          {props.description && (
+            <Text style={{ ...styles.description, ...props.descriptionStyle }}>
+              {props.description}
+            </Text>
+          )}
+          {props.elements && props.elements}
         </View>
         <View style={styles.btns_wrap}>
           {props.buttonsArray?.map((button: any) => {
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 10,
     paddingHorizontal: 15,
+    width: "100%",
   },
 
   title: {

@@ -1,12 +1,14 @@
 // PLUGINS IMPORTS //
 import React from "react"
-
+import { StyleSheet } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
+import { BorderlessButton } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
 import Dashboard from "./Screens/Dashboard/Dashboard"
 
 // EXTRA IMPORTS //
+import { AntDesign } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -21,6 +23,14 @@ const Settings: React.FC<PropsType> = (props) => {
         name="SettingsDashboard"
         component={Dashboard}
         options={({ navigation, route }: any) => ({
+          headerLeft: () => (
+            <BorderlessButton
+              style={styles.left_icon}
+              onPress={() => navigation.goBack()}
+            >
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </BorderlessButton>
+          ),
           headerBackTitleVisible: false,
           headerStyle: {
             elevation: 0,
@@ -35,5 +45,11 @@ const Settings: React.FC<PropsType> = (props) => {
     </Stack.Navigator>
   )
 }
+
+const styles = StyleSheet.create({
+  left_icon: {
+    marginLeft: 17,
+  },
+})
 
 export default Settings

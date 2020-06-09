@@ -11,7 +11,8 @@ import { RectButton } from "react-native-gesture-handler"
 
 type PropsType = {
   navigation: any
-  navigationDestination: any
+  navigationDestination?: any | undefined | null
+  action?: () => any
 
   title: string
   icon: any
@@ -23,7 +24,11 @@ const ListItem: React.FC<PropsType> = (props) => {
   return (
     <RectButton
       style={styles.container}
-      onPress={() => props.navigation.navigate(props.navigationDestination)}
+      onPress={() => {
+        props.navigationDestination
+          ? props.navigation.navigate(props.navigationDestination)
+          : props.action()
+      }}
     >
       {props.icon}
       <Text style={{ ...styles.text, ...props.titleStyle }}>{props.title}</Text>
