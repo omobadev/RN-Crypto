@@ -5,7 +5,6 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  Image,
   StyleSheet,
 } from "react-native"
 
@@ -14,7 +13,7 @@ import ListItem from "./ListItem/ListItem"
 
 // EXTRA IMPORTS //
 import { AntDesign } from "@expo/vector-icons"
-import CustomHeader from "~/Components/Shared/CustomHeader/CustomHeader"
+import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -66,11 +65,9 @@ const styles = StyleSheet.create({
   },
 
   list_wrap: {
-    marginRight: 40,
+    marginRight: 15,
     marginTop: -7.5,
-    marginBottom: 10,
-    flexDirection: "column",
-    justifyContent: "space-between",
+    marginBottom: 20,
   },
 
   footer: {

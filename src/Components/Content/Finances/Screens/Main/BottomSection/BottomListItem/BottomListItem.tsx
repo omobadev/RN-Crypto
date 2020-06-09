@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { Text, StyleSheet } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: 17,
     paddingHorizontal: 20,
   },
 
   text: {
     color: "#00392D",
     fontWeight: "700",
-    fontSize: 19,
+    fontSize: 18,
     marginLeft: 13,
     letterSpacing: 0.4,
     marginTop: -3,
