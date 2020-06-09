@@ -22,14 +22,13 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
     <>
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          Для пополнения на сумму <Text style={styles.bold}>10 000 рублей</Text>{" "}
-          вам необходимо совершить перевод в размере:
+          Для пополнения на сумму{" "}
+          <Text style={styles.bold}>{props.route.params.value} рублей</Text> вам
+          необходимо совершить перевод в размере:
         </Text>
 
         <Text style={{ ...styles.paragraph, ...styles.price_paragraph }}>
-          <Text style={styles.bold}>
-            {props.route.params.value} {props.route.params.currency}{" "}
-          </Text>
+          <Text style={styles.bold}>111 {props.route.params.currency} </Text>
           на адрес 0x123qeert31
         </Text>
         <Text style={{ ...styles.paragraph, fontSize: 16.5 }}>
