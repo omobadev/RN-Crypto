@@ -4,7 +4,7 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import MoneyMoveInScreen from "./MoneyMoveInScreen"
+import MoneyMoveInScreen1 from "./MoneyMoveInScreen1"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
@@ -26,11 +26,11 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   }
 }
 
-const MoneyMoveInScreenContainer = compose(
+const MoneyMoveInScreen1Container = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {}
   )
-)(MoneyMoveInScreen)
+)(MoneyMoveInScreen1)
 
-export default MoneyMoveInScreenContainer
+export default MoneyMoveInScreen1Container

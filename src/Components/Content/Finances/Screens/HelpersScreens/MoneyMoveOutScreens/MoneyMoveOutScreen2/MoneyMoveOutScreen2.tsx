@@ -40,7 +40,6 @@ const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
           <>
             <TextInput
               style={styles.input}
-              keyboardType="number-pad"
               placeholder="0"
               placeholderTextColor="rgba(0, 57, 45, 0.5)"
               value={FormikProps.values.value as any}

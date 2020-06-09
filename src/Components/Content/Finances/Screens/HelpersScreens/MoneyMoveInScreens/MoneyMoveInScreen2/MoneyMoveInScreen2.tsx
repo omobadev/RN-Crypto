@@ -15,7 +15,7 @@ type PropsType = {
   navigation: any
 }
 
-const MoneyMoveInScreen: React.FC<PropsType> = (props) => {
+const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Header />
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MoneyMoveInScreen
+export default MoneyMoveInScreen2

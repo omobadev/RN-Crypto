@@ -19,7 +19,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
     <View style={styles.container}>
       <BottomListItem
         navigation={props.navigation}
-        navigationDestination="MoneyMoveInScreen"
+        navigationDestination="MoneyMoveInScreen1"
         title="Перевод CGC"
         icon={
           <MaterialCommunityIcons

@@ -7,7 +7,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 import MainContainer from "./Screens/Main/MainContainer"
 import TransactionsHistoryContainer from "./Screens/TransactionsHistory/TransactionsHistoryContainer"
 
-import MoneyMoveInScreen from "./Screens/HelpersScreens/MoneyMoveInScreen/MoneyMoveInScreenContainer"
+import MoneyMoveInScreen1 from "./Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen1/MoneyMoveInScreen1Container"
+import MoneyMoveInScreen2 from "./Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen2/MoneyMoveInScreen2Container"
 import MoneyMoveOutScreen1Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen1/MoneyMoveOutScreen1Container"
 import MoneyMoveOutScreen2Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen2/MoneyMoveOutScreen2Container"
 import BuyMoneyScreen1Container from "./Screens/HelpersScreens/BuyMoneyScreens/BuyMoneyScreen1/BuyMoneyScreen1Container"
@@ -50,8 +51,8 @@ const Finances: React.FC<PropsType> = (props) => {
 
       {/* HELPERS SCREENS */}
       <Stack.Screen
-        name="MoneyMoveInScreen"
-        component={MoneyMoveInScreen}
+        name="MoneyMoveInScreen1"
+        component={MoneyMoveInScreen1}
         options={({ navigation, route }: any) => ({
           headerBackTitleVisible: false,
           headerStyle: {
@@ -66,6 +67,26 @@ const Finances: React.FC<PropsType> = (props) => {
             color: "#00392D",
           },
           title: "Сделать перевод",
+          headerTitleAlign: "center",
+        })}
+      />
+      <Stack.Screen
+        name="MoneyMoveInScreen2"
+        component={MoneyMoveInScreen2}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerRight: () => (
+            <TouchableOpacity style={styles.right_icon}>
+              <Feather name="info" size={24} color="#006F5F" />
+            </TouchableOpacity>
+          ),
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Отправка",
           headerTitleAlign: "center",
         })}
       />
