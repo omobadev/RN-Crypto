@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
 
   btns_wrap: {
-    marginTop: 220,
+    marginTop: 240,
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",

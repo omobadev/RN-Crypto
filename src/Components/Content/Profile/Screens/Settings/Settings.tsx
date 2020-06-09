@@ -6,6 +6,8 @@ import { BorderlessButton } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
 import Dashboard from "./Screens/Dashboard/Dashboard"
+import NotificationsSettingsContainer from "./Screens/NotificationsSettings/NotificationsSettingsContainer"
+import GeneralSettings from "./Screens/GeneralSettings/GeneralSettingsContainer"
 
 // EXTRA IMPORTS //
 import { AntDesign } from "@expo/vector-icons"
@@ -39,6 +41,36 @@ const Settings: React.FC<PropsType> = (props) => {
             color: "#00392D",
           },
           title: "Настройки",
+          headerTitleAlign: "center",
+        })}
+      />
+      <Stack.Screen
+        name="NotificationsSettings"
+        component={NotificationsSettingsContainer}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Уведомления",
+          headerTitleAlign: "center",
+        })}
+      />
+      <Stack.Screen
+        name="GeneralSettings"
+        component={GeneralSettings}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Основное",
           headerTitleAlign: "center",
         })}
       />

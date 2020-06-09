@@ -10,14 +10,14 @@ import { View, Text, StyleSheet } from "react-native"
 
 type PropsType = {
   title: string
-  desc: string
+  selectItem: any
 }
 
-const LineDataItem: React.FC<PropsType> = (props) => {
+const SelectListItem: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
-      <Text style={styles.desc}>{props.desc}</Text>
+      {props.selectItem}
     </View>
   )
 }
@@ -25,21 +25,16 @@ const LineDataItem: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(0, 57, 45, 0.15)",
-    paddingVertical: 11,
+    marginHorizontal: 20,
+    marginVertical: 12,
   },
 
   title: {
-    color: "gray",
-    fontSize: 18,
-  },
-
-  desc: {
-    color: "#9E9E9E",
+    color: "#00392D",
     fontSize: 17,
   },
 })
 
-export default LineDataItem
+export default SelectListItem

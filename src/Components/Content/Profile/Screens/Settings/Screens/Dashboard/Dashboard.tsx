@@ -28,7 +28,7 @@ const Dashboard: React.FC<PropsType> = (props) => {
       <Text style={styles.title}>Аккаунт</Text>
       <ListItem
         navigation={props.navigation}
-        navigationDestination=""
+        navigationDestination="NotificationsSettings"
         title="Уведомления"
         icon={<Fontisto name="bell" size={24} color="#006F5F" />}
         titleStyle={{
@@ -37,7 +37,7 @@ const Dashboard: React.FC<PropsType> = (props) => {
       />
       <ListItem
         navigation={props.navigation}
-        navigationDestination=""
+        navigationDestination="GeneralSettings"
         title="Основные"
         icon={<Feather name="settings" size={24} color="#006F5F" />}
         titleStyle={{
