@@ -7,8 +7,9 @@ import { createStackNavigator } from "@react-navigation/stack"
 import MainContainer from "./Screens/Main/MainContainer"
 import TransactionsHistoryContainer from "./Screens/TransactionsHistory/TransactionsHistoryContainer"
 
-import MoneyMoveScreenContainer from "./Screens/HelpersScreens/MoneyMoveScreen/MoneyMoveScreenContainer"
-import MoneyMoveOutScreenContainer from "./Screens/HelpersScreens/MoneyMoveOutScreen/MoneyMoveOutScreenContainer"
+import MoneyMoveInScreen from "./Screens/HelpersScreens/MoneyMoveInScreen/MoneyMoveInScreenContainer"
+import MoneyMoveOutScreen1Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen1/MoneyMoveOutScreen1Container"
+import MoneyMoveOutScreen2Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen2/MoneyMoveOutScreen2Container"
 
 // EXTRA IMPORTS //
 import { Feather } from "@expo/vector-icons"
@@ -47,8 +48,8 @@ const Finances: React.FC<PropsType> = (props) => {
 
       {/* HELPERS SCREENS */}
       <Stack.Screen
-        name="MoneyMoveScreen"
-        component={MoneyMoveScreenContainer}
+        name="MoneyMoveInScreen"
+        component={MoneyMoveInScreen}
         options={({ navigation, route }: any) => ({
           headerBackTitleVisible: false,
           headerStyle: {
@@ -67,8 +68,23 @@ const Finances: React.FC<PropsType> = (props) => {
         })}
       />
       <Stack.Screen
-        name="MoneyMoveOutScreen"
-        component={MoneyMoveOutScreenContainer}
+        name="MoneyMoveOutScreen1"
+        component={MoneyMoveOutScreen1Container}
+        options={({ navigation, route }: any) => ({
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: "Вывод CGC",
+          headerTitleAlign: "center",
+        })}
+      />
+      <Stack.Screen
+        name="MoneyMoveOutScreen2"
+        component={MoneyMoveOutScreen2Container}
         options={({ navigation, route }: any) => ({
           headerBackTitleVisible: false,
           headerStyle: {

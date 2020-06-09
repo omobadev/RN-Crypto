@@ -13,7 +13,7 @@ import FooterInput from "./FooterInput/FooterInput"
 
 type PropsType = {}
 
-const MoneyMoveScreen: React.FC<PropsType> = (props) => {
+const MoneyMoveInScreen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Header />
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MoneyMoveScreen
+export default MoneyMoveInScreen

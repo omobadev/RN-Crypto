@@ -9,9 +9,11 @@ import Button from "~/Components/Shared/Components/Button/Button"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
-const MoneyMoveOutScreen: React.FC<PropsType> = (props) => {
+const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
   const [value, setValue] = useState("0" as string)
   return (
     <View style={styles.container}>
@@ -21,7 +23,11 @@ const MoneyMoveOutScreen: React.FC<PropsType> = (props) => {
         value={value}
         onChangeText={(text: string) => setValue(text)}
       />
-      <Button text="Готово" buttonStyle={{ alignSelf: "center" }} />
+      <Button
+        text="Готово"
+        buttonStyle={{ alignSelf: "center" }}
+        onPress={() => props.navigation.navigate("FinancesMain")}
+      />
     </View>
   )
 }
@@ -50,4 +56,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MoneyMoveOutScreen
+export default MoneyMoveOutScreen2
