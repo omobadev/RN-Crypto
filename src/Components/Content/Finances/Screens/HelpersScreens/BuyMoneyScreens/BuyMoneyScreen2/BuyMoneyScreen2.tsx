@@ -1,11 +1,12 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, TextInput, StyleSheet } from "react-native"
+import { View, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
 import Button from "~/Components/Shared/Components/Button/Button"
+import PopUp from "~/Components/Shared/Components/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -15,32 +16,48 @@ type PropsType = {
 }
 
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>
-        Для пополнения на сумму <Text style={styles.bold}>10 000 рублей</Text>{" "}
-        вам необходимо совершить перевод в размере:
-      </Text>
+  const [popupVisible, setPopupVisible] = useState(false as boolean)
 
-      <Text style={{ ...styles.paragraph, ...styles.price_paragraph }}>
-        <Text style={styles.bold}>
-          {props.route.params.value} {props.route.params.currency}{" "}
+  return (
+    <>
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>
+          Для пополнения на сумму <Text style={styles.bold}>10 000 рублей</Text>{" "}
+          вам необходимо совершить перевод в размере:
         </Text>
-        на адрес 0x123qeert31
-      </Text>
-      <Text style={{ ...styles.paragraph, fontSize: 16.5 }}>
-        После того как ваша транзакция осуществится ваш баланс автоматически
-        пополнится
-      </Text>
-      <Button
-        text="Готово"
-        onPress={() => props.navigation.navigate("FinancesMain")}
-        buttonStyle={{
-          marginTop: 50,
-          alignSelf: "center",
-        }}
+
+        <Text style={{ ...styles.paragraph, ...styles.price_paragraph }}>
+          <Text style={styles.bold}>
+            {props.route.params.value} {props.route.params.currency}{" "}
+          </Text>
+          на адрес 0x123qeert31
+        </Text>
+        <Text style={{ ...styles.paragraph, fontSize: 16.5 }}>
+          После того как ваша транзакция осуществится ваш баланс автоматически
+          пополнится
+        </Text>
+        <Button
+          text="Готово"
+          onPress={() => setPopupVisible(true)}
+          buttonStyle={{
+            marginTop: 50,
+            alignSelf: "center",
+          }}
+        />
+      </View>
+      <PopUp
+        popupVisible={popupVisible}
+        setPopupVisible={setPopupVisible}
+        title="Спасибо!"
+        description="Ваша транзакция поступила в обработку"
+        buttonsArray={[
+          {
+            text: "OK",
+            action: () => props.navigation.navigate("FinancesMain"),
+          },
+        ]}
       />
-    </View>
+    </>
   )
 }
 
