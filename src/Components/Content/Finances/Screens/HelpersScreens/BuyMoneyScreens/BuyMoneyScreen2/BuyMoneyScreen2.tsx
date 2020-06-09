@@ -17,8 +17,8 @@ type PropsType = {
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      {props.route.params.currency}
-      {props.route.params.price}
+      <Text>{props.route.params.currency}</Text>
+      <Text>{props.route.params.value}</Text>
     </View>
   )
 }

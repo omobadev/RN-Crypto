@@ -129,6 +129,10 @@ const Finances: React.FC<PropsType> = (props) => {
           title: "Пополнение",
           headerTitleAlign: "center",
         })}
+        initialParams={{
+          currency: null as string | null,
+          price: null as number | null,
+        }}
       />
     </Stack.Navigator>
   )

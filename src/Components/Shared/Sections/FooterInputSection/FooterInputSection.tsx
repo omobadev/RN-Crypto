@@ -18,6 +18,7 @@ type PropsType = {
   errorText: string
   buttonText: string
   destination: string
+  destinationParams?: any
 
   containerStyle?: any
 }
@@ -37,7 +38,10 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
           value: null as string | null,
         }}
         onSubmit={(values: any) => {
-          props.navigation.navigate(props.destination)
+          props.navigation.navigate(props.destination, {
+            ...props.destinationParams,
+            value: values.value,
+          })
         }}
       >
         {(FormikProps) => (

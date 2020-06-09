@@ -42,6 +42,9 @@ const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
       <View>
         <FooterInput
           navigation={props.navigation}
+          destinationParams={{
+            currency: selectedCurrency,
+          }}
           buttonText="Далее"
           destination="BuyMoneyScreen2"
           valueName="Количество"
