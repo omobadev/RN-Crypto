@@ -24,6 +24,9 @@ const InitialScreen: React.FC<PropsType> = (props) => {
         onPress={() => props.navigation.navigate("LoginScreen")}
         text="Вход"
         buttonStyle={{ marginTop: 29, paddingVertical: 13 }}
+        textStyle={{
+          fontWeight: "bold",
+        }}
       />
       <Button
         onPress={() => props.navigation.navigate("RegisterScreen")}

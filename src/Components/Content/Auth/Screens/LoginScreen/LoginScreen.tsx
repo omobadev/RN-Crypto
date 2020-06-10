@@ -3,9 +3,9 @@ import React from "react"
 import { Image, ImageBackground, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
+import InputSection from "./InputSection/InputSection"
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -20,25 +20,7 @@ const LoginScreen: React.FC<PropsType> = (props) => {
       source={require("~/Images/bg-2.png")}
     >
       <Image source={require("~/Images/logo-big.png")} />
-      <Button
-        onPress={() => props.navigation.navigate("LoginScreen")}
-        text="Вход"
-        buttonStyle={{ marginTop: 29, paddingVertical: 13 }}
-      />
-      <Button
-        onPress={() => props.navigation.navigate("RegisterScreen")}
-        text="Регистрация"
-        buttonStyle={{
-          backgroundColor: "rgba(0, 57, 45, 0.20)",
-          position: "absolute",
-          bottom: 33,
-        }}
-        textStyle={{
-          color: "#00392D",
-          fontWeight: "bold",
-          paddingVertical: 13,
-        }}
-      />
+      <InputSection />
     </ImageBackground>
   )
 }
