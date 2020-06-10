@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { Image, StyleSheet } from "react-native"
+import { View, Dimensions, StyleSheet } from "react-native"
+import { LineChart } from "react-native-chart-kit"
 
 // COMPONENTS IMPORTS //
 
@@ -12,13 +13,51 @@ type PropsType = {}
 
 const Header: React.FC<PropsType> = (props) => {
   return (
-    <Image source={require("~/Images/tmp-graffic.png")} style={styles.image} />
+    <View style={styles.container}>
+      <LineChart
+        data={{
+          labels: ["March", "April", "May", "June", "July"],
+          datasets: [
+            {
+              data: [
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+              ],
+            },
+          ],
+        }}
+        width={Dimensions.get("window").width / 1.1} // from react-native
+        height={220}
+        yAxisLabel="$"
+        yAxisSuffix="k"
+        yAxisInterval={1}
+        chartConfig={{
+          backgroundColor: "#006F5F",
+          backgroundGradientFrom: "#E5E5E5",
+          decimalPlaces: 0,
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `black`,
+          propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: "#ffa726",
+          },
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+          borderRadius: 16,
+        }}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  image: {
-    marginTop: 10,
+  container: {
     alignSelf: "center",
   },
 })
