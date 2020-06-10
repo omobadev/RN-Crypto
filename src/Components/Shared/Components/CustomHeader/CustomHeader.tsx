@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { Text, StyleSheet } from "react-native"
+import { Text, TouchableOpacity, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 // COMPONENTS IMPORTS //
@@ -11,12 +11,18 @@ import { SafeAreaView } from "react-native-safe-area-context"
 
 type PropsType = {
   title: string
+
+  rightIcon?: any
+  leftIcon?: any
 }
 
 const CustomHeader: React.FC<PropsType> = (props) => {
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity>{props.leftIcon}</TouchableOpacity>
       <Text style={styles.title}>{props.title}</Text>
+
+      <TouchableOpacity>{props.rightIcon}</TouchableOpacity>
     </SafeAreaView>
   )
 }
@@ -24,8 +30,9 @@ const CustomHeader: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 13,
+    justifyContent: "space-between",
+    marginHorizontal: 23,
+    marginTop: 14,
   },
 
   title: {
