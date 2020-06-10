@@ -39,7 +39,9 @@ const InputSection: React.FC<PropsType> = (props) => {
         city: "" as string,
       }}
       onSubmit={(values: any) => {
-        props.navigation.navigate("RegisterStep2Screen")
+        props.navigation.navigate("PasswordScreen", {
+          title: "Придумайте секретный код",
+        })
       }}
     >
       {(FormikProps) => (

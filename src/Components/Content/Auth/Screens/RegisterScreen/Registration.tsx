@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Step1ScreenContainer from "./Screens/Step1Screen/Step1ScreenContainer"
 import Step2ScreenContainer from "./Screens/Step2Screen/Step2ScreenContainer"
 
+import PasswordScreenContainer from "~/Components/Shared/HelpersScreens/PasswordScreen/PasswordScreenContainer"
+
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
@@ -42,6 +44,18 @@ const Registation: React.FC<PropsType> = (props) => {
           },
           headerTintColor: "white",
         })}
+      />
+
+      <Stack.Screen
+        name="PasswordScreen"
+        component={PasswordScreenContainer}
+        options={({ navigation, route }: any) => ({
+          headerShown: false,
+        })}
+        initialParams={{
+          title: null as string | null,
+          navigationDestination: null as string | null,
+        }}
       />
     </Stack.Navigator>
   )
