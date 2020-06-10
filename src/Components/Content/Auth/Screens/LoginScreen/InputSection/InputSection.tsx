@@ -34,7 +34,7 @@ const InputSection: React.FC<PropsType> = (props) => {
         <>
           <View style={styles.container}>
             <TextInput
-              placeholder="Email"
+              placeholder="Email или логин"
               placeholderTextColor="rgba(0, 57, 45, 0.4)"
               onChangeText={FormikProps.handleChange("email")}
               onBlur={FormikProps.handleBlur("email")}
@@ -86,30 +86,15 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     paddingLeft: 20,
     marginVertical: 9,
-    color: "#000",
-    backgroundColor: "#fff",
+    color: "black",
+    fontSize: 16,
+    backgroundColor: "rgba(0, 57, 45, 0.05)",
   },
 
   forgot_pass_text: {
     color: "#9E9E9E",
     fontSize: 13,
     marginHorizontal: 10,
-  },
-
-  button: {
-    backgroundColor: "#3b3b3b",
-    height: 45,
-    width: 280,
-    alignSelf: "center",
-    borderRadius: 17,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  button_text: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "white",
   },
 })
 

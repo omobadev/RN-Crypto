@@ -9,9 +9,7 @@ import InputSection from "./InputSection/InputSection"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {
-  navigation: any
-}
+type PropsType = {}
 
 const LoginScreen: React.FC<PropsType> = (props) => {
   return (

@@ -23,7 +23,7 @@ const InitialScreen: React.FC<PropsType> = (props) => {
       <Button
         onPress={() => props.navigation.navigate("LoginScreen")}
         text="Вход"
-        buttonStyle={{ marginTop: 29, paddingVertical: 13 }}
+        buttonStyle={{ marginTop: 30, paddingVertical: 13 }}
         textStyle={{
           fontWeight: "bold",
         }}
@@ -34,7 +34,7 @@ const InitialScreen: React.FC<PropsType> = (props) => {
         buttonStyle={{
           backgroundColor: "rgba(0, 57, 45, 0.20)",
           position: "absolute",
-          bottom: 33,
+          bottom: 38,
         }}
         textStyle={{
           color: "#00392D",

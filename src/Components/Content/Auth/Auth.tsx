@@ -45,9 +45,10 @@ const Auth: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
           title: "Регистрация",
           headerStyle: {
-            backgroundColor: "#F2F2F2",
+            backgroundColor: "#006F5F",
             elevation: 0,
           },
+          headerTintColor: "white",
         })}
       />
     </Stack.Navigator>
