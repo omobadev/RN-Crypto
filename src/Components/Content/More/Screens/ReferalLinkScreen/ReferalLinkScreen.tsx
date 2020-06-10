@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
+import SocialMediaSection from "./SocialMediaSection/SocialMediaSection"
 
 // EXTRA IMPORTS //
 
@@ -17,6 +18,7 @@ const ReferalLinkScreen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Header referaLink={"https://qwe213124ew123"} />
+      <SocialMediaSection />
     </View>
   )
 }
