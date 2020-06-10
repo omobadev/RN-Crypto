@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState } from "react"
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Clipboard,
   StyleSheet,
 } from "react-native"
+import { Snackbar } from "react-native-paper"
 
 // COMPONENTS IMPORTS //
 
@@ -20,9 +21,15 @@ type PropsType = {
 }
 
 const Header: React.FC<PropsType> = (props) => {
+  const [snackbarVisible, setSnackbarVisible] = useState(false as boolean)
+
   const copyToClipboard = () => {
     Clipboard.setString(props.referaLink)
+    toggleSnackbar()
   }
+
+  const toggleSnackbar = () => setSnackbarVisible(!snackbarVisible)
+  const dismissSnackBar = () => setSnackbarVisible(false)
 
   return (
     <>
@@ -43,6 +50,13 @@ const Header: React.FC<PropsType> = (props) => {
         Данная ссылка даёт возможность получить доход от приглашенных вами людей
         и много чего хорошего
       </Text>
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={dismissSnackBar}
+        style={styles.snackbar}
+      >
+        Реферальная ссылка успешно скопирована
+      </Snackbar>
     </>
   )
 }
@@ -81,6 +95,11 @@ const styles = StyleSheet.create({
     marginTop: 33,
     fontSize: 17,
     width: 290,
+  },
+
+  snackbar: {
+    marginTop: 450,
+    position: "absolute",
   },
 })
 
