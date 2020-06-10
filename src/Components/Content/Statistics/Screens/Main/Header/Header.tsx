@@ -37,13 +37,14 @@ const Header: React.FC<PropsType> = (props) => {
         chartConfig={{
           backgroundColor: "#006F5F",
           backgroundGradientFrom: "#E5E5E5",
+          backgroundGradientTo: "#006F5F",
           decimalPlaces: 0,
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `black`,
           propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726",
+            r: "2",
+            strokeWidth: "6",
+            stroke: "#000",
           },
         }}
         bezier
