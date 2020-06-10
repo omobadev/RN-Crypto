@@ -1,12 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import {
-  View,
-  Text,
-  ImageBackground,
-  TextInput,
-  StyleSheet,
-} from "react-native"
+import { ImageBackground, TextInput, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -28,7 +22,6 @@ const TopBox: React.FC<PropsType> = (props) => {
     >
       <CustomHeader
         title="Сообщения"
-        leftIcon={<Ionicons name="ios-arrow-back" size={24} color="white" />}
         rightIcon={<AntDesign name="plus" size={24} color="white" />}
       />
       <TextInput
