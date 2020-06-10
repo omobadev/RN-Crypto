@@ -24,7 +24,11 @@ const PasswordScreen: React.FC<PropsType> = (props) => {
       source={require("~/Images/bg-1.png")}
     >
       <Body route={props.route} password={password} setPassword={setPassword} />
-      <Footer password={password} setPassword={setPassword} />
+      <Footer
+        password={password}
+        setPassword={setPassword}
+        callbackFn={props.route.params.callbackFn}
+      />
     </ImageBackground>
   )
 }

@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -103,7 +103,10 @@ const Body: React.FC<PropsType> = (props) => {
 }
 
 const styles = StyleSheet.create({
-  title: {},
+  title: {
+    color: "white",
+    fontSize: 20,
+  },
 
   circles_wrap: {
     flexDirection: "row",

@@ -41,6 +41,7 @@ const InputSection: React.FC<PropsType> = (props) => {
       onSubmit={(values: any) => {
         props.navigation.navigate("PasswordScreen", {
           title: "Придумайте секретный код",
+          callbackFn: () => console.log("Auth function"),
         })
       }}
     >

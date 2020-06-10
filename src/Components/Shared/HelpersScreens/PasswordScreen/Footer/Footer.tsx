@@ -12,6 +12,7 @@ type PropsType = {
   password: string
 
   setPassword: (password: string) => void
+  callbackFn: () => void
 }
 
 const Footer: React.FC<PropsType> = (props) => {
@@ -25,7 +26,7 @@ const Footer: React.FC<PropsType> = (props) => {
       <TouchableOpacity onPress={removeDigit}>
         <Text style={styles.text}>Удалить</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => props.callbackFn()}>
         <Text style={styles.text}>ОК</Text>
       </TouchableOpacity>
     </View>
@@ -42,6 +43,8 @@ const styles = StyleSheet.create({
 
   text: {
     color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 })
 
