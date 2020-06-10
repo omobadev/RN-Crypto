@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 // COMPONENTS IMPORTS //
 import InitialScreen from "./Screens/InitialScreen/InitialScreen"
 import LoginScreenContainer from "./Screens/LoginScreen/LoginScreenContainer"
-import RegisterScreenContainer from "./Screens/RegisterScreen/RegisterScreenContainer"
+import Registration from "./Screens/RegisterScreen/Registration"
 
 // EXTRA IMPORTS //
 
@@ -40,15 +40,9 @@ const Auth: React.FC<PropsType> = (props) => {
       />
       <Stack.Screen
         name="RegisterScreen"
-        component={RegisterScreenContainer}
+        component={Registration}
         options={({ navigation, route }: any) => ({
-          headerTitleAlign: "center",
-          title: "Регистрация",
-          headerStyle: {
-            backgroundColor: "#006F5F",
-            elevation: 0,
-          },
-          headerTintColor: "white",
+          headerShown: false,
         })}
       />
     </Stack.Navigator>

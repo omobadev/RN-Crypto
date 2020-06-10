@@ -17,10 +17,12 @@ import Button from "~/Components/Shared/Components/Button/Button"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const InputSection: React.FC<PropsType> = (props) => {
-  const RegistrationValidationSchema = yup.object({
+  const ValidationSchema = yup.object({
     login: yup.string().required("Логин обязателен"),
     password: yup
       .string()
@@ -31,13 +33,15 @@ const InputSection: React.FC<PropsType> = (props) => {
 
   return (
     <Formik
-      validationSchema={RegistrationValidationSchema}
+      validationSchema={ValidationSchema}
       initialValues={{
         login: "" as string,
         password: "" as string,
         invidtedID: "" as string,
       }}
-      onSubmit={(values: any) => {}}
+      onSubmit={(values: any) => {
+        props.navigation.navigate("RegisterStep2Screen")
+      }}
     >
       {(FormikProps) => (
         <View style={styles.container}>

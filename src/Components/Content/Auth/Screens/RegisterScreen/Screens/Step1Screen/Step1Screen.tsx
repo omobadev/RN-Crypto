@@ -9,15 +9,17 @@ import InputSection from "./InputSection/InputSection"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
-const Register: React.FC<PropsType> = (props) => {
+const Step1Screen: React.FC<PropsType> = (props) => {
   return (
     <ImageBackground
       style={styles.container}
       source={require("~/Images/bg-1.png")}
     >
-      <InputSection />
+      <InputSection navigation={props.navigation} />
     </ImageBackground>
   )
 }
@@ -30,4 +32,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Register
+export default Step1Screen
