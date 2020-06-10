@@ -6,7 +6,6 @@ import { ImageBackground, TextInput, StyleSheet } from "react-native"
 
 // EXTRA IMPORTS //
 import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader"
-import { Ionicons } from "@expo/vector-icons"
 import { AntDesign } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -17,7 +16,7 @@ const TopBox: React.FC<PropsType> = (props) => {
   return (
     <ImageBackground
       source={require("~/Images/bg-1.png")}
-      imageStyle={{ borderBottomRightRadius: 25, borderBottomLeftRadius: 25 }}
+      // imageStyle={{ borderBottomRightRadius: 25, borderBottomLeftRadius: 25 }}
       style={styles.container}
     >
       <CustomHeader
@@ -35,7 +34,7 @@ const TopBox: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 20,
+    paddingBottom: 5,
   },
 
   input: {

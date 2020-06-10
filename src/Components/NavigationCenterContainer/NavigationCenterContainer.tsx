@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native"
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 
 // COMPONENTS IMPORTS //
-import DialogsContainer from "~/Components/Content/Dialogs/DialogsContainer"
+import Dialogs from "~/Components/Content/Dialogs/Dialogs"
 import Finances from "~/Components/Content/Finances/Finances"
 import Statistics from "~/Components/Content/Statistics/Statistics"
 import Profile from "~/Components/Content/Profile/ProfileContainer"
@@ -32,7 +32,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
     >
       <Tab.Screen
         name="Dialogs"
-        component={DialogsContainer}
+        component={Dialogs}
         options={{
           tabBarLabel: "Диалоги",
           tabBarIcon: ({ focused }: any) => (

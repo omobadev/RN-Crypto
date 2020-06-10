@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 
 // COMPONENTS IMPORTS //
 import GroupsContainer from "./Groups/GroupContainer"
-import DialogsContainer from "../DialogsContainer"
+import DialogsContainer from "./Dialogs/DialogsContainer"
 
 // EXTRA IMPORTS //
 
@@ -18,15 +18,20 @@ const TopTabNavigator: React.FC<PropsType> = (props) => {
   return (
     <Tab.Navigator
       tabBarPosition="top"
-      initialRouteName="GrpupsSection"
+      initialRouteName="DialogsSection"
       tabBarOptions={{
         style: {
           elevation: 0,
           borderBottomColor: "#DCDCDC",
           borderBottomWidth: 1,
+          backgroundColor: "#014f40",
+          width: "100%",
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+          alignSelf: "center",
         },
-        activeTintColor: "#b1b2b4",
-        inactiveTintColor: "#7b7b7b",
+        activeTintColor: "#fff",
+        inactiveTintColor: "#fff",
       }}
     >
       <Tab.Screen
@@ -48,9 +53,9 @@ const TopTabNavigator: React.FC<PropsType> = (props) => {
         options={{
           tabBarLabel: ({ focused }) =>
             focused ? (
-              <Text style={styles.text}>Групы</Text>
+              <Text style={styles.text}>Группы</Text>
             ) : (
-              <Text style={{ ...styles.text, opacity: 0.5 }}>Групы</Text>
+              <Text style={{ ...styles.text, opacity: 0.5 }}>Группы</Text>
             ),
         }}
       />
@@ -60,7 +65,8 @@ const TopTabNavigator: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   text: {
-    color: "black",
+    color: "white",
+    fontWeight: "bold",
     letterSpacing: 0.3,
   },
 })

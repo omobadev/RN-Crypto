@@ -1,10 +1,10 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { createStackNavigator } from "@react-navigation/stack"
 
 // COMPONENTS IMPORTS //
-import Header from "./Header/Header"
-import TopTabNavigator from "./TopTabNavigator/TopTabNavigator"
+import MainContainer from "./Screens/Main/MainContainer"
+import DialogItemContainer from "./Screens/DialogItem/DialogItemContainer"
 
 // EXTRA IMPORTS //
 
@@ -13,18 +13,36 @@ import TopTabNavigator from "./TopTabNavigator/TopTabNavigator"
 type PropsType = {}
 
 const Dialogs: React.FC<PropsType> = (props) => {
+  const Stack = createStackNavigator()
+
   return (
-    <View style={styles.container}>
-      <Header />
-      <TopTabNavigator />
-    </View>
+    <Stack.Navigator initialRouteName="DialogsMain">
+      <Stack.Screen
+        name="DialogsMain"
+        component={MainContainer}
+        options={({ navigation, route }: any) => ({
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name="DialogItem"
+        component={DialogItemContainer}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: route.params.userName,
+          headerTitleAlign: "center",
+        })}
+        initialParams={{
+          userName: null as string | null,
+        }}
+      />
+    </Stack.Navigator>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})
 
 export default Dialogs
