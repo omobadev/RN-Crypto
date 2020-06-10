@@ -1,6 +1,12 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Clipboard,
+  StyleSheet,
+} from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -9,16 +15,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  referaLink: string
+}
 
 const Header: React.FC<PropsType> = (props) => {
+  const copyToClipboard = () => {
+    Clipboard.setString(props.referaLink)
+  }
+
   return (
     <>
       <View style={styles.link_wrap}>
         <Text style={styles.title}>Ссылка:</Text>
         <View style={styles.link}>
-          <Text style={styles.link_text}>https://qwe213124ew123</Text>
-          <TouchableOpacity>
+          <Text style={styles.link_text}>{props.referaLink}</Text>
+          <TouchableOpacity onPress={() => copyToClipboard()}>
             <MaterialCommunityIcons
               name="content-copy"
               size={24}

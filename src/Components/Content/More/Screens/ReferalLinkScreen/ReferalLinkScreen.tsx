@@ -16,7 +16,7 @@ type PropsType = {
 const ReferalLinkScreen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header referaLink={"https://qwe213124ew123"} />
     </View>
   )
 }
