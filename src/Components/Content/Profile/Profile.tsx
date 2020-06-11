@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 // COMPONENTS IMPORTS //
 import MainContainer from "./Screens/Main/MainContainer"
 import Settings from "./Screens/Settings/Settings"
+import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
 
 // EXTRA IMPORTS //
 import { Feather } from "@expo/vector-icons"
@@ -61,6 +62,25 @@ const Profile: React.FC<PropsType> = (props) => {
         options={({ navigation, route }: any) => ({
           headerShown: false,
         })}
+      />
+
+      <Stack.Screen
+        name="DialogItem"
+        component={DialogItemContainer}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+          },
+          title: route.params.userName,
+          headerTitleAlign: "center",
+        })}
+        initialParams={{
+          userName: null as string | null,
+          avatar: null as string | null,
+        }}
       />
     </Stack.Navigator>
   )

@@ -21,7 +21,11 @@ const Main: React.FC<PropsType> = (props) => {
     <View>
       <ListItem
         navigation={props.navigation}
-        navigationDestination=" "
+        action={() =>
+          props.navigation.navigate("DialogItem", {
+            userName: "Техническая поддержка",
+          })
+        }
         title="Техническая поддержка"
         icon={
           <SimpleLineIcons name="earphones-alt" size={24} color="#006F5F" />

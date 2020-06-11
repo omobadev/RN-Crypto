@@ -12,6 +12,7 @@ import { FontAwesome } from "@expo/vector-icons"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  navigation: any
   userData: any
 }
 
@@ -27,6 +28,11 @@ const NonAdminContent: React.FC<PropsType> = (props) => {
       </Text>
       <View style={styles.btns_wrap}>
         <CircleBtbItem
+          onPress={() =>
+            props.navigation.navigate("DialogItem", {
+              userName: props.userData.name,
+            })
+          }
           icon={<Feather name="message-circle" size={24} color="black" />}
         />
         <CircleBtbItem

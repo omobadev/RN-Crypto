@@ -34,7 +34,7 @@ const Main: React.FC<PropsType> = (props) => {
       {props.route.params.isAdmin ? (
         <AdminContent userData={userData} />
       ) : (
-        <NonAdminContent userData={userData} />
+        <NonAdminContent userData={userData} navigation={props.navigation} />
       )}
     </View>
   )

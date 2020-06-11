@@ -10,13 +10,14 @@ import { View, TouchableOpacity, StyleSheet } from "react-native"
 
 type PropsType = {
   icon: any
+  onPress: () => void
 
   containerStyle?: any
 }
 
 const CircleBtbItem: React.FC<PropsType> = (props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => props.onPress()}>
       <View style={{ ...styles.container, ...props.containerStyle }}>
         {props.icon}
       </View>
