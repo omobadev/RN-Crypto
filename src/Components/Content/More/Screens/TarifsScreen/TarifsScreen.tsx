@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
+import Body from "./Body/Body"
 
 // EXTRA IMPORTS //
 
@@ -15,6 +16,7 @@ const TarifsScreen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Header />
+      <Body />
     </View>
   )
 }
