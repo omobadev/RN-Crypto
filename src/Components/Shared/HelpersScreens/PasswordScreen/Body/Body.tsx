@@ -34,6 +34,12 @@ const Body: React.FC<PropsType> = (props) => {
         <PassCountCircleItem
           filled={props.password.length >= 4 ? true : false}
         />
+        <PassCountCircleItem
+          filled={props.password.length >= 5 ? true : false}
+        />
+        <PassCountCircleItem
+          filled={props.password.length >= 6 ? true : false}
+        />
       </View>
       <View style={styles.numbers_wrap}>
         <NumItem

@@ -24,7 +24,7 @@ const NumItem: React.FC<PropsType> = (props) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={props.password.length < 4 ? setPassNumFn : (null as any)}
+      onPress={props.password.length < 6 ? setPassNumFn : (null as any)}
     >
       <Text style={styles.number}>{props.number}</Text>
       <Text style={styles.letters}>{props.letters}</Text>
