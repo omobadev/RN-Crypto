@@ -29,10 +29,8 @@ const BottomInput: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    bottom: 20,
-    right: 0,
-    left: 0,
+    marginBottom: 10,
+    marginTop: 7,
   },
 
   input: {

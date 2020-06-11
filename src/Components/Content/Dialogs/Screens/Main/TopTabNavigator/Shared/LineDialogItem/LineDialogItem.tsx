@@ -55,7 +55,7 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    paddingHorizontal: 10,
+    paddingHorizontal: 13,
     paddingVertical: 15,
     paddingRight: 40,
   },

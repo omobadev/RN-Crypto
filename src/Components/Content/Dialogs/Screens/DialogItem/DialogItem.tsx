@@ -35,7 +35,11 @@ const DialogItem: React.FC<PropsType> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Body messages={messages} avatar={props.route.params.avatar} />
+      <Body
+        messages={messages}
+        userName={props.route.params.userName}
+        avatar={props.route.params.avatar}
+      />
       <BottomInput />
     </View>
   )
@@ -43,7 +47,7 @@ const DialogItem: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    paddingTop: 5,
     flex: 1,
   },
 })
