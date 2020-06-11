@@ -31,7 +31,7 @@ const Main: React.FC<PropsType> = (props) => {
         style={styles.avatar}
         source={require("../../../../../Images/avatar.png")}
       />
-      {!props.route.params.isAdmin ? (
+      {props.route.params.isAdmin ? (
         <AdminContent userData={userData} />
       ) : (
         <NonAdminContent userData={userData} navigation={props.navigation} />

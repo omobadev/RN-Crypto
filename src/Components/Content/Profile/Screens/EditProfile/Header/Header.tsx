@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native"
+import * as ImagePicker from "expo-image-picker"
 
 // COMPONENTS IMPORTS //
 
@@ -12,11 +13,39 @@ import { Feather } from "@expo/vector-icons"
 type PropsType = {}
 
 const Header: React.FC<PropsType> = (props) => {
+  const [avatar, setAvatar] = useState(null as string | null)
+
+  const selectAvatar = () => {
+    ;(async () => {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!")
+      }
+    })().then(async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
+
+      if (!result.cancelled) {
+        setAvatar(result.uri)
+      }
+    })
+  }
+  console.log(avatar)
   return (
     <View style={styles.container}>
-      <Image style={styles.avatar} source={require("~/Images/avatar.png")} />
+      <Image
+        style={styles.avatar}
+        source={avatar ? { uri: avatar } : require("~/Images/avatar.png")}
+      />
       <View style={styles.content_wrap}>
-        <TouchableOpacity style={styles.item_wrap}>
+        <TouchableOpacity
+          style={styles.item_wrap}
+          onPress={() => selectAvatar()}
+        >
           <Text style={styles.text}>Сменить фотографию</Text>
           <Feather name="camera" size={24} color="#006F5F" />
         </TouchableOpacity>

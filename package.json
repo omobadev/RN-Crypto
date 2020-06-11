@@ -20,6 +20,7 @@
     "@types/yup": "^0.29.0",
     "babel-plugin-root-import": "^6.5.0",
     "expo": "~37.0.3",
+    "expo-image-picker": "~8.1.0",
     "formik": "^2.1.4",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",

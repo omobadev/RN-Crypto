@@ -23,10 +23,10 @@ type PropsType = {
 
 const InputSection: React.FC<PropsType> = (props) => {
   const ValidationSchema = yup.object({
-    email: yup
-      .string()
-      .email("Не валидный email")
-      .required("Пароль обязателен"),
+    name: yup.string().required("Имя обязательно"),
+    email: yup.string().email("Не валидный email").required("Email обязателен"),
+    country: yup.string().required("Страна обязательна"),
+    city: yup.string().required("Город обязателен"),
   })
 
   return (
@@ -55,7 +55,11 @@ const InputSection: React.FC<PropsType> = (props) => {
             value={FormikProps.values.name}
             style={styles.input}
           />
-
+          {FormikProps.touched.name && FormikProps.errors.name && (
+            <Text style={styles.error_message}>
+              {FormikProps.touched.name && FormikProps.errors.name}
+            </Text>
+          )}
           <TextInput
             placeholder="Email"
             placeholderTextColor="rgba(242, 242, 242, 0.6)"
@@ -79,7 +83,11 @@ const InputSection: React.FC<PropsType> = (props) => {
             value={FormikProps.values.country}
             style={styles.input}
           />
-
+          {FormikProps.touched.country && FormikProps.errors.country && (
+            <Text style={styles.error_message}>
+              {FormikProps.touched.country && FormikProps.errors.country}
+            </Text>
+          )}
           <TextInput
             placeholder="Город"
             placeholderTextColor="rgba(242, 242, 242, 0.6)"
@@ -88,7 +96,11 @@ const InputSection: React.FC<PropsType> = (props) => {
             value={FormikProps.values.city}
             style={styles.input}
           />
-
+          {FormikProps.touched.city && FormikProps.errors.city && (
+            <Text style={styles.error_message}>
+              {FormikProps.touched.city && FormikProps.errors.city}
+            </Text>
+          )}
           <TouchableOpacity>
             <Text style={styles.subtitle}>
               Если у вас нет ID партнёра - нажмите сюда
