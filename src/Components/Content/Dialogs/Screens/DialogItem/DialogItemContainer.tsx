@@ -12,14 +12,18 @@ import { AppStateType } from "~/Redux/ReduxStore"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
-type MapStateToPropsType = {}
+type MapStateToPropsType = {
+  route: any
+}
 
 type MapDispatchToPropsType = {}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
-  return {}
+  return {
+    route: props.route,
+  }
 }
 
 const DialogItemContainer = compose(

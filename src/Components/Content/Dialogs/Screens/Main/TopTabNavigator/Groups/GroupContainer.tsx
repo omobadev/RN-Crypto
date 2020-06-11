@@ -12,14 +12,18 @@ import { AppStateType } from "~/Redux/ReduxStore"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
-type MapStateToPropsType = {}
+type MapStateToPropsType = {
+  navigation: any
+}
 
 type MapDispatchToPropsType = {}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
-  return {}
+  return {
+    navigation: props.navigation,
+  }
 }
 
 const GroupsContainer = compose(
