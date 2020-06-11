@@ -32,7 +32,7 @@ const Main: React.FC<PropsType> = (props) => {
       />
       <ListItem
         navigation={props.navigation}
-        navigationDestination=" "
+        navigationDestination="TarifsScreen"
         title="Мой тариф"
         icon={<FontAwesome name="star-o" size={24} color="#006F5F" />}
         titleStyle={{
