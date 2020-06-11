@@ -62,10 +62,10 @@ const styles = StyleSheet.create({
 
   credentials_wrap: {
     flexDirection: "row",
+    alignItems: "center",
   },
 
   img_wrap: {
-    marginTop: 14,
     width: 46,
     height: 46,
     borderRadius: 100,

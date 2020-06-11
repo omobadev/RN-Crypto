@@ -43,7 +43,7 @@ const DialogItem: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    paddingTop: 10,
     flex: 1,
   },
 })

@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, Image, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
@@ -32,13 +32,23 @@ const MiningMainScreen: React.FC<PropsType> = (props) => {
           navigation={props.navigation}
           navigationDestination={"MiningInMoneyScreen"}
           title="Пополнить CGC"
-          icon={<Entypo name="align-top" size={24} color="#006F5F" />}
+          icon={
+            <Image
+              style={styles.icon}
+              source={require("~/Images/Icons/icon-mining-down.png")}
+            />
+          }
         />
         <ListItem
           navigation={props.navigation}
           navigationDestination={"MiningOutMoneyScreen"}
           title="Вывод CGC"
-          icon={<Entypo name="align-bottom" size={24} color="#006F5F" />}
+          icon={
+            <Image
+              style={styles.icon}
+              source={require("~/Images/Icons/icon-mining-up.png")}
+            />
+          }
         />
       </View>
       <Popup
@@ -67,6 +77,11 @@ const styles = StyleSheet.create({
 
   btns_wrap: {
     marginTop: 5,
+  },
+
+  icon: {
+    width: 25,
+    height: 25,
   },
 })
 

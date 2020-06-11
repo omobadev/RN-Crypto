@@ -13,7 +13,7 @@ type PropsType = {
   userData: any
 }
 
-const AdminContent: React.FC<PropsType> = (props) => {
+const Body: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <LineDataItem title="ID" desc={props.userData.ID} />
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AdminContent
+export default Body

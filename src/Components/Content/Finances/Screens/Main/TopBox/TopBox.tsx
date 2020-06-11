@@ -5,6 +5,7 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
+  Image,
   StyleSheet,
 } from "react-native"
 
@@ -12,7 +13,6 @@ import {
 import ListItem from "./ListItem/ListItem"
 
 // EXTRA IMPORTS //
-import { AntDesign } from "@expo/vector-icons"
 import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,10 @@ const TopBox: React.FC<PropsType> = (props) => {
           style={styles.footer}
           onPress={() => props.navigation.navigate("TransactionsHistory")}
         >
-          <AntDesign name="clockcircleo" size={20} color="#F2F2F2" />
+          <Image
+            style={styles.icon}
+            source={require("~/Images/Icons/icon-clock.png")}
+          />
           <Text style={styles.text}>Открыть историю транзакций</Text>
         </TouchableOpacity>
       </View>
@@ -87,6 +90,12 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 16.5,
+  },
+
+  icon: {
+    height: 20,
+    width: 20,
+    resizeMode: "center",
   },
 })
 

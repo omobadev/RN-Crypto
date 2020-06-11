@@ -88,7 +88,7 @@ const Groups: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 11,
+    paddingTop: 11,
   },
 })
 

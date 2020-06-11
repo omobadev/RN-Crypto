@@ -19,9 +19,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -29,9 +27,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -49,9 +45,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -59,9 +53,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -69,9 +61,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -79,9 +69,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -89,9 +77,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
       <LineDialogItem
         navigation={props.navigation}
         name="Василий Петрович"
-        latestMessage={
-          "Привет, я не так давно переводил тебе определеную сумму, проверь дошли?"
-        }
+        latestMessage={"Привет, я не так давно переводил тебе..."}
         avatar=""
         date="12.08.2020"
         time="18:55"
@@ -102,7 +88,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 11,
+    paddingTop: 11,
   },
 })
 

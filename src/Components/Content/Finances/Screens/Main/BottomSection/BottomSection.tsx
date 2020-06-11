@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, Image, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
@@ -22,10 +22,9 @@ const BottomSection: React.FC<PropsType> = (props) => {
         navigationDestination="MoneyMoveInScreen1"
         title="Перевод CGC"
         icon={
-          <MaterialCommunityIcons
-            name="cellphone-sound"
-            size={25}
-            color="#006F5F"
+          <Image
+            style={styles.icon}
+            source={require("~/Images/Icons/icon-in.png")}
           />
         }
       />
@@ -34,10 +33,9 @@ const BottomSection: React.FC<PropsType> = (props) => {
         navigationDestination="MoneyMoveOutScreen1"
         title="Вывод CGC"
         icon={
-          <MaterialCommunityIcons
-            name="cellphone-sound"
-            size={25}
-            color="#006F5F"
+          <Image
+            style={styles.icon}
+            source={require("~/Images/Icons/icon-out.png")}
           />
         }
       />
@@ -46,10 +44,9 @@ const BottomSection: React.FC<PropsType> = (props) => {
         navigationDestination="BuyMoneyScreen1"
         title="Купить CGC"
         icon={
-          <MaterialCommunityIcons
-            name="cellphone-sound"
-            size={25}
-            color="#006F5F"
+          <Image
+            style={styles.icon}
+            source={require("~/Images/Icons/icon-buy.png")}
           />
         }
       />
@@ -58,10 +55,9 @@ const BottomSection: React.FC<PropsType> = (props) => {
         navigationDestination="MiningMainScreen"
         title="Майнинг"
         icon={
-          <MaterialCommunityIcons
-            name="cellphone-sound"
-            size={25}
-            color="#006F5F"
+          <Image
+            style={styles.icon}
+            source={require("~/Images/Icons/icon-mining.png")}
           />
         }
       />
@@ -72,6 +68,12 @@ const BottomSection: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
+  },
+
+  icon: {
+    height: 25,
+    width: 25,
+    resizeMode: "center",
   },
 })
 
