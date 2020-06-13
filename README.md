@@ -21,10 +21,10 @@ Crypto is a  Crypto-Currency wallet Application that allows you to buy/sell/exch
 > **Development status**: Developing...
 </br>
  <p float="center">
- <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="210"  />
-  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="210"  />
-  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="210"  />
-  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="210"  />
+ <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="220"  />
+  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="220"  />
+  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="220"  />
+  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg" width="220"  />
 </p>
 <br>
  
