@@ -1,8 +1,8 @@
-# Crypto - Crypto-Currency wallet Application 
+# Crypto - Crypto currency wallet Application 
 
 
 
-**Crypto** is is a large open source **Crypto-Currency wallet Application**.
+**Crypto** is is a large open source **Crypto currency wallet Application**.
 
 Built with on TypeScript. <br>
 Using **React Native** library, **Redux** Storage library and **Django REST** for backend.
