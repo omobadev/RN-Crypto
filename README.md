@@ -1,7 +1,7 @@
-# Pomidoro - Food Delivery Application 
+# Crypto - Crypto-Currency wallet Application 
 
 
-**Pomidoro** is is a large open source **Food Delivery Application**.
+ 
 
 
 Built with on JavaScript & TypeScript. <br>
@@ -10,7 +10,7 @@ Using **React Native** library, **Redux** Storage library and **Django REST** fo
 Pomidoro is a mobile food-ordering and delivery marketplace platform, whcih allows you to order food from your phone, throughout Ukraine  and have it delivered to your door.
 </br>
 > Followed the [**Flux architecture**](https://facebook.github.io/flux/) </br>
-> Link to [**Figma Design**](https://www.figma.com/file/KSX7LiudPz1ZrbsrcmIFpA/FoodDeliveryApp)
+> Link to [**Figma Design**](https://www.figma.com/file/FNOvpYZPIKJFpfD30j2j0s/Crypto-Copy)
 
 
 > **Alert**: With an objective to prevent code copyright, not all code is open source in this repository. </br>
