@@ -10,6 +10,7 @@ Using **React Native** library, **Redux** Storage library and **Django REST** fo
 Crypto is a  Crypto-Currency wallet Application that allows you to buy/sell/exchange/transfer crypto currency.
 
 </br>
+
 > Followed the [**Flux architecture**](https://facebook.github.io/flux/) </br>
 > Link to [**Figma Design**](https://www.figma.com/file/FNOvpYZPIKJFpfD30j2j0s/Crypto-Copy)
 
