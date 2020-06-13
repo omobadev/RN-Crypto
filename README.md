@@ -21,7 +21,10 @@ Crypto is a  Crypto-Currency wallet Application that allows you to buy/sell/exch
 > **Development status**: Developing...
 </br>
  <p float="center">
- <img src="https://user-images.githubusercontent.com/62706319/84562206-f5bdc680-ad52-11ea-8544-d652ed9e8906.PNG"  />
+ <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg"  />
+  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg"  />
+  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg"  />
+  <img src="https://user-images.githubusercontent.com/62706319/84563072-3ddfe780-ad59-11ea-8036-9427b07c0229.jpg"  />
  
 </p>
 <br>
