@@ -11,6 +11,12 @@ import InputSection from "./InputSection/InputSection"
 
 type PropsType = {
   navigation: any
+
+  setFirstScreenValuesActionCreator: (
+    UserLogin: string,
+    UserPassword: string,
+    UserInvitedID: string | null
+  ) => void
 }
 
 const Step1Screen: React.FC<PropsType> = (props) => {
@@ -19,7 +25,12 @@ const Step1Screen: React.FC<PropsType> = (props) => {
       style={styles.container}
       source={require("~/Images/bg-1.png")}
     >
-      <InputSection navigation={props.navigation} />
+      <InputSection
+        navigation={props.navigation}
+        setFirstScreenValuesActionCreator={
+          props.setFirstScreenValuesActionCreator
+        }
+      />
     </ImageBackground>
   )
 }

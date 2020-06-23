@@ -3,10 +3,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import thunkMiddleware from "redux-thunk"
 
 // REDUCERS IMPORTS //
+import AuthReducer from "./Reducers/AuthReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
-let reducers = combineReducers({})
+let reducers = combineReducers({
+  AuthState: AuthReducer,
+})
 
 type reducersType = typeof reducers
 export type AppStateType = ReturnType<reducersType>

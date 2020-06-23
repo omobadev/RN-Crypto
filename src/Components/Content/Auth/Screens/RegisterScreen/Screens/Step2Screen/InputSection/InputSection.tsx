@@ -19,6 +19,13 @@ import Button from "~/Components/Shared/Components/Button/Button"
 
 type PropsType = {
   navigation: any
+
+  setSecondScreenValuesActionCreator: (
+    UserName: string,
+    Email: string,
+    Country: string,
+    City: string
+  ) => void
 }
 
 const InputSection: React.FC<PropsType> = (props) => {
@@ -39,6 +46,12 @@ const InputSection: React.FC<PropsType> = (props) => {
         city: "" as string,
       }}
       onSubmit={(values: any) => {
+        props.setSecondScreenValuesActionCreator(
+          values.name,
+          values.email,
+          values.country,
+          values.city
+        )
         props.navigation.navigate("PasswordScreen", {
           title: "Придумайте секретный код",
           callbackFn: () => console.log("Auth function"),

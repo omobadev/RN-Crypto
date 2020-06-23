@@ -19,6 +19,12 @@ import Button from "~/Components/Shared/Components/Button/Button"
 
 type PropsType = {
   navigation: any
+
+  setFirstScreenValuesActionCreator: (
+    UserLogin: string,
+    UserPassword: string,
+    UserInvitedID: string | null
+  ) => void
 }
 
 const InputSection: React.FC<PropsType> = (props) => {
@@ -40,6 +46,11 @@ const InputSection: React.FC<PropsType> = (props) => {
         invidtedID: "" as string,
       }}
       onSubmit={(values: any) => {
+        props.setFirstScreenValuesActionCreator(
+          values.login,
+          values.password,
+          values.invidtedID
+        )
         props.navigation.navigate("RegisterStep2Screen")
       }}
     >
