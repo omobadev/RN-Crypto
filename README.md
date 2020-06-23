@@ -19,7 +19,7 @@ The uniqueness of the InPhone project bonus system is that each subscriber is gi
 
 Within the framework of the InPhone project, any subscriber investor of the CGC ecosystem has the opportunity to pay for communication services with CGC coins, receive a reward for their activity or the activity of invited subscribers in CGC coins, and even purchase tokens of the mobile operator InPhone for CGC coins.
 
-The ecosystem of the project includes, but is not limited to, the following elements:
+**The ecosystem of the project includes, but is not limited to, the following elements:**
  Mobile operator;
  Multi-currency wallet for storing / receiving / sending cryptocurrencies;
  A messenger using blockchain technology and an integrated marketplace (a trading platform for buying and selling assets using cryptocurrencies).
