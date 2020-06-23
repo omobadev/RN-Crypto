@@ -52,7 +52,7 @@ To use the crypto messenger, the subscriber must install the InPhone application
  - Synchronization, at the request of the InPhone user subscriber, smartphone contacts with the InPhone application, blacklist of subscribers
 
 ### In the future the functionality of the InPhone crypto messenger will be supplemented:
- - ilt-in online games such as "poker", "roulette", etc. with the possibility of betting with CGC coins with the integration of games in the Golden Crystal Casino partnership project
+ - Built-in online games such as "poker", "roulette", etc. with the possibility of betting with CGC coins with the integration of games in the Golden Crystal Casino partnership project
 - Conference call
 - Creation of private chats, with a timer to delete chat
 - The ability to create self-deleting messages
