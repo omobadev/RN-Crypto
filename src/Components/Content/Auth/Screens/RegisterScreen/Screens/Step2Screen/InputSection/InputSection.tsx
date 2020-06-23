@@ -26,6 +26,7 @@ type PropsType = {
     Country: string,
     City: string
   ) => void
+  RegisterUserThunkCreator: (secretCode: string) => void
 }
 
 const InputSection: React.FC<PropsType> = (props) => {
@@ -54,7 +55,7 @@ const InputSection: React.FC<PropsType> = (props) => {
         )
         props.navigation.navigate("PasswordScreen", {
           title: "Придумайте секретный код",
-          callbackFn: () => console.log("Auth function"),
+          callbackFn: props.RegisterUserThunkCreator,
         })
       }}
     >

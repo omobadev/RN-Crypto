@@ -12,7 +12,7 @@ type PropsType = {
   password: string
 
   setPassword: (password: string) => void
-  callbackFn: () => void
+  callbackFn: (value: string) => void
 }
 
 const Footer: React.FC<PropsType> = (props) => {
@@ -21,12 +21,18 @@ const Footer: React.FC<PropsType> = (props) => {
     props.setPassword(newPassword)
   }
 
+  const sendRequest = () => {
+    if (props.password.length === 6) {
+      props.callbackFn(props.password)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={removeDigit}>
         <Text style={styles.text}>Удалить</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => props.callbackFn()}>
+      <TouchableOpacity onPress={() => sendRequest()}>
         <Text style={styles.text}>ОК</Text>
       </TouchableOpacity>
     </View>

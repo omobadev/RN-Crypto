@@ -8,7 +8,10 @@ import Step2Screen from "./Step2Screen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { ActionCreatorsList } from "~/Redux/Reducers/AuthReducer"
+import {
+  ActionCreatorsList,
+  RegisterUserThunkCreator,
+} from "~/Redux/Reducers/AuthReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -24,6 +27,8 @@ type MapDispatchToPropsType = {
     Country: string,
     City: string
   ) => void
+
+  RegisterUserThunkCreator: (secretCode: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -40,6 +45,7 @@ const Step2ScreenContainer = compose(
     {
       setSecondScreenValuesActionCreator:
         ActionCreatorsList.setSecondScreenValuesActionCreator,
+      RegisterUserThunkCreator: RegisterUserThunkCreator,
     }
   )
 )(Step2Screen)

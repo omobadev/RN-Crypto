@@ -18,6 +18,7 @@ type PropsType = {
     Country: string,
     City: string
   ) => void
+  RegisterUserThunkCreator: (secretCode: string) => void
 }
 
 const Step2Screen: React.FC<PropsType> = (props) => {
@@ -31,6 +32,7 @@ const Step2Screen: React.FC<PropsType> = (props) => {
         setSecondScreenValuesActionCreator={
           props.setSecondScreenValuesActionCreator
         }
+        RegisterUserThunkCreator={props.RegisterUserThunkCreator}
       />
     </ImageBackground>
   )

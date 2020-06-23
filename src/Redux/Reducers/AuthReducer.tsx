@@ -84,6 +84,26 @@ export const ActionCreatorsList = {
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Register user
-export const RegisterUserThunkCreator = (): ThunkType => {
-  return async (dispatch, getState: any) => {}
+export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    axios
+      .post("www.cgc.cgc.capital/api_interface", {
+        login: state.UserLogin,
+        password: state.UserPassword,
+        invitedID: state.UserInvitedID,
+        name: state.UserName,
+        email: state.Email,
+        country: state.Country,
+        city: state.City,
+        secretCode: secretCode,
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
