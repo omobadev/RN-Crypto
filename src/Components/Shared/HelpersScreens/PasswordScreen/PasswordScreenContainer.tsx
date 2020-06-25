@@ -8,6 +8,7 @@ import PasswordScreen from "./PasswordScreen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { RegisterUserThunkCreator } from "~/Redux/Reducers/AuthReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,7 +18,9 @@ type MapStateToPropsType = {
   route: any
 }
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  RegisterUserThunkCreator: (secretCode: string) => void
+}
 
 /////////////////////////////////////////////////////////////////
 
@@ -31,7 +34,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 const PasswordScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      RegisterUserThunkCreator: RegisterUserThunkCreator,
+    }
   )
 )(PasswordScreen)
 

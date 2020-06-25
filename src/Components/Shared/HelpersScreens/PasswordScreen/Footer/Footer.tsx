@@ -12,7 +12,7 @@ type PropsType = {
   password: string
 
   setPassword: (password: string) => void
-  callbackFn: (value: string) => void
+  callbackFn: any
 }
 
 const Footer: React.FC<PropsType> = (props) => {

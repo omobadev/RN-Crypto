@@ -54,7 +54,7 @@ const Registation: React.FC<PropsType> = (props) => {
         })}
         initialParams={{
           title: null as string | null,
-          callbackFn: null as string | null,
+          callbackFnTitle: null as string | null,
         }}
       />
     </Stack.Navigator>

@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, ImageBackground, StyleSheet } from "react-native"
+import { ImageBackground, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Body from "./Body/Body"
@@ -13,6 +13,8 @@ import Footer from "./Footer/Footer"
 type PropsType = {
   navigation: any
   route: any
+
+  RegisterUserThunkCreator: (secretCode: string) => void
 }
 
 const PasswordScreen: React.FC<PropsType> = (props) => {
@@ -27,7 +29,11 @@ const PasswordScreen: React.FC<PropsType> = (props) => {
       <Footer
         password={password}
         setPassword={setPassword}
-        callbackFn={props.route.params.callbackFn}
+        callbackFn={
+          props.route.params.callbackFnTitle === "Register"
+            ? props.RegisterUserThunkCreator
+            : undefined
+        }
       />
     </ImageBackground>
   )
