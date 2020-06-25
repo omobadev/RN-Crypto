@@ -99,10 +99,8 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
       secretCode: secretCode,
     }
 
-    console.log(data)
-
     await axios
-      .post("http://cgc.cgc.capital/api_interface", data)
+      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then((res) => {
         console.log(res)
       })
