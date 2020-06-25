@@ -86,21 +86,23 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 // Register user
 export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = await getState()
+    const state = getState()
 
     const data = {
-      login: state.UserLogin,
-      password: state.UserPassword,
-      invitedID: state.UserInvitedID,
-      name: state.UserName,
-      email: state.Email,
-      country: state.Country,
-      city: state.City,
+      login: state.AuthState.UserLogin,
+      password: state.AuthState.UserPassword,
+      invitedID: state.AuthState.UserInvitedID,
+      name: state.AuthState.UserName,
+      email: state.AuthState.Email,
+      country: state.AuthState.Country,
+      city: state.AuthState.City,
       secretCode: secretCode,
     }
 
+    console.log(data)
+
     await axios
-      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
+      .post("http://cgc.cgc.capital/api_interface", data)
       .then((res) => {
         console.log(res)
       })

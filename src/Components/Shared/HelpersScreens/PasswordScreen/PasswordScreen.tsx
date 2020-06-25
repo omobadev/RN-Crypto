@@ -32,7 +32,7 @@ const PasswordScreen: React.FC<PropsType> = (props) => {
         callbackFn={
           props.route.params.callbackFnTitle === "Register"
             ? props.RegisterUserThunkCreator
-            : undefined
+            : props.RegisterUserThunkCreator
         }
       />
     </ImageBackground>
