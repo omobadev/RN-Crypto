@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { View, Text, StyleSheet } from "react-native"
+import axios from "axios"
 
 // COMPONENTS IMPORTS //
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
@@ -9,6 +10,7 @@ import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
 import { SimpleLineIcons } from "@expo/vector-icons"
 import { FontAwesome } from "@expo/vector-icons"
 import { Entypo } from "@expo/vector-icons"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +54,7 @@ const Main: React.FC<PropsType> = (props) => {
           fontWeight: null,
         }}
       />
+
       <ListItem
         navigation={props.navigation}
         title="Информация"

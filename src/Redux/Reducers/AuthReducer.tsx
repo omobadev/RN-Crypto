@@ -88,7 +88,7 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
-    axios
+    await axios
       .post("www.cgc.cgc.capital/api_interface", {
         login: state.UserLogin,
         password: state.UserPassword,
