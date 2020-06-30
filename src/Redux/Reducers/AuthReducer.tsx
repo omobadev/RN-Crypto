@@ -1,6 +1,7 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
 import axios from "axios"
+import * as Crypto from "expo-crypto"
 import { AppStateType, InferActionsTypes } from "../ReduxStore"
 
 ////////////////////////////////////////////////////////////////////////
@@ -89,14 +90,41 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
     const state = getState()
 
     const data = {
-      login: state.AuthState.UserLogin,
-      password: state.AuthState.UserPassword,
-      invitedID: state.AuthState.UserInvitedID,
-      name: state.AuthState.UserName,
-      email: state.AuthState.Email,
-      country: state.AuthState.Country,
-      city: state.AuthState.City,
-      secretCode: secretCode,
+      login: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.UserLogin)
+      ),
+      password: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.UserPassword)
+      ),
+      invitedID: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.UserInvitedID)
+      ),
+      name: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.UserName)
+      ),
+      email: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.Email)
+      ),
+      country: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.Country)
+      ),
+      city: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        String(state.AuthState.City)
+      ),
+      secretCode: await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        await Crypto.digestStringAsync(
+          Crypto.CryptoDigestAlgorithm.SHA256,
+          String(secretCode)
+        )
+      ),
     }
 
     await axios

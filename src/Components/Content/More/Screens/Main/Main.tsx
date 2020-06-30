@@ -34,6 +34,7 @@ const Main: React.FC<PropsType> = (props) => {
           fontWeight: null,
         }}
       />
+
       <ListItem
         navigation={props.navigation}
         navigationDestination="TarifsScreen"

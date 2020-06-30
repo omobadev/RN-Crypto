@@ -21,6 +21,7 @@
     "axios": "^0.19.2",
     "babel-plugin-root-import": "^6.5.0",
     "expo": "~37.0.3",
+    "expo-crypto": "~8.1.0",
     "expo-image-picker": "~8.1.0",
     "formik": "^2.1.4",
     "react": "~16.9.0",
