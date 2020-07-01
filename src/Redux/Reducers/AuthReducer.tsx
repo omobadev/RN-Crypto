@@ -1,7 +1,8 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
 import axios from "axios"
-import * as Crypto from "expo-crypto"
+import Base64 from "~/Redux/Code/Base64"
+
 import { AppStateType, InferActionsTypes } from "../ReduxStore"
 
 ////////////////////////////////////////////////////////////////////////
@@ -89,51 +90,37 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
-    const data = {
-      login: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.UserLogin)
-      ),
-      password: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.UserPassword)
-      ),
-      invitedID: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.UserInvitedID)
-      ),
-      name: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.UserName)
-      ),
-      email: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.Email)
-      ),
-      country: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.Country)
-      ),
-      city: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        String(state.AuthState.City)
-      ),
-      secretCode: await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        await Crypto.digestStringAsync(
-          Crypto.CryptoDigestAlgorithm.SHA256,
-          String(secretCode)
+    function b64EncodeUnicode(str: string) {
+      return Base64.btoa(
+        encodeURIComponent(str).replace(
+          /%([0-9A-F]{2})/g,
+          function toSolidBytes(match, p1) {
+            return String.fromCharCode(("0x" + p1) as any)
+          }
         )
-      ),
+      )
     }
 
-    await axios
-      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    const data = {
+      login: b64EncodeUnicode(String(state.AuthState.UserLogin)),
+      password: b64EncodeUnicode(String(state.AuthState.UserPassword)),
+      invitedID: b64EncodeUnicode(String(state.AuthState.UserInvitedID)),
+      name: b64EncodeUnicode(String(state.AuthState.UserName)),
+      email: b64EncodeUnicode(String(state.AuthState.Email)),
+      country: b64EncodeUnicode(String(state.AuthState.Country)),
+      city: b64EncodeUnicode(String(state.AuthState.City)),
+      secretCode: b64EncodeUnicode(String(secretCode)),
+    }
+
+    console.log(data)
+
+    // await axios
+    //   .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
+    //   .then((res) => {
+    //     console.log(res)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
   }
 }
