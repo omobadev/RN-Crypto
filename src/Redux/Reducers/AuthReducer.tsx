@@ -1,6 +1,7 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
 import axios from "axios"
+const { JSEncrypt } = require("jsencrypt")
 import Base64 from "~/Redux/Code/Base64"
 
 import { AppStateType, InferActionsTypes } from "../ReduxStore"
@@ -101,26 +102,38 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
       )
     }
 
+    function encode_js(data: any) {
+      let pub =
+        "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALqbHeRLCyOdykC5SDLqI49ArYGYG1mqaH9/GnWjGavZM02fos4lc2w6tCchcUBNtJvGqKwhC5JEnx3RYoSX2ucCAwEAAQ=="
+      var crypt = new JSEncrypt()
+      crypt.setPublicKey(pub)
+      return crypt.encrypt(data)
+    }
+
     const data = {
-      login: b64EncodeUnicode(String(state.AuthState.UserLogin)),
-      password: b64EncodeUnicode(String(state.AuthState.UserPassword)),
-      invitedID: b64EncodeUnicode(String(state.AuthState.UserInvitedID)),
-      name: b64EncodeUnicode(String(state.AuthState.UserName)),
-      email: b64EncodeUnicode(String(state.AuthState.Email)),
-      country: b64EncodeUnicode(String(state.AuthState.Country)),
-      city: b64EncodeUnicode(String(state.AuthState.City)),
-      secretCode: b64EncodeUnicode(String(secretCode)),
+      login: encode_js(b64EncodeUnicode(String(state.AuthState.UserLogin))),
+      password: encode_js(
+        b64EncodeUnicode(String(state.AuthState.UserPassword))
+      ),
+      invitedID: encode_js(
+        b64EncodeUnicode(String(state.AuthState.UserInvitedID))
+      ),
+      name: encode_js(b64EncodeUnicode(String(state.AuthState.UserName))),
+      email: encode_js(b64EncodeUnicode(String(state.AuthState.Email))),
+      country: encode_js(b64EncodeUnicode(String(state.AuthState.Country))),
+      city: encode_js(b64EncodeUnicode(String(state.AuthState.City))),
+      secretCode: encode_js(b64EncodeUnicode(String(secretCode))),
     }
 
     console.log(data)
 
-    // await axios
-    //   .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
-    //   .then((res) => {
-    //     console.log(res)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+    await axios
+      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
