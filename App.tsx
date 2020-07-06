@@ -19,7 +19,7 @@ type PropsType = {}
 console.disableYellowBox = true
 
 const App: React.FC<PropsType> = (props) => {
-  const [isAuthentificated, setIsAuthentificated] = useState(false as boolean)
+  const [isAuthentificated, setIsAuthentificated] = useState(true as boolean)
   const Stack = createStackNavigator()
 
   return (

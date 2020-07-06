@@ -3,12 +3,16 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import thunkMiddleware from "redux-thunk"
 
 // REDUCERS IMPORTS //
-import AuthReducer from "./Reducers/AuthReducer"
+import AuthReducer from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
+import ChatsGetReducer from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
 let reducers = combineReducers({
+  // Authentification reducers
   AuthState: AuthReducer,
+  // Chats reducers
+  ChatsGetState: ChatsGetReducer,
 })
 
 type reducersType = typeof reducers

@@ -8,7 +8,7 @@ import Step1Screen from "./Step1Screen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { ActionCreatorsList } from "~/Redux/Reducers/AuthReducer"
+import { ActionCreatorsList } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES

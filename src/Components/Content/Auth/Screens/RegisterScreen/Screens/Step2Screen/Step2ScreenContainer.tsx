@@ -11,7 +11,7 @@ import { AppStateType } from "~/Redux/ReduxStore"
 import {
   ActionCreatorsList,
   RegisterUserThunkCreator,
-} from "~/Redux/Reducers/AuthReducer"
+} from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

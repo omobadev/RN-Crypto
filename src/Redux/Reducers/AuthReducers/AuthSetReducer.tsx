@@ -4,7 +4,7 @@ import axios from "axios"
 const { JSEncrypt } = require("jsencrypt")
 import Base64 from "~/Redux/Code/Base64"
 
-import { AppStateType, InferActionsTypes } from "../ReduxStore"
+import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const AuthReducer = (
+const AuthGetReducer = (
   state = initialState,
   action: ActionTypes
 ): initialStateType => {
@@ -48,7 +48,7 @@ const AuthReducer = (
   return state
 }
 
-export default AuthReducer
+export default AuthGetReducer
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -91,7 +91,7 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
-    function b64EncodeUnicode(str: string) {
+    const b64EncodeUnicode = (str: string) => {
       return Base64.btoa(
         encodeURIComponent(str).replace(
           /%([0-9A-F]{2})/g,
@@ -103,29 +103,25 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
     }
 
     function encode_js(data: any) {
-      let pub =
-        "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALqbHeRLCyOdykC5SDLqI49ArYGYG1mqaH9/GnWjGavZM02fos4lc2w6tCchcUBNtJvGqKwhC5JEnx3RYoSX2ucCAwEAAQ=="
+      let pub = `-----BEGIN PUBLIC KEY-----
+      MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALqbHeRLCyOdykC5SDLqI49ArYGYG1mq
+      aH9/GnWjGavZM02fos4lc2w6tCchcUBNtJvGqKwhC5JEnx3RYoSX2ucCAwEAAQ==
+      -----END PUBLIC KEY-----`
       var crypt = new JSEncrypt()
       crypt.setPublicKey(pub)
       return crypt.encrypt(data)
     }
 
     const data = {
-      login: encode_js(b64EncodeUnicode(String(state.AuthState.UserLogin))),
-      password: encode_js(
-        b64EncodeUnicode(String(state.AuthState.UserPassword))
-      ),
-      invitedID: encode_js(
-        b64EncodeUnicode(String(state.AuthState.UserInvitedID))
-      ),
-      name: encode_js(b64EncodeUnicode(String(state.AuthState.UserName))),
-      email: encode_js(b64EncodeUnicode(String(state.AuthState.Email))),
-      country: encode_js(b64EncodeUnicode(String(state.AuthState.Country))),
-      city: encode_js(b64EncodeUnicode(String(state.AuthState.City))),
-      secretCode: encode_js(b64EncodeUnicode(String(secretCode))),
+      login: b64EncodeUnicode(String(state.AuthState.UserLogin)),
+      password: b64EncodeUnicode(String(state.AuthState.UserPassword)),
+      invitedID: b64EncodeUnicode(String(state.AuthState.UserInvitedID)),
+      name: b64EncodeUnicode(String(state.AuthState.UserName)),
+      email: b64EncodeUnicode(String(state.AuthState.Email)),
+      country: b64EncodeUnicode(String(state.AuthState.Country)),
+      city: b64EncodeUnicode(String(state.AuthState.City)),
+      secretCode: b64EncodeUnicode(String(secretCode)),
     }
-
-    console.log(data)
 
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
