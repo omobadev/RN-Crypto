@@ -11,6 +11,8 @@ import ChatsGetReducer from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 import FinancesGetReducer from "~/Redux/Reducers/FinancesReducers/FinancesGetReducer"
 // User reducers
 import UserGetReducer from "~/Redux/Reducers/UserReducers/UserGetReducer"
+// Extra reducers
+import ExtraGetReducer from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer/ExtraGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -23,6 +25,8 @@ let reducers = combineReducers({
   FinancesGetState: FinancesGetReducer,
   // User reducers
   UserGetState: UserGetReducer,
+  // Extra reducers
+  ExtraGetState: ExtraGetReducer,
 })
 
 type reducersType = typeof reducers

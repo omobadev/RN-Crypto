@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -10,13 +10,26 @@ import Body from "./Body/Body"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  TarifsList: Array<{
+    color: string
+    sale: string
+    price: string
+    duration: string
+  }>
+
+  getTarifsListThunkCreator: () => void
+}
 
 const TarifsScreen: React.FC<PropsType> = (props) => {
+  useEffect(() => {
+    props.getTarifsListThunkCreator()
+  }, [])
+
   return (
     <View style={styles.container}>
       <Header />
-      <Body />
+      <Body TarifsList={props.TarifsList} />
     </View>
   )
 }

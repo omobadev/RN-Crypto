@@ -8,32 +8,38 @@ import TarifItem from "./TarifItem/TarifItem"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  TarifsList: Array<{
+    color: string
+    sale: string
+    price: string
+    duration: string
+  }>
+}
 
 const Body: React.FC<PropsType> = (props) => {
   return (
     <>
-      <TarifItem
-        price="2500"
-        sale="15%"
-        duration="3 месяца"
-        containerStyle={{ backgroundColor: "silver" }}
-        textStyle={{ color: "#00392D", marginHorizontal: 25 }}
-      />
-      <TarifItem
-        price="4200"
-        sale="15%"
-        duration="6 месяцев"
-        containerStyle={{ backgroundColor: "#006F5F" }}
-        textStyle={{ color: "white", marginHorizontal: 25 }}
-      />
-      <TarifItem
-        price="6500"
-        sale="15%"
-        duration="12 месяцев"
-        containerStyle={{ backgroundColor: "#DEC15D" }}
-        textStyle={{ color: "#00392D", marginHorizontal: 25 }}
-      />
+      {props.TarifsList &&
+        props.TarifsList.length > 0 &&
+        props.TarifsList.map(
+          (tarif: {
+            color: string
+            sale: string
+            price: string
+            duration: string
+          }) => {
+            return (
+              <TarifItem
+                price={tarif.price}
+                sale={tarif.sale}
+                duration={tarif.duration}
+                containerStyle={{ backgroundColor: tarif.color }}
+                textStyle={{ color: "#00392D", marginHorizontal: 25 }}
+              />
+            )
+          }
+        )}
     </>
   )
 }

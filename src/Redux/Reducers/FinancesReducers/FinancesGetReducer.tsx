@@ -24,7 +24,7 @@ const initialState = {
     },
   },
 
-  TransactionsList: {} as Array<{
+  TransactionsList: [] as Array<{
     isIncome: boolean
     moneyAmount: string
     createdAt: string
