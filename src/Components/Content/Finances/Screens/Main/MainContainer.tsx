@@ -8,10 +8,8 @@ import Main from "./Main"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import {
-  getUserFinancesInfoThunkCreator,
-  getUserCredentialsThunkCreator,
-} from "~/Redux/Reducers/UserReducers/UserGetReducer"
+import { getUserCredentialsThunkCreator } from "~/Redux/Reducers/UserReducers/UserGetReducer"
+import { getUserGeneralFinancesInfoThunkCreator } from "~/Redux/Reducers/FinancesReducers/FinancesGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +36,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-  getUserFinancesInfoThunkCreator: () => void
+  getUserGeneralFinancesInfoThunkCreator: () => void
   getUserCredentialsThunkCreator: () => void
 }
 
@@ -48,7 +46,7 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
 
-    BudgetInfo: state.UserGetState.BudgetInfo,
+    BudgetInfo: state.FinancesGetState.BudgetInfo,
     userID: state.UserGetState.UserCredentials.ID,
   }
 }
@@ -57,7 +55,7 @@ const MainContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
-      getUserFinancesInfoThunkCreator: getUserFinancesInfoThunkCreator,
+      getUserGeneralFinancesInfoThunkCreator: getUserGeneralFinancesInfoThunkCreator,
       getUserCredentialsThunkCreator: getUserCredentialsThunkCreator,
     }
   )

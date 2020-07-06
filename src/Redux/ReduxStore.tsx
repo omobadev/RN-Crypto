@@ -3,8 +3,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import thunkMiddleware from "redux-thunk"
 
 // REDUCERS IMPORTS //
+// Authentification reducers
 import AuthReducer from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
+// Chats reducer
 import ChatsGetReducer from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+// Finances reducers
+import FinancesGetReducer from "~/Redux/Reducers/FinancesReducers/FinancesGetReducer"
+// User reducers
 import UserGetReducer from "~/Redux/Reducers/UserReducers/UserGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
@@ -14,6 +19,8 @@ let reducers = combineReducers({
   AuthState: AuthReducer,
   // Chats reducers
   ChatsGetState: ChatsGetReducer,
+  //Finances reducer
+  FinancesGetState: FinancesGetReducer,
   // User reducers
   UserGetState: UserGetReducer,
 })

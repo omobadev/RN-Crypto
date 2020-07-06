@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
@@ -20,7 +20,5 @@ const Main: React.FC<PropsType> = (props) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({})
 
 export default Main

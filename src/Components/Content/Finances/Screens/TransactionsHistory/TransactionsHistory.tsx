@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { ScrollView, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -9,39 +9,42 @@ import TransactionItem from "./TransactionItem/TransactionItem"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  TransactionsList: Array<{
+    isIncome: boolean
+    moneyAmount: string
+    createdAt: string
+    ID: string
+  }>
+
+  getTransactionsHistoryThunkCreator: () => void
+}
 
 const TransactionsHistory: React.FC<PropsType> = (props) => {
+  useEffect(() => {
+    props.getTransactionsHistoryThunkCreator()
+  }, [])
+
   return (
     <ScrollView style={styles.container}>
-      <TransactionItem
-        amountChanged={423}
-        positive={false}
-        letter={"B"}
-        date={"12:48"}
-        code={"B29831FDUHSUH289"}
-      />
-      <TransactionItem
-        amountChanged={423}
-        positive={false}
-        letter={"B"}
-        date={"12:48"}
-        code={"B29831FDUHSUH289"}
-      />
-      <TransactionItem
-        amountChanged={423}
-        positive={false}
-        letter={"B"}
-        date={"12:48"}
-        code={"B29831FDUHSUH289"}
-      />
-      <TransactionItem
-        amountChanged={423}
-        positive={true}
-        letter={"B"}
-        date={"12:48"}
-        code={"B29831FDUHSUH289"}
-      />
+      {props.TransactionsList.map(
+        (transaction: {
+          isIncome: boolean
+          moneyAmount: string
+          createdAt: string
+          ID: string
+        }) => {
+          return (
+            <TransactionItem
+              amountChanged={Number(transaction.moneyAmount)}
+              positive={transaction.isIncome}
+              letter={"B"}
+              date={transaction.createdAt}
+              code={transaction.ID}
+            />
+          )
+        }
+      )}
     </ScrollView>
   )
 }

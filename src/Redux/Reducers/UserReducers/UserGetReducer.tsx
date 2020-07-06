@@ -15,23 +15,6 @@ const initialState = {
     location: null as string | null,
     invitedID: null as string | null,
   },
-
-  BudgetInfo: {
-    CGC: {
-      price: null as string | null,
-      value2: null as string | null,
-    },
-
-    MiningCGC: {
-      price: null as string | null,
-      value2: null as string | null,
-    },
-
-    DailyIncome: {
-      price: null as string | null,
-      value2: null as string | null,
-    },
-  },
 }
 
 type initialStateType = typeof initialState
@@ -51,17 +34,6 @@ const UserGetReducer = (
         email: action.email,
         location: action.location,
         invitedID: action.invitedID,
-      },
-    }
-  }
-
-  if (action.type === "SET_USER_FINANCES_INFO") {
-    return {
-      ...state,
-      BudgetInfo: {
-        CGC: action.CGC,
-        MiningCGC: action.MiningCGC,
-        DailyIncome: action.DailyIncome,
       },
     }
   }
@@ -94,27 +66,6 @@ export const ActionCreatorsList = {
       location,
       invitedID,
     } as const),
-
-  setUserFinancesInfoActionCreator: (
-    CGC: {
-      price: string
-      value2: string
-    },
-    MiningCGC: {
-      price: string
-      value2: string
-    },
-    DailyIncome: {
-      price: string
-      value2: string
-    }
-  ) =>
-    ({
-      type: "SET_USER_FINANCES_INFO",
-      CGC,
-      MiningCGC,
-      DailyIncome,
-    } as const),
 }
 
 //    *THUNKS*   //
@@ -132,21 +83,6 @@ export const getUserCredentialsThunkCreator = (): ThunkType => {
           res.data.email,
           res.data.location,
           res.data.invitedID
-        )
-      )
-    })
-  }
-}
-
-// Get user finances info
-export const getUserFinancesInfoThunkCreator = (): ThunkType => {
-  return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(
-        ActionCreatorsList.setUserFinancesInfoActionCreator(
-          res.data.CGC,
-          res.data.MiningCGC,
-          res.data.DailyIncome
         )
       )
     })

@@ -30,12 +30,12 @@ type PropsType = {
     }
   }
 
-  getUserFinancesInfoThunkCreator: () => void
+  getUserGeneralFinancesInfoThunkCreator: () => void
 }
 
 const Main: React.FC<PropsType> = (props) => {
   useEffect(() => {
-    props.getUserFinancesInfoThunkCreator()
+    props.getUserGeneralFinancesInfoThunkCreator()
   }, [])
 
   return (
