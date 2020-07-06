@@ -5,6 +5,7 @@ import thunkMiddleware from "redux-thunk"
 // REDUCERS IMPORTS //
 import AuthReducer from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
 import ChatsGetReducer from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+import UserGetReducer from "~/Redux/Reducers/UserReducers/UserGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -13,6 +14,8 @@ let reducers = combineReducers({
   AuthState: AuthReducer,
   // Chats reducers
   ChatsGetState: ChatsGetReducer,
+  // User reducers
+  UserGetState: UserGetReducer,
 })
 
 type reducersType = typeof reducers

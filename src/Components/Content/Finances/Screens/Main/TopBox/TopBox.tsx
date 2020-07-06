@@ -19,6 +19,23 @@ import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHead
 
 type PropsType = {
   navigation: any
+
+  userID: string | null
+  BudgetInfo: {
+    CGC: {
+      price: string
+      value2: string
+    }
+
+    MiningCGC: {
+      price: string
+      value2: string
+    }
+    DailyIncome: {
+      price: string
+      value2: string
+    }
+  }
 }
 
 const TopBox: React.FC<PropsType> = (props) => {
@@ -34,14 +51,26 @@ const TopBox: React.FC<PropsType> = (props) => {
           Текущий баланс
         </Text>
         <View style={styles.list_wrap}>
-          <ListItem title="CGC:" firstValue="150" secondValue="15$" />
-          <ListItem title="Майнинг CGC:" firstValue="150" secondValue="15$" />
-          <ListItem title="Доход в сутки:" firstValue="150" secondValue="15$" />
+          <ListItem
+            title="CGC:"
+            firstValue={props.BudgetInfo.CGC.price}
+            secondValue={`${props.BudgetInfo.CGC.value2 || "0"} $`}
+          />
+          <ListItem
+            title="Майнинг CGC:"
+            firstValue={props.BudgetInfo.MiningCGC.price}
+            secondValue={`${props.BudgetInfo.MiningCGC.value2 || "0"} $`}
+          />
+          <ListItem
+            title="Доход в сутки:"
+            firstValue={props.BudgetInfo.DailyIncome.price}
+            secondValue={`${props.BudgetInfo.DailyIncome.value2 || "0"} $`}
+          />
         </View>
         <Text style={{ ...styles.title, marginBottom: 5, marginTop: 11.5 }}>
           Ваш уникальный адрес:
         </Text>
-        <Text style={styles.text}>0x12334324jkldfji21</Text>
+        <Text style={styles.text}>{props.userID}</Text>
         <TouchableOpacity
           style={styles.footer}
           onPress={() => props.navigation.navigate("TransactionsHistory")}

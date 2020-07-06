@@ -8,7 +8,7 @@ import Main from "./Main"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { getUserDataThunkCreator } from "~/Redux/Reducers/UserReducers/UserGetReducer"
+import { getUserCredentialsThunkCreator } from "~/Redux/Reducers/UserReducers/UserGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,10 +16,19 @@ import { getUserDataThunkCreator } from "~/Redux/Reducers/UserReducers/UserGetRe
 type MapStateToPropsType = {
   navigation: any
   route: any
+
+  UserCredentials: {
+    ID: string
+    name: string
+    login: string
+    email: string
+    location: string
+    invitedID: string
+  }
 }
 
 type MapDispatchToPropsType = {
-  getUserDataThunkCreator: () => void
+  getUserCredentialsThunkCreator: () => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -28,6 +37,8 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
     route: props.route,
+
+    UserCredentials: state.UserGetState.UserCredentials,
   }
 }
 
@@ -35,7 +46,7 @@ const MainContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
-      getUserDataThunkCreator: getUserDataThunkCreator,
+      getUserCredentialsThunkCreator: getUserCredentialsThunkCreator,
     }
   )
 )(Main)

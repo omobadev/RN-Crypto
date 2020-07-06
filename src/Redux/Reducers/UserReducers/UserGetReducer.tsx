@@ -7,29 +7,30 @@ import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
-  UserCredentials: {} as {
-    ID: string
-    name: string
-    login: string
-    email: string
-    location: string
-    invitedID: string
+  UserCredentials: {
+    ID: null as string | null,
+    name: null as string | null,
+    login: null as string | null,
+    email: null as string | null,
+    location: null as string | null,
+    invitedID: null as string | null,
   },
 
-  BudgetInfo: {} as {
+  BudgetInfo: {
     CGC: {
-      price: string
-      value2: string
-    }
+      price: null as string | null,
+      value2: null as string | null,
+    },
 
     MiningCGC: {
-      price: string
-      value2: string
-    }
+      price: null as string | null,
+      value2: null as string | null,
+    },
+
     DailyIncome: {
-      price: string
-      value2: string
-    }
+      price: null as string | null,
+      value2: null as string | null,
+    },
   },
 }
 
@@ -51,8 +52,17 @@ const UserGetReducer = (
         location: action.location,
         invitedID: action.invitedID,
       },
+    }
+  }
 
-      BudgetInfo: action.BudgetInfo,
+  if (action.type === "SET_USER_FINANCES_INFO") {
+    return {
+      ...state,
+      BudgetInfo: {
+        CGC: action.CGC,
+        MiningCGC: action.MiningCGC,
+        DailyIncome: action.DailyIncome,
+      },
     }
   }
 
@@ -73,21 +83,7 @@ export const ActionCreatorsList = {
     login: string,
     email: string,
     location: string,
-    invitedID: string,
-    BudgetInfo: {
-      CGC: {
-        price: string
-        value2: string
-      }
-      MiningCGC: {
-        price: string
-        value2: string
-      }
-      DailyIncome: {
-        price: string
-        value2: string
-      }
-    }
+    invitedID: string
   ) =>
     ({
       type: "SET_USER_DATA",
@@ -97,15 +93,35 @@ export const ActionCreatorsList = {
       email,
       location,
       invitedID,
-      BudgetInfo,
+    } as const),
+
+  setUserFinancesInfoActionCreator: (
+    CGC: {
+      price: string
+      value2: string
+    },
+    MiningCGC: {
+      price: string
+      value2: string
+    },
+    DailyIncome: {
+      price: string
+      value2: string
+    }
+  ) =>
+    ({
+      type: "SET_USER_FINANCES_INFO",
+      CGC,
+      MiningCGC,
+      DailyIncome,
     } as const),
 }
 
 //    *THUNKS*   //
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
-// Get dialogs chats list
-export const getUserDataThunkCreator = (): ThunkType => {
+// Get user credentials
+export const getUserCredentialsThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     await axios.get("").then((res: any) => {
       dispatch(
@@ -115,8 +131,22 @@ export const getUserDataThunkCreator = (): ThunkType => {
           res.data.login,
           res.data.email,
           res.data.location,
-          res.data.invitedID,
-          res.data.BudgetInfo
+          res.data.invitedID
+        )
+      )
+    })
+  }
+}
+
+// Get user finances info
+export const getUserFinancesInfoThunkCreator = (): ThunkType => {
+  return async (dispatch, getState: any) => {
+    await axios.get("").then((res: any) => {
+      dispatch(
+        ActionCreatorsList.setUserFinancesInfoActionCreator(
+          res.data.CGC,
+          res.data.MiningCGC,
+          res.data.DailyIncome
         )
       )
     })

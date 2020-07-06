@@ -11,14 +11,13 @@ import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem
 
 // EXTRA IMPORTS //
 import { Feather } from "@expo/vector-icons"
-import { FontAwesome } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {}
 
 const Profile: React.FC<PropsType> = (props) => {
-  const [isAdmin, setIsAdmin] = useState(true as boolean)
+  const [isAdmin, setIsAdmin] = useState(false as boolean)
   const Stack = createStackNavigator()
 
   return (

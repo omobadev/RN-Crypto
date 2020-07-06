@@ -37,9 +37,11 @@ const NonAdminContent: React.FC<PropsType> = (props) => {
         />
         <CircleBtbItem
           icon={<FontAwesome name="dollar" size={24} color="black" />}
+          onPress={() => {}}
         />
         <CircleBtbItem
           icon={<Feather name="phone-call" size={24} color="black" />}
+          onPress={() => {}}
         />
       </View>
     </View>
