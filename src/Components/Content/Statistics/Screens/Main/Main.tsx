@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -10,13 +10,29 @@ import Body from "./Body/Body"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  MonthlyIncome: string | null
+  OverallIncome: string | null
+  ConnectionsAmount: string | null
+
+  getStatsInfoThunkCreator: () => void
+}
 
 const Main: React.FC<PropsType> = (props) => {
+  useEffect(() => {
+    props.getStatsInfoThunkCreator()
+  }, [])
+
+  const StatsInfo = {
+    MonthlyIncome: props.MonthlyIncome,
+    OverallIncome: props.OverallIncome,
+    ConnectionsAmount: props.ConnectionsAmount,
+  }
+
   return (
     <View>
       <Header />
-      <Body />
+      <Body StatsInfo={StatsInfo} />
     </View>
   )
 }

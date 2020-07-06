@@ -9,14 +9,29 @@ import LineItem from "./LineItem/LineItem"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  StatsInfo: {
+    MonthlyIncome: string | null
+    OverallIncome: string | null
+    ConnectionsAmount: string | null
+  }
+}
 
 const Body: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <LineItem title={"Доход за месяц"} desc={"200 000 рублей"} />
-      <LineItem title={"Доход за всё время "} desc={"1 200 000 рублей   "} />
-      <LineItem title={"Количество подключений  "} desc={"35"} />
+      <LineItem
+        title={"Доход за месяц"}
+        desc={`${props.StatsInfo.MonthlyIncome || "0"} рублей`}
+      />
+      <LineItem
+        title={"Доход за всё время "}
+        desc={`${props.StatsInfo.OverallIncome || "0"} рублей`}
+      />
+      <LineItem
+        title={"Количество подключений  "}
+        desc={String(props.StatsInfo.ConnectionsAmount || "0")}
+      />
     </View>
   )
 }

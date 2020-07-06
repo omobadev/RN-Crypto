@@ -8,24 +8,37 @@ import Main from "./Main"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { getStatsInfoThunkCreator } from "~/Redux/Reducers/StatsReducers/StatsGetReducer/StatsGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
-type MapStateToPropsType = {}
+type MapStateToPropsType = {
+  MonthlyIncome: string | null
+  OverallIncome: string | null
+  ConnectionsAmount: string | null
+}
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  getStatsInfoThunkCreator: () => void
+}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
-  return {}
+  return {
+    MonthlyIncome: state.StatsGetState.MonthlyIncome,
+    OverallIncome: state.StatsGetState.OverallIncome,
+    ConnectionsAmount: state.StatsGetState.ConnectionsAmount,
+  }
 }
 
 const MainContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      getStatsInfoThunkCreator: getStatsInfoThunkCreator,
+    }
   )
 )(Main)
 
