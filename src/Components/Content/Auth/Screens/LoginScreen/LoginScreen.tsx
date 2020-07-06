@@ -9,7 +9,9 @@ import InputSection from "./InputSection/InputSection"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  LoginUserThunkCreator: (email: string, password: string) => void
+}
 
 const LoginScreen: React.FC<PropsType> = (props) => {
   return (
@@ -18,7 +20,7 @@ const LoginScreen: React.FC<PropsType> = (props) => {
       source={require("~/Images/bg-2.png")}
     >
       <Image style={styles.logo} source={require("~/Images/logo-big.png")} />
-      <InputSection />
+      <InputSection LoginUserThunkCreator={props.LoginUserThunkCreator} />
     </ImageBackground>
   )
 }

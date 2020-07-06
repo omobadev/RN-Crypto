@@ -91,40 +91,43 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
-    const b64EncodeUnicode = (str: string) => {
-      return Base64.btoa(
-        encodeURIComponent(str).replace(
-          /%([0-9A-F]{2})/g,
-          function toSolidBytes(match, p1) {
-            return String.fromCharCode(("0x" + p1) as any)
-          }
-        )
-      )
-    }
-
-    function encode_js(data: any) {
-      let pub = `-----BEGIN PUBLIC KEY-----
-      MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALqbHeRLCyOdykC5SDLqI49ArYGYG1mq
-      aH9/GnWjGavZM02fos4lc2w6tCchcUBNtJvGqKwhC5JEnx3RYoSX2ucCAwEAAQ==
-      -----END PUBLIC KEY-----`
-      var crypt = new JSEncrypt()
-      crypt.setPublicKey(pub)
-      return crypt.encrypt(data)
-    }
-
     const data = {
-      login: b64EncodeUnicode(String(state.AuthState.UserLogin)),
-      password: b64EncodeUnicode(String(state.AuthState.UserPassword)),
-      invitedID: b64EncodeUnicode(String(state.AuthState.UserInvitedID)),
-      name: b64EncodeUnicode(String(state.AuthState.UserName)),
-      email: b64EncodeUnicode(String(state.AuthState.Email)),
-      country: b64EncodeUnicode(String(state.AuthState.Country)),
-      city: b64EncodeUnicode(String(state.AuthState.City)),
-      secretCode: b64EncodeUnicode(String(secretCode)),
+      login: Base64(String(state.AuthState.UserLogin)),
+      password: Base64(String(state.AuthState.UserPassword)),
+      invitedID: Base64(String(state.AuthState.UserInvitedID)),
+      name: Base64(String(state.AuthState.UserName)),
+      email: Base64(String(state.AuthState.Email)),
+      country: Base64(String(state.AuthState.Country)),
+      city: Base64(String(state.AuthState.City)),
+      secretCode: Base64(String(secretCode)),
     }
 
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
+// Login user
+export const LoginUserThunkCreator = (
+  email: string,
+  password: string
+): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    const data = {
+      email: Base64(String(email)),
+      password: Base64(String(password)),
+    }
+
+    await axios
+      .post("", JSON.stringify(data))
       .then((res) => {
         console.log(res)
       })

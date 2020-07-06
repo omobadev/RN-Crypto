@@ -47,4 +47,15 @@ const Base64 = {
   },
 }
 
-export default Base64
+const b64EncodeUnicode = (str: string) => {
+  return Base64.btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(
+      match,
+      p1
+    ) {
+      return String.fromCharCode(("0x" + p1) as any)
+    })
+  )
+}
+
+export default b64EncodeUnicode

@@ -17,7 +17,9 @@ import Button from "~/Components/Shared/Components/Button/Button"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  LoginUserThunkCreator: (email: string, password: string) => void
+}
 
 const { width, height } = Dimensions.get("window")
 
@@ -28,7 +30,9 @@ const InputSection: React.FC<PropsType> = (props) => {
         email: "" as string,
         password: "" as string,
       }}
-      onSubmit={(values: any) => {}}
+      onSubmit={(values: any) => {
+        props.LoginUserThunkCreator(values.email, values.password)
+      }}
     >
       {(FormikProps) => (
         <>
