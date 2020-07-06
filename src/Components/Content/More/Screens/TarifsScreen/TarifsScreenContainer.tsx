@@ -8,12 +8,18 @@ import TarifsScreen from "./TarifsScreen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { getTarifsListThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer/ExtraGetReducer"
+import {
+  getTarifsInfoThunkCreator,
+  getTarifsListThunkCreator,
+} from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer/ExtraGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
+  PaymentAmount: string | null
+  endDate: string | null
+
   TarifsList: Array<{
     color: string
     sale: string
@@ -23,6 +29,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
+  getTarifsInfoThunkCreator: () => void
   getTarifsListThunkCreator: () => void
 }
 
@@ -31,6 +38,8 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     TarifsList: state.ExtraGetState.TarifsList,
+    PaymentAmount: state.ExtraGetState.PaymentAmount,
+    endDate: state.ExtraGetState.endDate,
   }
 }
 
@@ -38,6 +47,7 @@ const TarifsScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
+      getTarifsInfoThunkCreator: getTarifsInfoThunkCreator,
       getTarifsListThunkCreator: getTarifsListThunkCreator,
     }
   )

@@ -11,6 +11,9 @@ import Body from "./Body/Body"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  PaymentAmount: string | null
+  endDate: string | null
+
   TarifsList: Array<{
     color: string
     sale: string
@@ -18,17 +21,19 @@ type PropsType = {
     duration: string
   }>
 
+  getTarifsInfoThunkCreator: () => void
   getTarifsListThunkCreator: () => void
 }
 
 const TarifsScreen: React.FC<PropsType> = (props) => {
   useEffect(() => {
+    props.getTarifsInfoThunkCreator()
     props.getTarifsListThunkCreator()
   }, [])
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header PaymentAmount={props.PaymentAmount} endDate={props.endDate} />
       <Body TarifsList={props.TarifsList} />
     </View>
   )

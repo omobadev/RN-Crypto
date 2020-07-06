@@ -9,19 +9,22 @@ import ListItem from "./ListItem/ListItem"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  PaymentAmount: string | null
+  endDate: string | null
+}
 
 const Header: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <ListItem
         title="Абонентсая плата"
-        desc="1000 GC"
+        desc={`${props.PaymentAmount || "0"} GC`}
         descStyle={{ fontSize: 16, fontWeight: "bold", color: "#006F5F" }}
       />
       <ListItem
         title="Мой тариф"
-        desc="Доступен до 01.01.2021"
+        desc={`Доступен до ${props.endDate || ""}`}
         descStyle={{ fontSize: 16, color: "#9E9E9E" }}
       />
       <ListItem
