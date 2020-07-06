@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View, Text, Image, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -13,9 +13,15 @@ import NonAdminContent from "./NonAdminContent/NonAdminContent"
 type PropsType = {
   navigation: any
   route: any
+
+  getUserDataThunkCreator: () => void
 }
 
 const Main: React.FC<PropsType> = (props) => {
+  useEffect(() => {
+    props.getUserDataThunkCreator()
+  }, [])
+
   const userData = {
     ID: "2099321234",
     name: "Дарья Иванова",
@@ -27,10 +33,7 @@ const Main: React.FC<PropsType> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.avatar}
-        source={require("../../../../../Images/avatar.png")}
-      />
+      <Image style={styles.avatar} source={require("~/Images/avatar.png")} />
       {props.route.params.isAdmin ? (
         <AdminContent userData={userData} />
       ) : (

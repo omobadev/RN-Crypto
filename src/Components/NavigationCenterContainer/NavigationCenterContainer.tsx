@@ -7,7 +7,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import Dialogs from "~/Components/Content/Dialogs/Dialogs"
 import Finances from "~/Components/Content/Finances/Finances"
 import Statistics from "~/Components/Content/Statistics/Statistics"
-import Profile from "~/Components/Content/Profile/ProfileContainer"
+import Profile from "~/Components/Content/Profile/Profile"
 import More from "~/Components/Content/More/More"
 
 // EXTRA IMPORTS //
