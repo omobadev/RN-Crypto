@@ -21,19 +21,22 @@ const SocialMediaSection: React.FC<PropsType> = (props) => {
     <View style={styles.container}>
       <Text style={styles.title}>Поделится:</Text>
       <View style={styles.content_wrap}>
-        <TouchableOpacity>
-          <Entypo name="twitter-with-circle" size={38} color="#50ABF1" />
-        </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => Linking.openURL(`whatsapp://send?text=${"3"}`)}
+          onPress={() =>
+            Linking.openURL(`whatsapp://send?text=${props.referaLink}`)
+          }
         >
           <Ionicons name="logo-whatsapp" size={39} color="#1BD741" />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => Linking.openURL(`tg://send?text=${props.referaLink}`)}
+        >
           <FontAwesome name="telegram" size={38} color="#61A8DE" />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => Linking.openURL(`vk://send?text=${props.referaLink}`)}
+        >
           <Entypo name="vk-with-circle" size={38} color="#44678D" />
         </TouchableOpacity>
       </View>
