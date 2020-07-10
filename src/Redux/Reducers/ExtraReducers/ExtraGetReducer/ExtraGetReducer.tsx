@@ -10,6 +10,8 @@ const initialState = {
   PaymentAmount: null as string | null,
   endDate: null as string | null,
 
+  ReferalLink: null as string | null,
+
   TarifsList: [] as Array<{
     color: string
     sale: string
@@ -37,6 +39,13 @@ const ExtraGetReducer = (
     return {
       ...state,
       TarifsList: action.tarifsList,
+    }
+  }
+
+  if (action.type === "SET_REFERAL_LINK") {
+    return {
+      ...state,
+      ReferalLink: action.referalLink,
     }
   }
 
@@ -70,6 +79,12 @@ export const ActionCreatorsList = {
       type: "SET_TARIFS_LIST",
       tarifsList,
     } as const),
+
+  setReferaLinkActionCreator: (referalLink: string) =>
+    ({
+      type: "SET_REFERAL_LINK",
+      referalLink,
+    } as const),
 }
 
 //    *THUNKS*   //
@@ -94,6 +109,15 @@ export const getTarifsListThunkCreator = (): ThunkType => {
           res.data.endDate
         )
       )
+    })
+  }
+}
+
+// Get referal link
+export const getReferalLinkThunkCreator = (): ThunkType => {
+  return async (dispatch, getState: any) => {
+    await axios.get("").then((res: any) => {
+      dispatch(ActionCreatorsList.setReferaLinkActionCreator(res.data))
     })
   }
 }

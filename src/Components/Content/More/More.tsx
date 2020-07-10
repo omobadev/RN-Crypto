@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 
 // COMPONENTS IMPORTS //
 import MainContainer from "./Screens/Main/MainContainer"
-import ReferalLinkScreen from "./Screens/ReferalLinkScreen/ReferalLinkScreen"
+import ReferalLinkScreenContainer from "./Screens/ReferalLinkScreen/ReferalLinkScreenContainer"
 import TarifsScreenContainer from "./Screens/TarifsScreen/TarifsScreenContainer"
 import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
 
@@ -37,7 +37,7 @@ const More: React.FC<PropsType> = (props) => {
 
       <Stack.Screen
         name="ReferalLinkScreen"
-        component={ReferalLinkScreen}
+        component={ReferalLinkScreenContainer}
         options={({ navigation, route }: any) => ({
           headerStyle: {
             elevation: 0,

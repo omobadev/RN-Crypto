@@ -4,33 +4,43 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import Main from "./Main"
+import CreateNewDialog from "./CreateNewDialog"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { getUsersListThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+import { createNewDialogThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
   navigation: any
+  UsersList: Array<any>
 }
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  getUsersListThunkCreator: () => void
+  createNewDialogThunkCreator: (usersList: Array<any>) => void
+}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
+    UsersList: state.ChatsGetState.UsersList,
   }
 }
 
-const MainContainer = compose(
+const CreateNewDialogContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      getUsersListThunkCreator: getUsersListThunkCreator,
+      createNewDialogThunkCreator: createNewDialogThunkCreator,
+    }
   )
-)(Main)
+)(CreateNewDialog)
 
-export default MainContainer
+export default CreateNewDialogContainer

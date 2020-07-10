@@ -4,33 +4,41 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import Main from "./Main"
+import ReferalLinkScreen from "./ReferalLinkScreen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { getReferalLinkThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer/ExtraGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
   navigation: any
+
+  ReferalLink: string
 }
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  getReferalLinkThunkCreator: () => void
+}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
+    ReferalLink: state.ExtraGetState.ReferalLink,
   }
 }
 
-const MainContainer = compose(
+const ReferalLinkScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      getReferalLinkThunkCreator: getReferalLinkThunkCreator,
+    }
   )
-)(Main)
+)(ReferalLinkScreen)
 
-export default MainContainer
+export default ReferalLinkScreenContainer

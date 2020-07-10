@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -12,13 +12,20 @@ import SocialMediaSection from "./SocialMediaSection/SocialMediaSection"
 
 type PropsType = {
   navigation: any
+  ReferalLink: string
+
+  getReferalLinkThunkCreator: () => void
 }
 
 const ReferalLinkScreen: React.FC<PropsType> = (props) => {
+  useEffect(() => {
+    props.getReferalLinkThunkCreator()
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Header referaLink={"https://qwe213124ew123"} />
-      <SocialMediaSection />
+      <Header referaLink={props.ReferalLink} />
+      <SocialMediaSection referaLink={props.ReferalLink} />
     </View>
   )
 }

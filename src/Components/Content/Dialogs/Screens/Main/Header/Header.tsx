@@ -1,6 +1,11 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { ImageBackground, TextInput, StyleSheet } from "react-native"
+import {
+  ImageBackground,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -10,7 +15,9 @@ import { AntDesign } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const TopBox: React.FC<PropsType> = (props) => {
   return (
@@ -21,7 +28,13 @@ const TopBox: React.FC<PropsType> = (props) => {
     >
       <CustomHeader
         title="Сообщения"
-        rightIcon={<AntDesign name="plus" size={24} color="white" />}
+        rightIcon={
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("CreateNewDialog")}
+          >
+            <AntDesign name="plus" size={24} color="white" />
+          </TouchableOpacity>
+        }
       />
       <TextInput
         placeholder="Поиск"

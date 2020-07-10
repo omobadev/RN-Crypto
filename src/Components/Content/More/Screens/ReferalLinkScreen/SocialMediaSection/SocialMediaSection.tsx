@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import * as Linking from "expo-linking"
 
 // COMPONENTS IMPORTS //
 
@@ -11,7 +12,9 @@ import { Ionicons } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  referaLink: string
+}
 
 const SocialMediaSection: React.FC<PropsType> = (props) => {
   return (
@@ -21,7 +24,9 @@ const SocialMediaSection: React.FC<PropsType> = (props) => {
         <TouchableOpacity>
           <Entypo name="twitter-with-circle" size={38} color="#50ABF1" />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => Linking.openURL(`whatsapp://send?text=${"3"}`)}
+        >
           <Ionicons name="logo-whatsapp" size={39} color="#1BD741" />
         </TouchableOpacity>
         <TouchableOpacity>

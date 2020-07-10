@@ -10,6 +10,8 @@ import store from "~/Redux/ReduxStore"
 import NavigationCenterContainer from "~/Components/NavigationCenterContainer/NavigationCenterContainer"
 import Auth from "~/Components/Content/Auth/Auth"
 
+import CreateNewDialogContainer from "~/Components/Content/Dialogs/Screens/CreateNewDialog/CreateNewDialogContainer"
+
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
@@ -34,6 +36,17 @@ const App: React.FC<PropsType> = (props) => {
               component={NavigationCenterContainer}
               options={({ navigation, route }: any) => ({
                 headerShown: false,
+              })}
+            />
+            <Stack.Screen
+              name="CreateNewDialog"
+              component={CreateNewDialogContainer}
+              options={({ navigation, route }: any) => ({
+                title: "Новый диалог",
+                headerStyle: {
+                  backgroundColor: "#006F5F",
+                },
+                headerTintColor: "white",
               })}
             />
           </Stack.Navigator>

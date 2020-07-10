@@ -22,7 +22,7 @@ const CustomHeader: React.FC<PropsType> = (props) => {
       <TouchableOpacity>{props.leftIcon}</TouchableOpacity>
       <Text style={styles.title}>{props.title}</Text>
 
-      <TouchableOpacity>{props.rightIcon}</TouchableOpacity>
+      {props.rightIcon}
     </SafeAreaView>
   )
 }

@@ -10,12 +10,14 @@ import TopTabNavigator from "./TopTabNavigator/TopTabNavigator"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  navigation: any
+}
 
 const Main: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={props.navigation} />
       <TopTabNavigator />
     </View>
   )
