@@ -1,10 +1,10 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
 import axios from "axios"
-const { JSEncrypt } = require("jsencrypt")
-import Base64 from "~/Redux/Code/Base64"
+const JWT = require("expo-jwt")
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -91,16 +91,19 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
-    const data = {
-      login: Base64(String(state.AuthState.UserLogin)),
-      password: Base64(String(state.AuthState.UserPassword)),
-      invitedID: Base64(String(state.AuthState.UserInvitedID)),
-      name: Base64(String(state.AuthState.UserName)),
-      email: Base64(String(state.AuthState.Email)),
-      country: Base64(String(state.AuthState.Country)),
-      city: Base64(String(state.AuthState.City)),
-      secretCode: Base64(String(secretCode)),
-    }
+    const data = JWT.encode(
+      {
+        login: state.AuthState.UserLogin,
+        password: state.AuthState.UserPassword,
+        invitedID: state.AuthState.UserInvitedID,
+        name: state.AuthState.UserName,
+        email: state.AuthState.Email,
+        country: state.AuthState.Country,
+        city: state.AuthState.City,
+        secretCode: secretCode,
+      },
+      key
+    )
 
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
@@ -119,12 +122,13 @@ export const LoginUserThunkCreator = (
   password: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState()
-
-    const data = {
-      email: Base64(String(email)),
-      password: Base64(String(password)),
-    }
+    const data = JWT.encode(
+      {
+        email: email,
+        password: password,
+      },
+      key
+    )
 
     await axios
       .post("", JSON.stringify(data))
