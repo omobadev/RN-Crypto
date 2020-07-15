@@ -132,7 +132,7 @@ export const LoginUserThunkCreator = (
     )
 
     await axios
-      .post("", JSON.stringify(data))
+      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then((res) => {
         console.log(res)
       })

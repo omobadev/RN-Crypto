@@ -124,8 +124,14 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 // Get transactions history
 export const getTransactionsHistoryThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(ActionCreatorsList.setTransactionsHistoryActionCreator(res.data))
-    })
+    await axios
+      .post("http://cgc.cgc.capital/api_interface", {
+        action: "transactionsList",
+      })
+      .then((res: any) => {
+        dispatch(
+          ActionCreatorsList.setTransactionsHistoryActionCreator(res.data)
+        )
+      })
   }
 }
