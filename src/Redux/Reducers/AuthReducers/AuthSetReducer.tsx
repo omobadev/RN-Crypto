@@ -124,6 +124,7 @@ export const LoginUserThunkCreator = (
   return async (dispatch, getState: any) => {
     const data = JWT.encode(
       {
+        action: "login",
         email: email,
         password: password,
       },
