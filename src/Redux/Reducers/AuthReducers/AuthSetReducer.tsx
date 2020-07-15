@@ -1,5 +1,6 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
+import AsyncStorage from "@react-native-community/async-storage"
 import axios from "axios"
 const JWT = require("expo-jwt")
 
@@ -107,8 +108,8 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
 
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
-      .then((res) => {
-        console.log(res)
+      .then(async (res) => {
+        await AsyncStorage.setItem("uid", res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -133,8 +134,8 @@ export const LoginUserThunkCreator = (
 
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
-      .then((res) => {
-        console.log(res)
+      .then(async (res) => {
+        await AsyncStorage.setItem("uid", res.data)
       })
       .catch((err) => {
         console.log(err)

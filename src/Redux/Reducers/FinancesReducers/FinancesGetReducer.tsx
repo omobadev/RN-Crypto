@@ -1,5 +1,6 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
+import AsyncStorage from "@react-native-community/async-storage"
 import axios from "axios"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
@@ -124,9 +125,11 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 // Get transactions history
 export const getTransactionsHistoryThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
+    const uid = await AsyncStorage.getItem("uid")
     await axios
       .post("http://cgc.cgc.capital/api_interface", {
         action: "transactionsList",
+        uid: uid,
       })
       .then((res: any) => {
         dispatch(
