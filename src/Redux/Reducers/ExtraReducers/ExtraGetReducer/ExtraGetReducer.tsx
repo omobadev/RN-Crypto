@@ -1,8 +1,11 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
 import axios from "axios"
+// @ts-ignore
+import JWT from "expo-jwt"
 
 import { AppStateType, InferActionsTypes } from "~/Redux/ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -116,8 +119,26 @@ export const getTarifsListThunkCreator = (): ThunkType => {
 // Get referal link
 export const getReferalLinkThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(ActionCreatorsList.setReferaLinkActionCreator(res.data))
-    })
+    const state = getState()
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JWT.encode(
+          {
+            action: "reflink",
+            uid: state.AuthState.userID,
+          },
+          key
+        )
+      )
+      .then((res: any) => {
+        dispatch(ActionCreatorsList.setReferaLinkActionCreator(res.data))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }

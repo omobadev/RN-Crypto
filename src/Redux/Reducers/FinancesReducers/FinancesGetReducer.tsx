@@ -5,7 +5,6 @@ import axios from "axios"
 import JWT from "expo-jwt"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
-import { State } from "react-native-gesture-handler"
 const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
@@ -113,15 +112,28 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 // Get user finances info
 export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(
-        ActionCreatorsList.setUserFinancesInfoActionCreator(
-          res.data.CGC,
-          res.data.MiningCGC,
-          res.data.DailyIncome
+    const state = getState()
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JWT.encode(
+          {
+            action: "finance",
+            uid: state.AuthState.userID,
+          },
+          key
         )
       )
-    })
+      .then(async (res: any) => {
+        await console.log(JWT.decode(res.data.data, key))
+
+        // dispatch(
+        //   ActionCreatorsList.setUserFinancesInfoActionCreator(
+
+        //   )
+        // )
+      })
   }
 }
 
