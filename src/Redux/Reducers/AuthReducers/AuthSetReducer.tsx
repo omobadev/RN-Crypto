@@ -12,6 +12,7 @@ const key = "shh"
 
 const initialState = {
   isAuthentificated: false as boolean,
+  userID: null as string | null,
 
   UserLogin: null as string | null,
   UserPassword: null as string | null,
@@ -49,10 +50,11 @@ const AuthGetReducer = (
     }
   }
 
-  if (action.type === "SET_IS_AUTHENTIFICATED_STATUS") {
+  if (action.type === "SET_AUTHENTIFICATED_INFO") {
     return {
       ...state,
       isAuthentificated: action.isAuthentificatedStatus,
+      userID: action.uid,
     }
   }
 
@@ -93,10 +95,14 @@ export const ActionCreatorsList = {
       City,
     } as const),
 
-  setIsAuthentificatedStatusActionCreator: (isAuthentificatedStatus: boolean) =>
+  setAuthentificatedInfoActionCreator: (
+    isAuthentificatedStatus: boolean,
+    uid: string | null
+  ) =>
     ({
-      type: "SET_IS_AUTHENTIFICATED_STATUS",
+      type: "SET_AUTHENTIFICATED_INFO",
       isAuthentificatedStatus,
+      uid,
     } as const),
 }
 
@@ -126,12 +132,12 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
-        await AsyncStorage.setItem(
-          "uid",
-          JSON.stringify(JWT.decode(res.data.data, key).uid)
-        )
+        const uid = JSON.stringify(JWT.decode(res.data.data, key).uid)
+
+        await AsyncStorage.setItem("uid", uid)
+
         dispatch(
-          ActionCreatorsList.setIsAuthentificatedStatusActionCreator(true)
+          ActionCreatorsList.setAuthentificatedInfoActionCreator(true, uid)
         )
       })
       .catch((err) => {
@@ -160,12 +166,10 @@ export const LoginUserThunkCreator = (
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
-        await AsyncStorage.setItem(
-          "uid",
-          JSON.stringify(JWT.decode(res.data.data, key).uid)
-        )
+        const uid = JSON.stringify(JWT.decode(res.data.data, key).uid)
+        await AsyncStorage.setItem("uid", uid)
         dispatch(
-          ActionCreatorsList.setIsAuthentificatedStatusActionCreator(true)
+          ActionCreatorsList.setAuthentificatedInfoActionCreator(true, uid)
         )
       })
       .catch((err) => {
@@ -179,8 +183,9 @@ export const VerifyIfAuthentificatedThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     const uid = await AsyncStorage.getItem("uid")
     dispatch(
-      ActionCreatorsList.setIsAuthentificatedStatusActionCreator(
-        uid ? true : false
+      ActionCreatorsList.setAuthentificatedInfoActionCreator(
+        uid ? true : false,
+        uid
       )
     )
   }

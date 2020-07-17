@@ -1,11 +1,11 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
-import AsyncStorage from "@react-native-community/async-storage"
 import axios from "axios"
 // @ts-ignore
 import JWT from "expo-jwt"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+import { State } from "react-native-gesture-handler"
 const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
@@ -128,12 +128,12 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 // Get transactions history
 export const getTransactionsHistoryThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    const uid = await AsyncStorage.getItem("uid")
+    const state = getState()
 
     const data = JWT.encode(
       {
         action: "transactionsList",
-        uid: uid,
+        uid: state.AuthState.userID,
       },
       key
     )
