@@ -2,7 +2,8 @@
 import { ThunkAction } from "redux-thunk"
 import AsyncStorage from "@react-native-community/async-storage"
 import axios from "axios"
-const JWT = require("expo-jwt")
+// @ts-ignore
+import JWT from "expo-jwt"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 const key = "shh"
@@ -10,6 +11,8 @@ const key = "shh"
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
+  isAuthentificated: false as boolean,
+
   UserLogin: null as string | null,
   UserPassword: null as string | null,
   UserInvitedID: null as string | null,
@@ -43,6 +46,13 @@ const AuthGetReducer = (
       Email: action.Email,
       Country: action.Country,
       City: action.City,
+    }
+  }
+
+  if (action.type === "SET_IS_AUTHENTIFICATED_STATUS") {
+    return {
+      ...state,
+      isAuthentificated: action.isAuthentificatedStatus,
     }
   }
 
@@ -82,6 +92,12 @@ export const ActionCreatorsList = {
       Country,
       City,
     } as const),
+
+  setIsAuthentificatedStatusActionCreator: (isAuthentificatedStatus: boolean) =>
+    ({
+      type: "SET_IS_AUTHENTIFICATED_STATUS",
+      isAuthentificatedStatus,
+    } as const),
 }
 
 //    *THUNKS*   //
@@ -94,9 +110,10 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
 
     const data = JWT.encode(
       {
+        action: "register",
         login: state.AuthState.UserLogin,
         password: state.AuthState.UserPassword,
-        invitedID: state.AuthState.UserInvitedID,
+        inviteID: "AAA",
         name: state.AuthState.UserName,
         email: state.AuthState.Email,
         country: state.AuthState.Country,
@@ -109,10 +126,18 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
-        await AsyncStorage.setItem("uid", res.data)
+        await AsyncStorage.setItem(
+          "uid",
+          JSON.stringify(JWT.decode(res.data.data, key).uid)
+        )
+        dispatch(
+          ActionCreatorsList.setIsAuthentificatedStatusActionCreator(true)
+        )
       })
       .catch((err) => {
-        console.log(err)
+        if (err.response) {
+          console.log(err.response)
+        }
       })
   }
 }
@@ -135,10 +160,28 @@ export const LoginUserThunkCreator = (
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
-        await AsyncStorage.setItem("uid", res.data)
+        await AsyncStorage.setItem(
+          "uid",
+          JSON.stringify(JWT.decode(res.data.data, key).uid)
+        )
+        dispatch(
+          ActionCreatorsList.setIsAuthentificatedStatusActionCreator(true)
+        )
       })
       .catch((err) => {
         console.log(err)
       })
+  }
+}
+
+// Verify if authentificated
+export const VerifyIfAuthentificatedThunkCreator = (): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const uid = await AsyncStorage.getItem("uid")
+    dispatch(
+      ActionCreatorsList.setIsAuthentificatedStatusActionCreator(
+        uid ? true : false
+      )
+    )
   }
 }

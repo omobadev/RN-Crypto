@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { ImageBackground, StyleSheet } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage"
 
 // COMPONENTS IMPORTS //
 import Body from "./Body/Body"

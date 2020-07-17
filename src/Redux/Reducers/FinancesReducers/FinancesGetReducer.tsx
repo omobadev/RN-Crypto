@@ -2,8 +2,11 @@
 import { ThunkAction } from "redux-thunk"
 import AsyncStorage from "@react-native-community/async-storage"
 import axios from "axios"
+// @ts-ignore
+import JWT from "expo-jwt"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -126,14 +129,22 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 export const getTransactionsHistoryThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     const uid = await AsyncStorage.getItem("uid")
-    await axios
-      .post("http://cgc.cgc.capital/api_interface", {
+
+    const data = JWT.encode(
+      {
         action: "transactionsList",
         uid: uid,
-      })
+      },
+      key
+    )
+
+    await axios
+      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then((res: any) => {
         dispatch(
-          ActionCreatorsList.setTransactionsHistoryActionCreator(res.data)
+          ActionCreatorsList.setTransactionsHistoryActionCreator(
+            JWT.decode(res.data.data, key)
+          )
         )
       })
   }

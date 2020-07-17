@@ -12,7 +12,9 @@ import PasswordScreenContainer from "~/Components/Shared/HelpersScreens/Password
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  route: any
+}
 
 const Registation: React.FC<PropsType> = (props) => {
   const Stack = createStackNavigator()

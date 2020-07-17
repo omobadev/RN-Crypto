@@ -1,5 +1,8 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { View, ActivityIndicator, StyleSheet } from "react-native"
+import { compose } from "redux"
+import { connect } from "react-redux"
 
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
@@ -13,23 +16,36 @@ import Auth from "~/Components/Content/Auth/Auth"
 import CreateNewDialogContainer from "~/Components/Content/Dialogs/Screens/CreateNewDialog/CreateNewDialogContainer"
 
 // EXTRA IMPORTS //
+import { VerifyIfAuthentificatedThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  isAuthentificated: boolean
+
+  VerifyIfAuthentificatedThunkCreator: () => any
+}
 
 console.disableYellowBox = true
 
 const App: React.FC<PropsType> = (props) => {
-  const [isAuthentificated, setIsAuthentificated] = useState(false as boolean)
+  const [loading, setLoading] = useState(true as boolean)
   const Stack = createStackNavigator()
+
+  useEffect(() => {
+    props.VerifyIfAuthentificatedThunkCreator().then(() => setLoading(false))
+  }, [])
 
   return (
     <Provider store={store}>
       <NavigationContainer
         theme={{ dark: true, colors: { background: "#E5E5E5" } }}
       >
-        {isAuthentificated ? (
+        {loading ? (
+          <View style={styles.loading_container}>
+            <ActivityIndicator color={"#004B3C"} size={"large"} />
+          </View>
+        ) : props.isAuthentificated ? (
           <Stack.Navigator initialRouteName="NavigationCenterContainer">
             <Stack.Screen
               name="NavigationCenterContainer"
@@ -58,4 +74,37 @@ const App: React.FC<PropsType> = (props) => {
   )
 }
 
-export default App
+const styles = StyleSheet.create({
+  loading_container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+})
+
+// TYPES
+type MapStateToPropsType = {}
+
+/////////////////////////////////////////////////////////////////
+
+const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
+  return {
+    isAuthentificated: state.AuthState.isAuthentificated,
+  }
+}
+
+const AppContainer = compose(
+  connect(mapStateToProps, {
+    VerifyIfAuthentificatedThunkCreator: VerifyIfAuthentificatedThunkCreator,
+  })
+)(App)
+
+const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  )
+}
+
+export default AppWrapper
