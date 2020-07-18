@@ -50,7 +50,7 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleStyle: {
             color: "#00392D",
           },
-          title: "Финансы",
+          title: "История транзакций",
           headerTitleAlign: "center",
         })}
       />

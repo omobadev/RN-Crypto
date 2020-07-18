@@ -134,6 +134,11 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
         //   )
         // )
       })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
 

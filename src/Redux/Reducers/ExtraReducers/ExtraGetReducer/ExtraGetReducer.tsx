@@ -132,8 +132,13 @@ export const getReferalLinkThunkCreator = (): ThunkType => {
           key
         )
       )
-      .then((res: any) => {
-        dispatch(ActionCreatorsList.setReferaLinkActionCreator(res.data))
+      .then(async (res: any) => {
+        await console.log(JWT.decode(res.data.data, key).reflink)
+        dispatch(
+          ActionCreatorsList.setReferaLinkActionCreator(
+            JWT.decode(res.data.data, key).reflink
+          )
+        )
       })
       .catch((err) => {
         if (err.response) {
