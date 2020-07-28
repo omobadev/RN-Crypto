@@ -1,43 +1,35 @@
 // PLUGINS IMPORTS //
-import React from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import Groups from "./Groups"
+import DialogItemMenu from "./DialogItemMenu"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { getGroupsChatsListThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
-  navigation: any
-  GroupsChatsList: Array<any>
+  route: any
 }
 
-type MapDispatchToPropsType = {
-  getGroupsChatsListThunkCreator: () => void
-}
+type MapDispatchToPropsType = {}
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
-    navigation: props.navigation,
-    GroupsChatsList: state.ChatsGetState.GroupsChatsList,
+    route: props.route,
   }
 }
 
-const GroupsContainer = compose(
+const DialogItemContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {
-      getGroupsChatsListThunkCreator: getGroupsChatsListThunkCreator,
-    }
+    {}
   )
-)(Groups)
+)(DialogItemMenu)
 
-export default GroupsContainer
+export default DialogItemContainer

@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
-import TopTabNavigator from "./TopTabNavigator/TopTabNavigator"
+import Dialogs from "./Dialogs/Dialogs"
 
 // EXTRA IMPORTS //
 
@@ -12,13 +12,20 @@ import TopTabNavigator from "./TopTabNavigator/TopTabNavigator"
 
 type PropsType = {
   navigation: any
+
+  DialogsChatsList: Array<any>
+  getDialogsChatsListThunkCreator: () => void
 }
 
 const Main: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Header navigation={props.navigation} />
-      <TopTabNavigator />
+      <Dialogs
+        navigation={props.navigation}
+        DialogsChatsList={props.DialogsChatsList}
+        getDialogsChatsListThunkCreator={props.getDialogsChatsListThunkCreator}
+      />
     </View>
   )
 }

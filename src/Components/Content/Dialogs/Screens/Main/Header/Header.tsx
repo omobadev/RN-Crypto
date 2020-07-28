@@ -47,7 +47,7 @@ const TopBox: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 5,
+    paddingBottom: 25,
   },
 
   input: {

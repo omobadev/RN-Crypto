@@ -1,7 +1,10 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { View, Text, StyleSheet } from "react-native"
-import Dialog, { DialogContent } from "react-native-popup-dialog"
+import Dialog, {
+  DialogContent,
+  ScaleAnimation,
+} from "react-native-popup-dialog"
 import { Formik } from "formik"
 import * as yup from "yup"
 import { TextInput, Button } from "react-native-paper"
@@ -32,6 +35,12 @@ const DialogsInputPopup: React.FC<PropsType> = (props) => {
       onTouchOutside={() => {
         props.setPopupVisible(false)
       }}
+      dialogAnimation={
+        new ScaleAnimation({
+          initialValue: 0,
+          useNativeDriver: true,
+        } as any)
+      }
     >
       <DialogContent style={styles.container}>
         <Formik

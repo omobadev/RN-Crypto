@@ -11,13 +11,7 @@ import { RectButton } from "react-native-gesture-handler"
 
 type PropsType = {
   navigation: any
-
-  chatID: string
-  name: string
-  avatar: string
-  latestMessage: string
-
-  date: string
+  dialog: any
 }
 
 const LineDialogItem: React.FC<PropsType> = (props) => {
@@ -27,24 +21,24 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
         style={styles.container}
         onPress={() =>
           props.navigation.navigate("DialogItem", {
-            userName: props.name,
-            avatar: props.avatar,
-            chatID: props.chatID,
+            userName: props.dialog.chTopic,
+            avatar: props.dialog.avatar,
+            chatInfo: props.dialog,
           })
         }
       >
         <View style={styles.credentials_wrap}>
           <View style={styles.img_wrap}>
             <Image source={require("~/Images/default-avatar.png")} />
-            <Text style={styles.letter}>{props.name.charAt(0)}</Text>
+            <Text style={styles.letter}>{props.dialog.chTopic.charAt(0)}</Text>
           </View>
           <View style={styles.text_wrap}>
-            <Text style={styles.name_text}>{props.name}</Text>
-            <Text style={styles.desc_text}>{props.latestMessage}</Text>
+            <Text style={styles.name_text}>{props.dialog.chTopic}</Text>
+            <Text style={styles.desc_text}>{props.dialog.chmText}</Text>
           </View>
         </View>
         <View>
-          <Text style={styles.timing}>{props.date}</Text>
+          <Text style={styles.timing}>{props.dialog.chmTS}</Text>
         </View>
       </RectButton>
       <View style={styles.divider} />

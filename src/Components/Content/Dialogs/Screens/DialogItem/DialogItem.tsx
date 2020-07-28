@@ -19,7 +19,7 @@ type PropsType = {
 }
 
 const DialogItem: React.FC<PropsType> = (props) => {
-  const chatID = props.route.params.chatID
+  const chatID = props.route.params.chatInfo.chatID
   useEffect(() => {
     props.getCurrentChatMessagesThunkCreator(chatID)
   }, [])
@@ -31,6 +31,7 @@ const DialogItem: React.FC<PropsType> = (props) => {
       <ScrollView
         ref={(ref) => (scrollView = ref)}
         onContentSizeChange={() => scrollView.scrollToEnd({ animated: true })}
+        showsVerticalScrollIndicator={false}
       >
         {props.currentChatMessages.reverse().map((message: any) => {
           return <MessageItem message={message} />

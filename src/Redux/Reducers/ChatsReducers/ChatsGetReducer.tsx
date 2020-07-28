@@ -12,7 +12,6 @@ const key = "shh"
 
 const initialState = {
   DialogsChatsList: [] as Array<any>,
-  GroupsChatsList: [] as Array<any>,
 
   currentChatMessages: [] as Array<any>,
 }
@@ -28,13 +27,6 @@ const ChatsGetReducer = (
     return {
       ...state,
       DialogsChatsList: action.dialogsChatsList,
-    }
-  }
-
-  if (action.type === "SET_GROUPS_CHATS_LIST") {
-    return {
-      ...state,
-      GroupsChatsList: action.groupsChatsList,
     }
   }
 
@@ -60,12 +52,6 @@ export const ActionCreatorsList = {
     ({
       type: "SET_DIALOGS_CHATS_LIST",
       dialogsChatsList,
-    } as const),
-
-  setGroupsChatsListActionCreator: (groupsChatsList: Array<any>) =>
-    ({
-      type: "SET_GROUPS_CHATS_LIST",
-      groupsChatsList,
     } as const),
 
   setCurrentChatMessagesActionCreator: (messages: Array<any>) =>
@@ -105,15 +91,6 @@ export const getDialogsChatsListThunkCreator = (): ThunkType => {
           console.log(err.response)
         }
       })
-  }
-}
-
-// Get groups chats list
-export const getGroupsChatsListThunkCreator = (): ThunkType => {
-  return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(ActionCreatorsList.setGroupsChatsListActionCreator(res.data))
-    })
   }
 }
 

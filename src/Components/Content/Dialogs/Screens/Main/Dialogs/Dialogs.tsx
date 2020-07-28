@@ -3,7 +3,7 @@ import React, { useEffect } from "react"
 import { ScrollView, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import LineDialogItem from "../Shared/LineDialogItem/LineDialogItem"
+import LineDialogItem from "./LineDialogItem/LineDialogItem"
 
 // EXTRA IMPORTS //
 
@@ -27,14 +27,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
         props.DialogsChatsList.length > 0 &&
         props.DialogsChatsList.map((dialog: any) => {
           return (
-            <LineDialogItem
-              navigation={props.navigation}
-              name={dialog.chTopic}
-              latestMessage={dialog.chmText}
-              avatar=""
-              date={dialog.chmTS}
-              chatID={dialog.chatID}
-            />
+            <LineDialogItem navigation={props.navigation} dialog={dialog} />
           )
         })}
     </ScrollView>
@@ -43,7 +36,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 11,
+    paddingTop: 5,
   },
 })
 

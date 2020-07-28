@@ -102,6 +102,7 @@ export const sendMessageThunkCreator = (
       )
       .then(async (res: any) => {
         dispatch(getCurrentChatMessagesThunkCreator(chatID))
+        dispatch(getDialogsChatsListThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
