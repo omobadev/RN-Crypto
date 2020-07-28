@@ -16,7 +16,11 @@ type PropsType = {
   usersList: Array<any>
 
   getUsersListThunkCreator: () => void
-  createNewDialogThunkCreator: (usersList: Array<any>) => void
+  createNewDialogThunkCreator: (
+    selectedUsersIDs: Array<any>,
+    chatTitle: string,
+    message: string
+  ) => void
 }
 
 const CreateNewDialog: React.FC<PropsType> = (props) => {
@@ -28,7 +32,12 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
   }, [])
 
   const onSubmit = (values: any) => {
-    props.createNewDialogThunkCreator(selectedUsersIDs)
+    setPopupVisible(false)
+    props.createNewDialogThunkCreator(
+      selectedUsersIDs,
+      values.title,
+      values.message
+    )
     props.navigation.goBack()
   }
 

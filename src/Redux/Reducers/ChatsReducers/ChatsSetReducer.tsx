@@ -6,6 +6,7 @@ import JWT from "expo-jwt"
 import AsyncStorage from "@react-native-community/async-storage"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+import { getDialogsChatsListThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
@@ -39,7 +40,9 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Create new dialog
 export const createNewDialogThunkCreator = (
-  selectedUsersIDs: Array<any>
+  selectedUsersIDs: Array<any>,
+  chatTitle: string,
+  message: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
     const uid = await AsyncStorage.getItem("uid")
@@ -52,14 +55,16 @@ export const createNewDialogThunkCreator = (
             {
               action: "new_user_chat_message",
               uid: uid,
+              topic: chatTitle,
               users: selectedUsersIDs,
-              message: "test",
+              message: message,
             },
             key
           )
         )
       )
       .then(async (res: any) => {
+        dispatch(getDialogsChatsListThunkCreator())
         console.log(JWT.decode(res.data.data, key))
       })
       .catch((err) => {

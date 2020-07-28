@@ -21,7 +21,11 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
   getUsersListThunkCreator: () => void
-  createNewDialogThunkCreator: (usersList: Array<any>) => void
+  createNewDialogThunkCreator: (
+    selectedUsersIDs: Array<any>,
+    chatTitle: string,
+    message: string
+  ) => void
 }
 
 /////////////////////////////////////////////////////////////////
