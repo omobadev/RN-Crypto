@@ -1,9 +1,9 @@
 // PLUGINS IMPORTS //
-import React, { useEffect } from "react"
-import { View, StyleSheet } from "react-native"
+import React, { useEffect, useRef } from "react"
+import { ScrollView, View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import Body from "./Body/Body"
+import MessageItem from "./MessageItem/MessageItem"
 import BottomInput from "./BottomInput/BottomInput"
 
 // EXTRA IMPORTS //
@@ -14,23 +14,33 @@ type PropsType = {
   route: any
   currentChatMessages: Array<any>
 
+  sendMessageThunkCreator: (message: string, chatID: string) => void
   getCurrentChatMessagesThunkCreator: (chatID: string) => void
 }
 
 const DialogItem: React.FC<PropsType> = (props) => {
+  const chatID = props.route.params.chatID
   useEffect(() => {
-    const chatID = props.route.params.chatID
     props.getCurrentChatMessagesThunkCreator(chatID)
   }, [])
 
+  let scrollView = useRef(null) as any
+
   return (
     <View style={styles.container}>
-      <Body
-        messages={props.currentChatMessages}
-        userName={props.route.params.userName}
-        avatar={props.route.params.avatar}
-      />
-      <BottomInput />
+      <ScrollView
+        ref={(ref) => (scrollView = ref)}
+        onContentSizeChange={() => scrollView.scrollToEnd({ animated: true })}
+      >
+        {props.currentChatMessages.reverse().map((message: any) => {
+          return <MessageItem message={message} />
+        })}
+
+        <BottomInput
+          chatID={chatID}
+          sendMessageThunkCreator={props.sendMessageThunkCreator}
+        />
+      </ScrollView>
     </View>
   )
 }

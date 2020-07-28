@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, TextInput, StyleSheet } from "react-native"
+import { View, Keyboard, TextInput, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -10,10 +10,20 @@ import { BorderlessButton } from "react-native-gesture-handler"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  chatID: string
+
+  sendMessageThunkCreator: (message: string, chatID: string) => void
+}
 
 const BottomInput: React.FC<PropsType> = (props) => {
   const [message, setMessage] = useState(null as string | null)
+
+  const sendMessage = () => {
+    props.sendMessageThunkCreator(message as string, props.chatID)
+    setMessage(null)
+    Keyboard.dismiss()
+  }
 
   return (
     <View style={styles.container}>
@@ -24,7 +34,7 @@ const BottomInput: React.FC<PropsType> = (props) => {
         value={message as string}
         style={styles.input}
       />
-      <BorderlessButton style={styles.send_icon}>
+      <BorderlessButton style={styles.send_icon} onPress={sendMessage}>
         <FontAwesome name="send-o" size={20} color="#006F5F" />
       </BorderlessButton>
     </View>

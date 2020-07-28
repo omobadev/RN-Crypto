@@ -7,6 +7,7 @@ import DialogItem from "./DialogItem"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { sendMessageThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer"
 import { getCurrentChatMessagesThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +19,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
+  sendMessageThunkCreator: (message: string, chatID: string) => void
   getCurrentChatMessagesThunkCreator: (chatID: string) => void
 }
 
@@ -34,6 +36,7 @@ const DialogItemContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
+      sendMessageThunkCreator: sendMessageThunkCreator,
       getCurrentChatMessagesThunkCreator: getCurrentChatMessagesThunkCreator,
     }
   )

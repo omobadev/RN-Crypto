@@ -6,7 +6,10 @@ import JWT from "expo-jwt"
 import AsyncStorage from "@react-native-community/async-storage"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
-import { getDialogsChatsListThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+import {
+  getDialogsChatsListThunkCreator,
+  getCurrentChatMessagesThunkCreator,
+} from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
@@ -98,7 +101,7 @@ export const sendMessageThunkCreator = (
         )
       )
       .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key))
+        dispatch(getCurrentChatMessagesThunkCreator(chatID))
       })
       .catch((err) => {
         if (err.response) {
