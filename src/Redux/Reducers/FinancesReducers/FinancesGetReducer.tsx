@@ -120,7 +120,7 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
         JWT.encode(
           {
             action: "finance",
-            uid: state.AuthState.userID,
+            uid: state.AuthSetState.userID,
           },
           key
         )
@@ -150,7 +150,7 @@ export const getTransactionsHistoryThunkCreator = (): ThunkType => {
     const data = JWT.encode(
       {
         action: "transactionsList",
-        uid: state.AuthState.userID,
+        uid: state.AuthSetState.userID,
       },
       key
     )

@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Step1ScreenContainer from "./Screens/Step1Screen/Step1ScreenContainer"
 import Step2ScreenContainer from "./Screens/Step2Screen/Step2ScreenContainer"
 
+import UsersIDsListScreenContainer from "./Screens/UsersIDsListScreen/UsersIDsListScreenContainer"
+
 import PasswordScreenContainer from "~/Components/Shared/HelpersScreens/PasswordScreen/PasswordScreenContainer"
 
 // EXTRA IMPORTS //
@@ -33,6 +35,9 @@ const Registation: React.FC<PropsType> = (props) => {
           },
           headerTintColor: "white",
         })}
+        initialParams={{
+          userInvitedID: null as string | null,
+        }}
       />
       <Stack.Screen
         name="RegisterStep2Screen"
@@ -58,6 +63,16 @@ const Registation: React.FC<PropsType> = (props) => {
           title: null as string | null,
           callbackFnTitle: null as string | null,
         }}
+      />
+
+      <Stack.Screen
+        name="UsersIDsListScreen"
+        component={UsersIDsListScreenContainer}
+        options={({ navigation, route }: any) => ({
+          headerTitle: "Список ID",
+          headerTitleAlign: "center",
+          headerTintColor: "#00392D",
+        })}
       />
     </Stack.Navigator>
   )

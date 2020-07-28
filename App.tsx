@@ -4,6 +4,8 @@ import { View, ActivityIndicator, StyleSheet } from "react-native"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
+import asyncstorage from "@react-native-community/async-storage"
+
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { Provider } from "react-redux"
@@ -89,7 +91,7 @@ type MapStateToPropsType = {}
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
-    isAuthentificated: state.AuthState.isAuthentificated,
+    isAuthentificated: state.AuthSetState.isAuthentificated,
   }
 }
 

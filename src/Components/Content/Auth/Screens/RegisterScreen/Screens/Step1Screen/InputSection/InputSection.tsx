@@ -1,12 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native"
+import { View, TextInput, Text, Keyboard, StyleSheet } from "react-native"
 import { Formik } from "formik"
 import * as yup from "yup"
 
@@ -14,16 +8,17 @@ import * as yup from "yup"
 
 // EXTRA IMPORTS //
 import Button from "~/Components/Shared/Components/Button/Button"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
   navigation: any
+  route: any
 
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string,
-    UserInvitedID: string | null
+    UserPassword: string
   ) => void
 }
 
@@ -43,14 +38,9 @@ const InputSection: React.FC<PropsType> = (props) => {
       initialValues={{
         login: "" as string,
         password: "" as string,
-        invidtedID: "" as string,
       }}
       onSubmit={(values: any) => {
-        props.setFirstScreenValuesActionCreator(
-          values.login,
-          values.password,
-          values.invidtedID
-        )
+        props.setFirstScreenValuesActionCreator(values.login, values.password)
         props.navigation.navigate("RegisterStep2Screen")
       }}
     >
@@ -80,31 +70,26 @@ const InputSection: React.FC<PropsType> = (props) => {
           <Text style={styles.error_message}>
             {FormikProps.touched.password && FormikProps.errors.password}
           </Text>
-          <TextInput
-            placeholder="ID пригласившего"
-            placeholderTextColor="rgba(242, 242, 242, 0.6)"
-            onChangeText={FormikProps.handleChange("invidtedID")}
-            onBlur={FormikProps.handleBlur("invidtedID")}
-            value={FormikProps.values.invidtedID}
-            style={styles.input}
-          />
-
-          <TouchableOpacity>
-            <Text style={styles.subtitle}>
-              Если у вас нет ID партнёра - нажмите сюда
-            </Text>
+          <TouchableOpacity
+            style={[styles.input, styles.fake_input]}
+            onPress={() => {
+              props.navigation.navigate("UsersIDsListScreen")
+            }}
+          >
+            {(
+              <Text style={[styles.fake_input_text, { color: "white" }]}>
+                {props.route.params.userInvitedID}
+              </Text>
+            ) || (
+              <Text style={styles.fake_input_text}>{"ID пригласившего"}</Text>
+            )}
           </TouchableOpacity>
+
           <Button
             text="Далее"
             onPress={FormikProps.handleSubmit}
-            buttonStyle={{
-              backgroundColor: "#F2F2F2",
-              alignSelf: "center",
-            }}
-            textStyle={{
-              color: "#00392D",
-              fontWeight: "bold",
-            }}
+            buttonStyle={styles.button}
+            textStyle={styles.button_text}
           />
         </View>
       )}
@@ -144,6 +129,26 @@ const styles = StyleSheet.create({
     marginTop: 9,
     marginBottom: 30,
     alignSelf: "center",
+  },
+
+  button: {
+    marginTop: 35,
+    backgroundColor: "#F2F2F2",
+    alignSelf: "center",
+  },
+
+  button_text: {
+    color: "#00392D",
+    fontWeight: "bold",
+  },
+
+  fake_input: {
+    justifyContent: "center",
+  },
+
+  fake_input_text: {
+    fontSize: 15,
+    color: "rgba(242, 242, 242, 0.6)",
   },
 })
 

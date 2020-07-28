@@ -11,11 +11,11 @@ import InputSection from "./InputSection/InputSection"
 
 type PropsType = {
   navigation: any
+  route: any
 
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string,
-    UserInvitedID: string | null
+    UserPassword: string
   ) => void
 }
 
@@ -27,6 +27,7 @@ const Step1Screen: React.FC<PropsType> = (props) => {
     >
       <InputSection
         navigation={props.navigation}
+        route={props.route}
         setFirstScreenValuesActionCreator={
           props.setFirstScreenValuesActionCreator
         }

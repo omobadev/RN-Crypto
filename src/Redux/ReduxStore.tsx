@@ -5,6 +5,7 @@ import thunkMiddleware from "redux-thunk"
 // REDUCERS IMPORTS //
 // Authentification reducers
 import AuthReducer from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
+import AuthGetReducer from "~/Redux/Reducers/AuthReducers/AuthGetReducer"
 // Chats reducer
 import ChatsGetReducer from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
 // Finances reducers
@@ -20,7 +21,8 @@ import ExtraGetReducer from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer/Extr
 
 let reducers = combineReducers({
   // Authentification reducers
-  AuthState: AuthReducer,
+  AuthSetState: AuthReducer,
+  AuthGetState: AuthGetReducer,
   // Chats reducers
   ChatsGetState: ChatsGetReducer,
   //Finances reducers

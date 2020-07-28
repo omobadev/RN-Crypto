@@ -127,7 +127,7 @@ export const getReferalLinkThunkCreator = (): ThunkType => {
         JWT.encode(
           {
             action: "reflink",
-            uid: state.AuthState.userID,
+            uid: state.AuthSetState.userID,
           },
           key
         )

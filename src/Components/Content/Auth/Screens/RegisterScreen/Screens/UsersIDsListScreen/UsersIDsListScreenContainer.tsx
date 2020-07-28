@@ -1,27 +1,28 @@
 // PLUGINS IMPORTS //
-import React from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import Step1Screen from "./Step1Screen"
+import UsersIDsListScreen from "./UsersIDsListScreen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
 import { ActionCreatorsList } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
+import { getUsersIDsListThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthGetReducer"
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
   navigation: any
-  route: any
+
+  UserInvitedID: string | null
+  usersIDsList: Array<any>
 }
 
 type MapDispatchToPropsType = {
-  setFirstScreenValuesActionCreator: (
-    UserLogin: string,
-    UserPassword: string
-  ) => void
+  setUserInvitedIDActionCreator: (userInvitedID: string) => void
+  getUsersIDsListThunkCreator: () => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -29,18 +30,20 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
-    route: props.route,
+    UserInvitedID: state.AuthSetState.UserInvitedID,
+    usersIDsList: state.AuthGetState.usersIDsList,
   }
 }
 
-const Step1ScreenContainer = compose(
+const UsersIDsListScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
-      setFirstScreenValuesActionCreator:
-        ActionCreatorsList.setFirstScreenValuesActionCreator,
+      setUserInvitedIDActionCreator:
+        ActionCreatorsList.setUserInvitedIDActionCreator,
+      getUsersIDsListThunkCreator: getUsersIDsListThunkCreator,
     }
   )
-)(Step1Screen)
+)(UsersIDsListScreen)
 
-export default Step1ScreenContainer
+export default UsersIDsListScreenContainer

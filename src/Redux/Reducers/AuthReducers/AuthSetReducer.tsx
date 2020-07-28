@@ -36,7 +36,6 @@ const AuthGetReducer = (
       ...state,
       UserLogin: action.UserLogin,
       UserPassword: action.UserPassword,
-      UserInvitedID: action.UserInvitedID,
     }
   }
 
@@ -47,6 +46,13 @@ const AuthGetReducer = (
       Email: action.Email,
       Country: action.Country,
       City: action.City,
+    }
+  }
+
+  if (action.type === "SET_USER_INVITED_ID") {
+    return {
+      ...state,
+      UserInvitedID: action.userInvitedID,
     }
   }
 
@@ -71,14 +77,12 @@ type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 export const ActionCreatorsList = {
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string,
-    UserInvitedID: string | null
+    UserPassword: string
   ) =>
     ({
       type: "SET_FIRST_SCREEN_VALUES",
       UserLogin,
       UserPassword,
-      UserInvitedID,
     } as const),
 
   setSecondScreenValuesActionCreator: (
@@ -93,6 +97,12 @@ export const ActionCreatorsList = {
       Email,
       Country,
       City,
+    } as const),
+
+  setUserInvitedIDActionCreator: (userInvitedID: string) =>
+    ({
+      type: "SET_USER_INVITED_ID",
+      userInvitedID,
     } as const),
 
   setAuthentificatedInfoActionCreator: (
@@ -117,13 +127,13 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
     const data = JWT.encode(
       {
         action: "register",
-        login: state.AuthState.UserLogin,
-        password: state.AuthState.UserPassword,
+        login: state.AuthSetState.UserLogin,
+        password: state.AuthSetState.UserPassword,
         inviteID: "AAA",
-        name: state.AuthState.UserName,
-        email: state.AuthState.Email,
-        country: state.AuthState.Country,
-        city: state.AuthState.City,
+        name: state.AuthSetState.UserName,
+        email: state.AuthSetState.Email,
+        country: state.AuthSetState.Country,
+        city: state.AuthSetState.City,
         secretCode: secretCode,
       },
       key
