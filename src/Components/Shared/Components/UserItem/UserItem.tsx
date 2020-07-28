@@ -12,9 +12,10 @@ import { AntDesign } from "@expo/vector-icons"
 
 type PropsType = {
   id: string
-  isSelected: boolean
+  isSelected?: boolean
 
-  onPress: () => void
+  onPress?: any
+  removeSelection?: boolean
 }
 
 const UserItem: React.FC<PropsType> = (props) => {
@@ -30,7 +31,7 @@ const UserItem: React.FC<PropsType> = (props) => {
         </View>
         <Text style={styles.name}>{props.id}</Text>
       </View>
-      {props.isSelected ? (
+      {!props.removeSelection && props.isSelected ? (
         <AntDesign name="checkcircle" size={24} color="#006F5F" />
       ) : (
         <AntDesign name="checkcircleo" size={24} color="#006F5F" />

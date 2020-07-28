@@ -109,6 +109,13 @@ export const addUsersToChatThunkCreator = (
   }
 }
 
+// Leave chat
+export const leaveChatThunkCreator = (chatID: string): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const uid = await AsyncStorage.getItem("uid")
+  }
+}
+
 // Send message
 export const sendMessageThunkCreator = (
   message: string,

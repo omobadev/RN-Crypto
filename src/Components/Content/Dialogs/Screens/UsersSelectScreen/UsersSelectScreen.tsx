@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { ScrollView, TouchableOpacity, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import UserItem from "./UserItem/UserItem"
+import UserItem from "../../../../Shared/Components/UserItem/UserItem"
 
 // EXTRA IMPORTS //
 import { AntDesign } from "@expo/vector-icons"
@@ -32,6 +32,7 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
           return (
             <UserItem
               id={user.id}
+              removeSelection
               isSelected={selectedUsersIDs.includes(user.id)}
               onPress={() => {
                 selectedUsersIDs.includes(user.id)
@@ -50,7 +51,6 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
         style={styles.button}
         onPress={() => {
           props.route.params.function(selectedUsersIDs)
-          //   props.navigation.goBack()
         }}
       >
         <AntDesign name="check" size={24} color="white" />

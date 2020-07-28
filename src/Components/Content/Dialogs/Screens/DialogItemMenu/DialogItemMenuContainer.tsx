@@ -7,7 +7,10 @@ import DialogItemMenu from "./DialogItemMenu"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { addUsersToChatThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer"
+import {
+  addUsersToChatThunkCreator,
+  leaveChatThunkCreator,
+} from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -18,6 +21,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
+  leaveChatThunkCreator: (chatID: string) => void
   addUsersToChatThunkCreator: (newUsers: Array<any>, chatID: string) => void
 }
 
@@ -34,6 +38,7 @@ const DialogItemContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
+      leaveChatThunkCreator: leaveChatThunkCreator,
       addUsersToChatThunkCreator: addUsersToChatThunkCreator,
     }
   )
