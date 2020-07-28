@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
-import UsersList from "./UsersList/UsersList"
+import usersList from "./usersList/usersList"
 import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
@@ -20,7 +20,7 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
     <View style={styles.container}>
       <Header />
       <View style={styles.divider} />
-      <UsersList />
+      <usersList />
       <FooterInput
         buttonText="Перевод"
         action={() => props.navigation.navigate("MoneyMoveInScreen2")}

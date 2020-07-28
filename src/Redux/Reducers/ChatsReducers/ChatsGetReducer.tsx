@@ -9,8 +9,6 @@ import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 const initialState = {
   DialogsChatsList: [] as Array<any>,
   GroupsChatsList: [] as Array<any>,
-
-  UsersList: [] as Array<any>,
 }
 
 type initialStateType = typeof initialState
@@ -45,12 +43,6 @@ type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
 export const ActionCreatorsList = {
-  setUsersListActionCreator: (usersList: Array<any>) =>
-    ({
-      type: "SET_USERS_LIST",
-      usersList,
-    } as const),
-
   setDialogsChatsListActionCreator: (dialogsChatsList: Array<any>) =>
     ({
       type: "SET_DIALOGS_CHATS_LIST",
@@ -66,15 +58,6 @@ export const ActionCreatorsList = {
 
 //    *THUNKS*   //
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
-
-// Get users list
-export const getUsersListThunkCreator = (): ThunkType => {
-  return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(ActionCreatorsList.setUsersListActionCreator(res.data))
-    })
-  }
-}
 
 // Get dialogs chats list
 export const getDialogsChatsListThunkCreator = (): ThunkType => {

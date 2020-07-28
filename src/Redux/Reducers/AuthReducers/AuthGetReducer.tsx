@@ -10,7 +10,7 @@ const key = "shh"
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
-  usersIDsList: [] as Array<any>,
+  usersList: [] as Array<any>,
 }
 
 type initialStateType = typeof initialState
@@ -23,7 +23,7 @@ const AuthGetReducer = (
   if (action.type === "SET_USERS_IDS_LIST") {
     return {
       ...state,
-      usersIDsList: action.usersIDsList,
+      usersList: action.usersList,
     }
   }
 
@@ -38,10 +38,10 @@ type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
 export const ActionCreatorsList = {
-  setUsersIDsListActionCreator: (usersIDsList: Array<any>) =>
+  setUsersIDsListActionCreator: (usersList: Array<any>) =>
     ({
       type: "SET_USERS_IDS_LIST",
-      usersIDsList,
+      usersList,
     } as const),
 }
 
@@ -49,7 +49,7 @@ export const ActionCreatorsList = {
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Login user
-export const getUsersIDsListThunkCreator = (): ThunkType => {
+export const getUsersListThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     const data = JWT.encode(
       {

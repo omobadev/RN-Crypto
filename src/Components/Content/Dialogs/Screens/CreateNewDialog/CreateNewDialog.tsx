@@ -12,7 +12,7 @@ import { AntDesign } from "@expo/vector-icons"
 
 type PropsType = {
   navigation: any
-  UsersList: Array<any>
+  usersList: Array<any>
 
   getUsersListThunkCreator: () => void
   createNewDialogThunkCreator: (usersList: Array<any>) => void
@@ -26,22 +26,26 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
   }, [])
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {props.UsersList.map((user: any) => {
-        return (
-          <UserItem
-            user={user}
-            isSelected={selectedUsersIDs.includes(user.id)}
-            onPress={() => {
-              selectedUsersIDs.includes(user.id)
-                ? setSelectedUsersIDs(
-                    selectedUsersIDs.filter((userID: any) => userID !== user.id)
-                  )
-                : setSelectedUsersIDs(selectedUsersIDs.concat(user.id))
-            }}
-          />
-        )
-      })}
+    <>
+      <ScrollView style={styles.container}>
+        {props.usersList.map((user: any) => {
+          return (
+            <UserItem
+              id={user.id}
+              isSelected={selectedUsersIDs.includes(user.id)}
+              onPress={() => {
+                selectedUsersIDs.includes(user.id)
+                  ? setSelectedUsersIDs(
+                      selectedUsersIDs.filter(
+                        (userID: any) => userID !== user.id
+                      )
+                    )
+                  : setSelectedUsersIDs(selectedUsersIDs.concat(user.id))
+              }}
+            />
+          )
+        })}
+      </ScrollView>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
@@ -51,7 +55,7 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
       >
         <AntDesign name="check" size={24} color="white" />
       </TouchableOpacity>
-    </ScrollView>
+    </>
   )
 }
 

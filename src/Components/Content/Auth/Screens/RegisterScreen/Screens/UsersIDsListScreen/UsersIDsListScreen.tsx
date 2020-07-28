@@ -14,22 +14,22 @@ import { ScrollView } from "react-native-gesture-handler"
 type PropsType = {
   navigation: any
   UserInvitedID: string | null
-  usersIDsList: Array<any>
+  usersList: Array<any>
 
   setUserInvitedIDActionCreator: (userInvitedID: string) => void
-  getUsersIDsListThunkCreator: () => void
+  getUsersListThunkCreator: () => void
 }
 
 const UsersIDsListScreen: React.FC<PropsType> = (props) => {
   const [selectedUserID, setSelectedUserID] = useState(
-    props.UserInvitedID || props.usersIDsList[0].id
+    props.UserInvitedID || props.usersList[0].id
   )
   const [expanded, setExpanded] = React.useState(false)
 
   const handlePress = () => setExpanded(!expanded)
 
   useEffect(() => {
-    props.getUsersIDsListThunkCreator()
+    props.getUsersListThunkCreator()
   }, [])
 
   return (
@@ -41,7 +41,7 @@ const UsersIDsListScreen: React.FC<PropsType> = (props) => {
           titleStyle={styles.accord_title}
           onPress={handlePress}
         >
-          {props.usersIDsList.map((userID: { id: string }) => {
+          {props.usersList.map((userID: { id: string }) => {
             return (
               <List.Item
                 title={userID.id}

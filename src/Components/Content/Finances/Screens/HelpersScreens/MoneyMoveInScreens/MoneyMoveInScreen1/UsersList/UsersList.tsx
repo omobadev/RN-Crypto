@@ -11,7 +11,7 @@ import UserListItem from "./UserListItem/UserListItem"
 
 type PropsType = {}
 
-const UsersList: React.FC<PropsType> = (props) => {
+const usersList: React.FC<PropsType> = (props) => {
   return (
     <ScrollView style={styles.container}>
       <UserListItem userName="DaryaIvanova" />
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default UsersList
+export default usersList

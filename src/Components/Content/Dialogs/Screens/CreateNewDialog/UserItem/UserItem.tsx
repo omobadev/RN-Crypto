@@ -11,7 +11,7 @@ import { AntDesign } from "@expo/vector-icons"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  user: any
+  id: string
   isSelected: boolean
 
   onPress: () => void
@@ -26,9 +26,9 @@ const UserItem: React.FC<PropsType> = (props) => {
             style={styles.img_wrap}
             source={require("~/Images/default-avatar.png")}
           />
-          <Text style={styles.letter}>{props.user.name.charAt(0)}</Text>
+          <Text style={styles.letter}>{props.id.charAt(0)}</Text>
         </View>
-        <Text style={styles.name}>{props.user.name}</Text>
+        <Text style={styles.name}>{props.id}</Text>
       </View>
       {props.isSelected ? (
         <AntDesign name="checkcircle" size={24} color="#006F5F" />

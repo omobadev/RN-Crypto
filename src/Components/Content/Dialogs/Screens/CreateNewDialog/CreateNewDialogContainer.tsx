@@ -8,7 +8,7 @@ import CreateNewDialog from "./CreateNewDialog"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { getUsersListThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+import { getUsersListThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthGetReducer"
 import { createNewDialogThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@ import { createNewDialogThunkCreator } from "~/Redux/Reducers/ChatsReducers/Chat
 // TYPES
 type MapStateToPropsType = {
   navigation: any
-  UsersList: Array<any>
+  usersList: Array<any>
 }
 
 type MapDispatchToPropsType = {
@@ -29,7 +29,7 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
-    UsersList: state.ChatsGetState.UsersList,
+    usersList: state.AuthGetState.usersList,
   }
 }
 

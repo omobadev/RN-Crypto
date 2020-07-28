@@ -1,8 +1,12 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
 import axios from "axios"
+// @ts-ignore
+import JWT from "expo-jwt"
+import AsyncStorage from "@react-native-community/async-storage"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -38,6 +42,30 @@ export const createNewDialogThunkCreator = (
   selectedUsersIDs: Array<any>
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {})
+    const uid = await AsyncStorage.getItem("uid")
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "new_user_chat_message",
+              uid: uid,
+              users: selectedUsersIDs,
+              message: "test",
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
