@@ -7,7 +7,7 @@ import Header from "./Header/Header"
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
 
 // EXTRA IMPORTS //
-import Popup from "~/Components/Shared/Components/PopUp/PopUp"
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 import { Entypo } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////

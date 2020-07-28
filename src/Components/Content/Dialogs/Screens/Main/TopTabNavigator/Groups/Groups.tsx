@@ -33,7 +33,6 @@ const Groups: React.FC<PropsType> = (props) => {
               latestMessage={"Как дела?"}
               avatar=""
               date="12.08.2020"
-              time="18:55"
             />
           )
         })}

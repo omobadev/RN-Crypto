@@ -6,7 +6,7 @@ import { RectButton } from "react-native-gesture-handler"
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import PopUp from "~/Components/Shared/Components/PopUp/PopUp"
+import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 

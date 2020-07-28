@@ -6,7 +6,7 @@ import { View, Text, StyleSheet } from "react-native"
 
 // EXTRA IMPORTS //
 import Button from "~/Components/Shared/Components/Button/Button"
-import Popup from "~/Components/Shared/Components/PopUp/PopUp"
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 

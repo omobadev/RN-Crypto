@@ -6,7 +6,7 @@ import { View, Text, Image, StyleSheet } from "react-native"
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
 
 // EXTRA IMPORTS //
-import PopUp from "~/Components/Shared/Components/PopUp/PopUp"
+import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 import { Fontisto } from "@expo/vector-icons"
 import { Feather } from "@expo/vector-icons"
 import { SimpleLineIcons } from "@expo/vector-icons"

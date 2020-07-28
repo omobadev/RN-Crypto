@@ -16,8 +16,6 @@ type PropsType = {
 }
 
 const Body: React.FC<PropsType> = (props) => {
-  console.log(props.messages)
-
   return (
     <ScrollView>
       {props.messages.map((message: any) => {

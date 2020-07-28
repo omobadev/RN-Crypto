@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import UserItem from "./UserItem/UserItem"
+import DialogsInputPopup from "~/Components/Shared/Components/Popups/DialogsInputPopup/DialogsInputPopup"
 
 // EXTRA IMPORTS //
 import { AntDesign } from "@expo/vector-icons"
@@ -20,10 +21,16 @@ type PropsType = {
 
 const CreateNewDialog: React.FC<PropsType> = (props) => {
   const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>)
+  const [popupVisible, setPopupVisible] = useState(false as boolean)
 
   useEffect(() => {
     props.getUsersListThunkCreator()
   }, [])
+
+  const onSubmit = (values: any) => {
+    props.createNewDialogThunkCreator(selectedUsersIDs)
+    props.navigation.goBack()
+  }
 
   return (
     <>
@@ -49,12 +56,17 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          props.createNewDialogThunkCreator(selectedUsersIDs)
-          props.navigation.goBack()
+          setPopupVisible(true)
         }}
       >
         <AntDesign name="check" size={24} color="white" />
       </TouchableOpacity>
+
+      <DialogsInputPopup
+        popupVisible={popupVisible}
+        setPopupVisible={setPopupVisible}
+        onSubmit={onSubmit}
+      />
     </>
   )
 }

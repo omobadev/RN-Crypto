@@ -6,7 +6,7 @@ import { View, Keyboard, StyleSheet } from "react-native"
 
 // EXTRA IMPORTS //
 import InputSection from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
-import Popup from "~/Components/Shared/Components/PopUp/PopUp"
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 
