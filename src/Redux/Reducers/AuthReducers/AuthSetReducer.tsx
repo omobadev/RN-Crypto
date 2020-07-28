@@ -176,11 +176,13 @@ export const LoginUserThunkCreator = (
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
-        const uid = JSON.stringify(JWT.decode(res.data.data, key).uid)
-        await AsyncStorage.setItem("uid", uid)
-        dispatch(
-          ActionCreatorsList.setAuthentificatedInfoActionCreator(true, uid)
-        )
+        if (res) {
+          const uid = JWT.decode(res.data.data, key).uID
+          await AsyncStorage.setItem("uid", uid)
+          dispatch(
+            ActionCreatorsList.setAuthentificatedInfoActionCreator(true, uid)
+          )
+        }
       })
       .catch((err) => {
         console.log(err)
