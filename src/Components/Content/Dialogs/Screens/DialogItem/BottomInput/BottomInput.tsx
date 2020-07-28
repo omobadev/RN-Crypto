@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -13,11 +13,15 @@ import { BorderlessButton } from "react-native-gesture-handler"
 type PropsType = {}
 
 const BottomInput: React.FC<PropsType> = (props) => {
+  const [message, setMessage] = useState(null as string | null)
+
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="Введите сообщение"
         placeholderTextColor="rgba(0, 57, 45, 0.4)"
+        onChangeText={(text: string) => setMessage(text)}
+        value={message as string}
         style={styles.input}
       />
       <BorderlessButton style={styles.send_icon}>

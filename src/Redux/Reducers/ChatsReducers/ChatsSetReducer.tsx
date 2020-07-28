@@ -65,6 +65,39 @@ export const createNewDialogThunkCreator = (
       )
       .then(async (res: any) => {
         dispatch(getDialogsChatsListThunkCreator())
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
+  }
+}
+
+// Send message
+export const sendMessageThunkCreator = (
+  message: string,
+  chatID: string
+): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const uid = await AsyncStorage.getItem("uid")
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "write_message_to_chat",
+              uid: uid,
+              chatid: chatID,
+              message: message,
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
         console.log(JWT.decode(res.data.data, key))
       })
       .catch((err) => {
