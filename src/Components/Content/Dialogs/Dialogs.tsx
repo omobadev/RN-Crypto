@@ -40,6 +40,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
         initialParams={{
           userName: null as string | null,
           avatar: null as string | null,
+          chatID: null as string | null,
         }}
       />
     </Stack.Navigator>

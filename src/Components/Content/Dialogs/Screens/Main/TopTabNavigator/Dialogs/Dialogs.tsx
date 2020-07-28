@@ -26,14 +26,15 @@ const Dialogs: React.FC<PropsType> = (props) => {
       {props.DialogsChatsList &&
         props.DialogsChatsList.length > 0 &&
         props.DialogsChatsList.map((dialog: any) => {
+          console.log(dialog)
           return (
             <LineDialogItem
               navigation={props.navigation}
               name="Василий Петрович"
-              latestMessage={"Привет, я не так давно переводил тебе..."}
+              latestMessage={dialog.chmText}
               avatar=""
-              date="12.08.2020"
-              time="18:55"
+              date={dialog.chmTS}
+              chatID={dialog.chatID}
             />
           )
         })}

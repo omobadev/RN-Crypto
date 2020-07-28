@@ -62,7 +62,6 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 8,
   },
 
   button: {

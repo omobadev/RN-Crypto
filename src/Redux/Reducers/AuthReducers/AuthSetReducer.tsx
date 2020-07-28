@@ -129,7 +129,7 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
         action: "register",
         login: state.AuthSetState.UserLogin,
         password: state.AuthSetState.UserPassword,
-        inviteID: "AAA",
+        inviteID: state.AuthSetState.UserInvitedID,
         name: state.AuthSetState.UserName,
         email: state.AuthSetState.Email,
         country: state.AuthSetState.Country,
@@ -143,7 +143,6 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
         const uid = JSON.stringify(JWT.decode(res.data.data, key).uid)
-
         await AsyncStorage.setItem("uid", uid)
 
         dispatch(
@@ -179,6 +178,7 @@ export const LoginUserThunkCreator = (
         if (res) {
           const uid = JWT.decode(res.data.data, key).uID
           await AsyncStorage.setItem("uid", uid)
+
           dispatch(
             ActionCreatorsList.setAuthentificatedInfoActionCreator(true, uid)
           )

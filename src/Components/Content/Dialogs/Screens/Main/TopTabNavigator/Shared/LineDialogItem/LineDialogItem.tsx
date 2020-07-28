@@ -12,11 +12,11 @@ import { RectButton } from "react-native-gesture-handler"
 type PropsType = {
   navigation: any
 
+  chatID: string
   name: string
   avatar: string
   latestMessage: string
 
-  time: string
   date: string
 }
 
@@ -29,6 +29,7 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
           props.navigation.navigate("DialogItem", {
             userName: props.name,
             avatar: props.avatar,
+            chatID: props.chatID,
           })
         }
       >
@@ -44,7 +45,6 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
         </View>
         <View>
           <Text style={styles.timing}>{props.date}</Text>
-          <Text style={styles.timing}>{props.time}</Text>
         </View>
       </RectButton>
       <View style={styles.divider} />
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 15,
     paddingRight: 40,
+    width: "90%",
   },
 
   credentials_wrap: {

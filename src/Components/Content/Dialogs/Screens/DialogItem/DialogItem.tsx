@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -12,31 +12,21 @@ import BottomInput from "./BottomInput/BottomInput"
 
 type PropsType = {
   route: any
+  currentChatMessages: Array<any>
+
+  getCurrentChatMessagesThunkCreator: (chatID: string) => void
 }
 
 const DialogItem: React.FC<PropsType> = (props) => {
-  const messages = [
-    {
-      text: "Привет, как дела?",
-      time: "18:55",
-      senderMe: false,
-    },
-    {
-      text: "Привет, все замечательно, у тебя?",
-      time: "19:55",
-      senderMe: true,
-    },
-    {
-      text: "Да так все потихоньку?",
-      time: "20:51",
-      senderMe: false,
-    },
-  ]
+  useEffect(() => {
+    const chatID = props.route.params.chatID
+    props.getCurrentChatMessagesThunkCreator(chatID)
+  }, [])
 
   return (
     <View style={styles.container}>
       <Body
-        messages={messages}
+        messages={props.currentChatMessages}
         userName={props.route.params.userName}
         avatar={props.route.params.avatar}
       />
