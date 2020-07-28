@@ -9,6 +9,7 @@ import Main from "./Main"
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
 import { getDialogsChatsListThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+import { createNewDialogThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -19,6 +20,11 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
+  createNewDialogThunkCreator: (
+    selectedUsersIDs: Array<any>,
+    chatTitle: string,
+    message: string
+  ) => void
   getDialogsChatsListThunkCreator: () => void
 }
 
@@ -36,6 +42,7 @@ const MainContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
+      createNewDialogThunkCreator: createNewDialogThunkCreator,
       getDialogsChatsListThunkCreator: getDialogsChatsListThunkCreator,
     }
   )

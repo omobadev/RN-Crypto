@@ -77,6 +77,38 @@ export const createNewDialogThunkCreator = (
   }
 }
 
+// Add users to chat
+export const addUsersToChatThunkCreator = (
+  newUsers: Array<any>,
+  chatID: string
+): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const uid = await AsyncStorage.getItem("uid")
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "add_users_to_chat",
+              uid: uid,
+              chatid: chatID,
+              users: newUsers,
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {})
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
+  }
+}
+
 // Send message
 export const sendMessageThunkCreator = (
   message: string,

@@ -15,7 +15,7 @@ import store from "~/Redux/ReduxStore"
 import NavigationCenterContainer from "~/Components/NavigationCenterContainer/NavigationCenterContainer"
 import Auth from "~/Components/Content/Auth/Auth"
 
-import CreateNewDialogContainer from "~/Components/Content/Dialogs/Screens/CreateNewDialog/CreateNewDialogContainer"
+import UsersSelectScreenContainer from "~/Components/Content/Dialogs/Screens/UsersSelectScreen/UsersSelectScreenContainer"
 
 // EXTRA IMPORTS //
 import { VerifyIfAuthentificatedThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
@@ -57,15 +57,19 @@ const App: React.FC<PropsType> = (props) => {
               })}
             />
             <Stack.Screen
-              name="CreateNewDialog"
-              component={CreateNewDialogContainer}
+              name="UsersSelectScreen"
+              component={UsersSelectScreenContainer}
               options={({ navigation, route }: any) => ({
-                title: "Новый диалог",
+                title: route.params.title,
                 headerStyle: {
                   backgroundColor: "#006F5F",
                 },
                 headerTintColor: "white",
               })}
+              initialParams={{
+                title: null as string | null,
+                function: () => console.log(),
+              }}
             />
           </Stack.Navigator>
         ) : (

@@ -12,15 +12,23 @@ import Dialogs from "./Dialogs/Dialogs"
 
 type PropsType = {
   navigation: any
-
   DialogsChatsList: Array<any>
+
+  createNewDialogThunkCreator: (
+    selectedUsersIDs: Array<any>,
+    chatTitle: string,
+    message: string
+  ) => void
   getDialogsChatsListThunkCreator: () => void
 }
 
 const Main: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <Header navigation={props.navigation} />
+      <Header
+        navigation={props.navigation}
+        createNewDialogThunkCreator={props.createNewDialogThunkCreator}
+      />
       <Dialogs
         navigation={props.navigation}
         DialogsChatsList={props.DialogsChatsList}

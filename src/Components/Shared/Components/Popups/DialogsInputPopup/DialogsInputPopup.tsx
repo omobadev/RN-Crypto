@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginBottom: 5,
     marginTop: 10,
+    marginRight: 10,
   },
 
   error_message: {
