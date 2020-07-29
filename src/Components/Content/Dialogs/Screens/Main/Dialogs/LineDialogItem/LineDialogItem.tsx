@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, Text, Image, Dimensions, StyleSheet } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
@@ -46,13 +46,12 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
   )
 }
 
+const screenWidth = Dimensions.get("screen").width
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     paddingHorizontal: 13,
     paddingVertical: 15,
-    paddingRight: 40,
-    width: "90%",
   },
 
   credentials_wrap: {
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
 
   text_wrap: {
     marginLeft: 12,
-    width: "72%",
+    width: screenWidth / 1.75,
   },
 
   name_text: {

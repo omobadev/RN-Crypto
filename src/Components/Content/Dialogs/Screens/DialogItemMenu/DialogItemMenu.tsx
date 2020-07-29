@@ -27,9 +27,8 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
     props.navigation.navigate("Dialogs")
   }
 
-  console.log(chatInfo)
   return (
-    <View style={styles.container}>
+    <View>
       {chatInfo.users && (
         <ScrollView>
           {chatInfo.users.map((user: any) => {
@@ -37,35 +36,37 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
           })}
         </ScrollView>
       )}
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: "#00392D" }]}
-        onPress={() =>
-          props.navigation.navigate("UsersSelectScreen", {
-            function: submitFunction,
-            title: "Меню чата",
-          })
-        }
-      >
-        <AntDesign name="plus" size={20} color="white" />
-        <Text style={styles.button_text}>Добавить участника</Text>
-      </TouchableOpacity>
+      <View style={styles.buttons_wrap}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#00392D" }]}
+          onPress={() =>
+            props.navigation.navigate("UsersSelectScreen", {
+              function: submitFunction,
+              title: "Меню чата",
+            })
+          }
+        >
+          <AntDesign name="plus" size={20} color="white" />
+          <Text style={styles.button_text}>Добавить участника</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: "#db3236" }]}
-        onPress={() => {
-          props.leaveChatThunkCreator(chatInfo.chatID)
-          props.navigation.navigate("Dialogs")
-        }}
-      >
-        <Text style={styles.button_text}>Выйти из чата</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#db3236" }]}
+          onPress={() => {
+            props.leaveChatThunkCreator(chatInfo.chatID)
+            props.navigation.navigate("Dialogs")
+          }}
+        >
+          <Text style={styles.button_text}>Выйти из чата</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  buttons_wrap: {
+    marginTop: 20,
   },
 
   button: {

@@ -36,12 +36,11 @@ const DialogItem: React.FC<PropsType> = (props) => {
         {props.currentChatMessages.reverse().map((message: any) => {
           return <MessageItem message={message} />
         })}
-
-        <BottomInput
-          chatID={chatID}
-          sendMessageThunkCreator={props.sendMessageThunkCreator}
-        />
       </ScrollView>
+      <BottomInput
+        chatID={chatID}
+        sendMessageThunkCreator={props.sendMessageThunkCreator}
+      />
     </View>
   )
 }
