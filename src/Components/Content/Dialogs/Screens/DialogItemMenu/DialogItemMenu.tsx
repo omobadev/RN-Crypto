@@ -27,12 +27,13 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
     props.navigation.navigate("Dialogs")
   }
 
+  console.log(chatInfo)
   return (
     <View style={styles.container}>
       {chatInfo.users && (
         <ScrollView>
           {chatInfo.users.map((user: any) => {
-            return <UserItem id={user} />
+            return <UserItem id={user.uLogin} />
           })}
         </ScrollView>
       )}
@@ -51,7 +52,10 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#db3236" }]}
-        onPress={() => props.leaveChatThunkCreator(chatInfo.chatID)}
+        onPress={() => {
+          props.leaveChatThunkCreator(chatInfo.chatID)
+          props.navigation.navigate("Dialogs")
+        }}
       >
         <Text style={styles.button_text}>Выйти из чата</Text>
       </TouchableOpacity>

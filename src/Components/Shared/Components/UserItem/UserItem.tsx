@@ -27,7 +27,7 @@ const UserItem: React.FC<PropsType> = (props) => {
             style={styles.img_wrap}
             source={require("~/Images/default-avatar.png")}
           />
-          <Text style={styles.letter}>{props.id.charAt(0)}</Text>
+          <Text style={styles.letter}>{props.id && props.id.charAt(0)}</Text>
         </View>
         <Text style={styles.name}>{props.id}</Text>
       </View>

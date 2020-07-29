@@ -113,6 +113,29 @@ export const addUsersToChatThunkCreator = (
 export const leaveChatThunkCreator = (chatID: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const uid = await AsyncStorage.getItem("uid")
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "exit_chat",
+              uid: uid,
+              chatid: chatID,
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
 
