@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React from "react";
 import {
   View,
   Text,
@@ -7,36 +7,41 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-} from "react-native"
+} from "react-native";
 
 // COMPONENTS IMPORTS //
-import ListItem from "./ListItem/ListItem"
+import ListItem from "./ListItem/ListItem";
 
 // EXTRA IMPORTS //
-import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader"
+import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
+  navigation: any;
 
-  userID: string | null
   BudgetInfo: {
     CGC: {
-      price: string
-      value2: string
-    }
+      price: string;
+      value2: string;
+    };
 
     MiningCGC: {
-      price: string
-      value2: string
-    }
+      price: string;
+      value2: string;
+    };
+
     DailyIncome: {
-      price: string
-      value2: string
-    }
-  }
-}
+      price: string;
+      value2: string;
+    };
+    INPH: {
+      price: string;
+      value2: string;
+    };
+    wallet: string;
+  };
+};
 
 const TopBox: React.FC<PropsType> = (props) => {
   return (
@@ -66,11 +71,16 @@ const TopBox: React.FC<PropsType> = (props) => {
             firstValue={props.BudgetInfo.DailyIncome.price}
             secondValue={`${props.BudgetInfo.DailyIncome.value2 || "0"} $`}
           />
+          <ListItem
+            title="INPH:"
+            firstValue={props.BudgetInfo.INPH.price}
+            secondValue={`${props.BudgetInfo.INPH.value2 || "0"} $`}
+          />
         </View>
         <Text style={{ ...styles.title, marginBottom: 5, marginTop: 11.5 }}>
           Ваш уникальный адрес:
         </Text>
-        <Text style={styles.text}>{props.userID}</Text>
+        <Text style={styles.text}>{props.BudgetInfo.wallet}</Text>
         <TouchableOpacity
           style={styles.footer}
           onPress={() => props.navigation.navigate("TransactionsHistory")}
@@ -83,8 +93,8 @@ const TopBox: React.FC<PropsType> = (props) => {
         </TouchableOpacity>
       </View>
     </ImageBackground>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -126,6 +136,6 @@ const styles = StyleSheet.create({
     width: 20,
     resizeMode: "center",
   },
-})
+});
 
-export default TopBox
+export default TopBox;

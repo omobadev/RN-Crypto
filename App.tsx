@@ -2,13 +2,10 @@
 import React, { useEffect, useState } from "react"
 import { View, ActivityIndicator, StyleSheet } from "react-native"
 import { compose } from "redux"
-import { connect } from "react-redux"
-
-import asyncstorage from "@react-native-community/async-storage"
+import { Provider, connect } from "react-redux"
 
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
-import { Provider } from "react-redux"
 import store from "~/Redux/ReduxStore"
 
 // COMPONENTS IMPORTS //
