@@ -42,7 +42,7 @@ const App: React.FC<PropsType> = (props) => {
       >
         {loading ? (
           <View style={styles.loading_container}>
-            <ActivityIndicator color={"#004B3C"} size={"large"} />
+            {/* <ActivityIndicator color={"#004B3C"} size={"large"} /> */}
           </View>
         ) : props.isAuthentificated ? (
           <Stack.Navigator initialRouteName="NavigationCenterContainer">

@@ -1,24 +1,34 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, TouchableOpacity, Image, StyleSheet } from "react-native"
-import { createStackNavigator } from "@react-navigation/stack"
+import React, { useState } from "react";
+import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 // COMPONENTS IMPORTS //
-import MainContainer from "./Screens/Main/MainContainer"
-import Settings from "./Screens/Settings/Settings"
-import EditProfileContainer from "./Screens/EditProfile/EditProfileContainer"
-import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
+import MainContainer from "./Screens/Main/MainContainer";
+import Settings from "./Screens/Settings/Settings";
+import EditProfileContainer from "./Screens/EditProfile/EditProfileContainer";
+import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer";
 
 // EXTRA IMPORTS //
-import { Feather } from "@expo/vector-icons"
+import { Feather } from "@expo/vector-icons";
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  userID: string;
+  UserCredentials: {
+    ID: string;
+    name: string;
+    login: string;
+    email: string;
+    location: string;
+    invitedID: string;
+  };
+};
 
 const Profile: React.FC<PropsType> = (props) => {
-  const [isAdmin, setIsAdmin] = useState(false as boolean)
-  const Stack = createStackNavigator()
+  const isAdmin = props.userID === props.UserCredentials.ID;
+  const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator initialRouteName="ProfileMain">
@@ -33,23 +43,25 @@ const Profile: React.FC<PropsType> = (props) => {
             color: "#00392D",
           },
           headerRight: () =>
-            isAdmin ? (
-              <View style={styles.icons_wrap}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("EditProfile")}
-                >
-                  <Image
-                    style={styles.icon}
-                    source={require("~/Images/Icons/icon-edit.png")}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("ProfileSettings")}
-                >
-                  <Feather name="settings" size={24} color="#006F5F" />
-                </TouchableOpacity>
-              </View>
-            ) : null,
+            isAdmin
+              ? (
+                <View style={styles.icons_wrap}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("EditProfile")}
+                  >
+                    <Image
+                      style={styles.icon}
+                      source={require("~/Images/Icons/icon-edit.png")}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("ProfileSettings")}
+                  >
+                    <Feather name="settings" size={24} color="#006F5F" />
+                  </TouchableOpacity>
+                </View>
+              )
+              : null,
           title: "Профиль",
           headerTitleAlign: isAdmin ? "left" : "center",
         })}
@@ -103,8 +115,8 @@ const Profile: React.FC<PropsType> = (props) => {
         }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   icons_wrap: {
@@ -119,6 +131,6 @@ const styles = StyleSheet.create({
     height: 25,
     resizeMode: "center",
   },
-})
+});
 
-export default Profile
+export default Profile;

@@ -1,27 +1,27 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { StyleSheet } from "react-native"
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
+import React from "react";
+import { StyleSheet } from "react-native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 // COMPONENTS IMPORTS //
-import Dialogs from "~/Components/Content/Dialogs/Dialogs"
-import Finances from "~/Components/Content/Finances/Finances"
-import Statistics from "~/Components/Content/Statistics/Statistics"
-import Profile from "~/Components/Content/Profile/Profile"
-import More from "~/Components/Content/More/More"
+import Dialogs from "~/Components/Content/Dialogs/Dialogs";
+import Finances from "~/Components/Content/Finances/Finances";
+import Statistics from "~/Components/Content/Statistics/Statistics";
+import ProfileContainer from "~/Components/Content/Profile/ProfileContainer";
+import More from "~/Components/Content/More/More";
 
 // EXTRA IMPORTS //
-import { Ionicons } from "@expo/vector-icons"
-import { Entypo } from "@expo/vector-icons"
-import { FontAwesome } from "@expo/vector-icons"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {};
 
 const NavigationCenterContainer: React.FC<PropsType> = (props) => {
-  const Tab = createMaterialBottomTabNavigator()
+  const Tab = createMaterialBottomTabNavigator();
 
   return (
     <Tab.Navigator
@@ -74,7 +74,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileContainer}
         options={{
           tabBarLabel: "Профиль",
           tabBarIcon: ({ focused }: any) => (
@@ -101,14 +101,14 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
         }}
       />
     </Tab.Navigator>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   tab_bar: {
     backgroundColor: "#E5E5E5",
     elevation: 25,
   },
-})
+});
 
-export default NavigationCenterContainer
+export default NavigationCenterContainer;

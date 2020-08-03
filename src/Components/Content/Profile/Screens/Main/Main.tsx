@@ -1,50 +1,52 @@
 // PLUGINS IMPORTS //
-import React, { useEffect } from "react"
-import { View, Image, StyleSheet } from "react-native"
+import React, { useEffect } from "react";
+import { View, Image, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import AdminContent from "./AdminContent/AdminContent"
-import NonAdminContent from "./NonAdminContent/NonAdminContent"
+import AdminContent from "./AdminContent/AdminContent";
+import NonAdminContent from "./NonAdminContent/NonAdminContent";
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-  route: any
+  navigation: any;
+  route: any;
 
   UserCredentials: {
-    ID: string
-    name: string
-    login: string
-    email: string
-    location: string
-    invitedID: string
-  }
+    ID: string;
+    name: string;
+    login: string;
+    email: string;
+    location: string;
+    invitedID: string;
+  };
 
-  getUserCredentialsThunkCreator: () => void
-}
+  getUserCredentialsThunkCreator: () => void;
+};
 
 const Main: React.FC<PropsType> = (props) => {
   useEffect(() => {
-    props.getUserCredentialsThunkCreator()
-  }, [])
+    props.getUserCredentialsThunkCreator();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Image style={styles.avatar} source={require("~/Images/avatar.png")} />
-      {props.route.params.isAdmin ? (
-        <AdminContent userData={props.UserCredentials} />
-      ) : (
-        <NonAdminContent
-          userData={props.UserCredentials}
-          navigation={props.navigation}
-        />
-      )}
+      {props.route.params.isAdmin
+        ? (
+          <AdminContent userData={props.UserCredentials} />
+        )
+        : (
+          <NonAdminContent
+            userData={props.UserCredentials}
+            navigation={props.navigation}
+          />
+        )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -64,6 +66,6 @@ const styles = StyleSheet.create({
   },
 
   bold_text: {},
-})
+});
 
-export default Main
+export default Main;
