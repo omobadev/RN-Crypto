@@ -14,9 +14,19 @@ import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp";
 type PropsType = {
   navigation: any;
   route: any;
-  transferStatus: boolean;
+  transferStatusRes: {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+  };
 
-  setTransferStatusActionCreator: (transferStatus: boolean) => void;
+  setTransferStatusResActionCreator: (config: {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+  }) => void;
   sendCGCMoneyThunkCreator: (
     selectedUserID: string,
     password: string,
@@ -54,17 +64,20 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
       </View>
 
       <Popup
-        title="Спасибо!"
-        description="Ваш перевод прошёл успешно!"
-        containerStyle={{ width: "80%" }}
+        title={props.transferStatusRes.title}
+        description={props.transferStatusRes.text}
+        containerStyle={styles.popup}
         buttonsArray={[
           {
             text: "OK",
             action: () => props.navigation.navigate("FinancesMain"),
           },
         ]}
-        popupVisible={props.transferStatus}
-        setPopupVisible={props.setTransferStatusActionCreator}
+        popupVisible={props.transferStatusRes.visible}
+        setPopupVisible={(visibility: boolean) =>
+          props.setTransferStatusResActionCreator(
+            { ...props.transferStatusRes, visible: visibility },
+          )}
       />
     </>
   );
@@ -86,6 +99,8 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+
+  popup: { width: "80%" },
 });
 
 export default MoneyMoveInScreen2;

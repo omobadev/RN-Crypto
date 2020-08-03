@@ -1,43 +1,72 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button"
-import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
+import Button from "~/Components/Shared/Components/Button/Button";
+import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-  route: any
-}
+  navigation: any;
+  route: any;
+
+  wallet: string;
+  transferStatusRes: {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+    link?: string;
+  };
+
+  setTransferStatusResActionCreator: (config: {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+    link?: string;
+  }) => void;
+  buyMoneyThunkCreator: (moneyAmount: number, currency: string) => void;
+};
 
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
-  const [popupVisible, setPopupVisible] = useState(false as boolean)
+  const price = props.route.params.price;
+  const currency = props.route.params.currency;
 
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.paragraph}>
           Для пополнения на сумму{" "}
-          <Text style={styles.bold}>{props.route.params.value} рублей</Text> вам
-          необходимо совершить перевод в размере:
+          <Text style={styles.bold}>
+            {price}
+            {" "}
+            {currency}
+            {" "}
+          </Text>
+          вам необходимо совершить перевод в размере:
         </Text>
 
-        <Text style={{ ...styles.paragraph, ...styles.price_paragraph }}>
-          <Text style={styles.bold}>111 {props.route.params.currency} </Text>
-          на адрес 0x123qeert31
+        <Text style={[styles.paragraph, styles.price_paragraph]}>
+          <Text style={styles.bold}>
+            {price}
+            {" "}
+            {currency}
+            {" "}
+          </Text>
+          на адрес {props.wallet}
         </Text>
-        <Text style={{ ...styles.paragraph, fontSize: 16.5 }}>
+        <Text style={[styles.paragraph, { fontSize: 16.5 }]}>
           После того как ваша транзакция осуществится ваш баланс автоматически
           пополнится
         </Text>
         <Button
           text="Готово"
-          onPress={() => setPopupVisible(true)}
+          onPress={() => props.buyMoneyThunkCreator(price, currency)}
           buttonStyle={{
             marginTop: 50,
             alignSelf: "center",
@@ -45,20 +74,24 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
         />
       </View>
       <PopUp
-        popupVisible={popupVisible}
-        setPopupVisible={setPopupVisible}
-        title="Спасибо!"
-        description="Ваша транзакция поступила в обработку"
+        title={props.transferStatusRes.title}
+        description={props.transferStatusRes.text}
+        link={props.transferStatusRes.link}
         buttonsArray={[
           {
             text: "OK",
             action: () => props.navigation.navigate("FinancesMain"),
           },
         ]}
+        popupVisible={props.transferStatusRes.visible}
+        setPopupVisible={(visibility: boolean) =>
+          props.setTransferStatusResActionCreator(
+            { ...props.transferStatusRes, visible: visibility },
+          )}
       />
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -79,6 +112,6 @@ const styles = StyleSheet.create({
   price_paragraph: {
     marginVertical: 20,
   },
-})
+});
 
-export default BuyMoneyScreen2
+export default BuyMoneyScreen2;

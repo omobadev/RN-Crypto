@@ -1,21 +1,21 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, ScrollView, Text, StyleSheet } from "react-native"
+import React, { useState } from "react";
+import { View, ScrollView, Text, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import RadioItem from "./RadioItem/RadioItem"
-import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
+import RadioItem from "./RadioItem/RadioItem";
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection";
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-}
+  navigation: any;
+};
 
 const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
-  const [selectedCurrency, setSelectedCurrency] = useState("ETH" as string)
+  const [selectedCurrency, setSelectedCurrency] = useState("ETH" as string);
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -41,22 +41,24 @@ const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
 
       <View>
         <FooterInput
-          action={() =>
-            props.navigation.navigate("BuyMoneyScreen2", {
-              currency: selectedCurrency,
-            })
-          }
+          action={(values: { value: string }) => {
+            if (Number(values.value) > 0) {
+              props.navigation.navigate("BuyMoneyScreen2", {
+                currency: selectedCurrency,
+                price: values.value,
+              });
+            }
+          }}
           buttonText="Далее"
           valueName="Количество"
           errorText="Укажите количество"
-          containerStyle={{
-            marginTop: 260,
-          }}
+          containerStyle={styles.footer_input}
+          isNumberPad
         />
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +77,10 @@ const styles = StyleSheet.create({
     color: "#00392D",
     fontSize: 16,
   },
-})
 
-export default BuyMoneyScreen1
+  footer_input: {
+    marginTop: 260,
+  },
+});
+
+export default BuyMoneyScreen1;

@@ -125,6 +125,10 @@ const Finances: React.FC<PropsType> = (props) => {
           title: "Вывод CGC",
           headerTitleAlign: "center",
         })}
+        initialParams={{
+          price: null as string | null,
+          currency: "BTC" as string,
+        }}
       />
       {/* Покупка CGC */}
       <Stack.Screen

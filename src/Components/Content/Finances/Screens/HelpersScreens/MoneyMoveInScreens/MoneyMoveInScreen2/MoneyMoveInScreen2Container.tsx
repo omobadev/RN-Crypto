@@ -19,11 +19,21 @@ type MapStateToPropsType = {
   navigation: any;
   route: any;
 
-  transferStatus: boolean;
+  transferStatusRes: {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+  };
 };
 
 type MapDispatchToPropsType = {
-  setTransferStatusActionCreator: (transferStatus: boolean) => void;
+  setTransferStatusResActionCreator: (config: {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+  }) => void;
   sendCGCMoneyThunkCreator: (
     selectedUserID: string,
     password: string,
@@ -38,7 +48,7 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
     navigation: props.navigation,
     route: props.route,
 
-    transferStatus: state.FinancesSetState.transferStatus,
+    transferStatusRes: state.FinancesSetState.transferStatusRes,
   };
 };
 
@@ -46,8 +56,8 @@ const MoneyMoveInScreen2Container = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
-      setTransferStatusActionCreator:
-        ActionCreatorsList.setTransferStatusActionCreator,
+      setTransferStatusResActionCreator:
+        ActionCreatorsList.setTransferStatusResActionCreator,
       sendCGCMoneyThunkCreator,
     },
   ),

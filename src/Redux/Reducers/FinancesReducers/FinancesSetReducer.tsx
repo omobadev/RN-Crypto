@@ -10,7 +10,13 @@ const key = "shh";
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
-  transferStatus: false as boolean,
+  transferStatusRes: {} as {
+    title: string;
+    text: string;
+    visible: boolean;
+    positive: boolean;
+    link?: string;
+  },
 };
 
 type initialStateType = typeof initialState;
@@ -23,7 +29,7 @@ const FinancesSetReducer = (
   if (action.type === "SET_TRANSFER_STATUS") {
     return {
       ...state,
-      transferStatus: action.transferStatus,
+      transferStatusRes: action.config,
     };
   }
 
@@ -38,9 +44,17 @@ type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>;
 
 //    *ACTION CREATORS*   //
 export const ActionCreatorsList = {
-  setTransferStatusActionCreator: (transferStatus: boolean) => ({
+  setTransferStatusResActionCreator: (
+    config: {
+      title: string;
+      text: string;
+      visible: boolean;
+      positive: boolean;
+      link?: string;
+    },
+  ) => ({
     type: "SET_TRANSFER_STATUS",
-    transferStatus,
+    config,
   } as const),
 };
 
@@ -72,23 +86,43 @@ export const sendCGCMoneyThunkCreator = (
       .then(async (res: any) => {
         const status = JWT.decode(res.status, key);
         if (Number(status) === 200) {
-          dispatch(ActionCreatorsList.setTransferStatusActionCreator(true));
+          dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
+            title: "Спасибо!",
+            text: "Ваш перевод прошёл успешно!",
+            positive: true,
+            visible: true,
+          }));
         }
       })
       .catch((err) => {
         if (err.response) {
+          dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
+            title: "Ошибка...",
+            text: "Что то пошло не так, попробуйте снова.",
+            positive: false,
+            visible: true,
+          }));
         }
       });
   };
 };
 
-export const buyMoneyThunkCreator = (): ThunkType => {
+export const buyMoneyThunkCreator = (
+  moneyAmount: number,
+  currency: string,
+): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState();
 
-    // 5- Bitcoin
-    // 6 - etherium
-    // 8 - payeer
+    const renderCID = () => {
+      if (currency === "BTC") {
+        return 5;
+      } else if (currency === "ETH") {
+        return 6;
+      } else if (currency === "Payeer") {
+        return 8;
+      }
+    };
 
     await axios
       .post(
@@ -96,19 +130,32 @@ export const buyMoneyThunkCreator = (): ThunkType => {
         JSON.stringify(JWT.encode(
           {
             action: "cashin",
-            uid: 2,
-            cid: 8,
-            sum: 10,
+            uid: state.AuthSetState.userID,
+            cid: renderCID(),
+            sum: moneyAmount,
           },
           key,
         )),
       )
       .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key));
+        const data = JWT.decode(res.data.data, key);
+
+        dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
+          title: "Спасибо!",
+          text: `Перейдите по этому адресу для оплаты`,
+          positive: true,
+          visible: true,
+          link: data.url,
+        }));
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
+            title: "Ошибка...",
+            text: "Что то пошло не так, попробуйте снова.",
+            positive: false,
+            visible: true,
+          }));
         }
       });
   };
