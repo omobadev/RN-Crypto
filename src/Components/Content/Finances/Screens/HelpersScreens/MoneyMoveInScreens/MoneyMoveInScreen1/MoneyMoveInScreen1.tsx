@@ -24,7 +24,9 @@ type PropsType = {
 };
 
 const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
-  const [selectedUserID, setSelectedUserID] = useState(null as string | null);
+  const [selectedUserID, setSelectedUserID] = useState(
+    props.usersList && props.usersList[0].id as string | null,
+  );
   useEffect(() => {
     props.getUsersListThunkCreator();
   }, []);
@@ -40,12 +42,20 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
       />
       <FooterInput
         buttonText="Перевод"
-        action={() => props.navigation.navigate("MoneyMoveInScreen2")}
+        action={(values: { value: string }) => {
+          if (
+            !isNaN(Number(values.value)) && Number(values.value) > 0 &&
+            selectedUserID
+          ) {
+            props.navigation.navigate("MoneyMoveInScreen2", {
+              moneyAmount: Number(values.value),
+              selectedUserID: selectedUserID,
+            });
+          }
+        }}
         valueName="Укажите сумму"
         errorText="Укажите сумму"
-        containerStyle={{
-          marginBottom: 40,
-        }}
+        containerStyle={styles.footer_input}
       />
     </View>
   );
@@ -55,6 +65,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 16,
+  },
+
+  footer_input: {
+    marginBottom: 40,
   },
 
   divider: {

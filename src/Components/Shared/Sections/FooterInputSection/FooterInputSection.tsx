@@ -1,30 +1,30 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, Text, TextInput, StyleSheet } from "react-native"
-import { Formik } from "formik"
-import * as yup from "yup"
+import React from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button"
+import Button from "~/Components/Shared/Components/Button/Button";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  valueName: string
-  errorText: string
-  buttonText: string
+  valueName: string;
+  errorText: string;
+  buttonText: string;
 
-  action: () => void
+  action: (values: { value: string }) => void;
 
-  containerStyle?: any
-}
+  containerStyle?: any;
+};
 
 const FooterInputSection: React.FC<PropsType> = (props) => {
   const ValidationSchema = yup.object({
     value: yup.string().required(props.errorText).typeError(props.errorText),
-  })
+  });
 
   return (
     <View style={{ ...styles.container, ...props.containerStyle }}>
@@ -36,7 +36,7 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
           value: null as string | null,
         }}
         onSubmit={(values: any) => {
-          props.action()
+          props.action(values);
         }}
       >
         {(FormikProps) => (
@@ -49,7 +49,7 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
               value={FormikProps.values.value as any}
               onChangeText={FormikProps.handleChange("value")}
               onBlur={() => {
-                FormikProps.handleBlur("value")
+                FormikProps.handleBlur("value");
               }}
             />
             {FormikProps.touched.value && FormikProps.errors.value && (
@@ -66,8 +66,8 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
         )}
       </Formik>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: -8,
   },
-})
+});
 
-export default FooterInputSection
+export default FooterInputSection;
