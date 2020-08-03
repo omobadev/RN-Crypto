@@ -13,17 +13,20 @@ import Button from "~/Components/Shared/Components/Button/Button";
 
 type PropsType = {
   valueName: string;
-  errorText: string;
+  errorText?: string;
   buttonText: string;
 
   action: (values: { value: string }) => void;
 
+  isNumberPad?: boolean;
   containerStyle?: any;
+  PropValidationSchema?: any;
 };
 
 const FooterInputSection: React.FC<PropsType> = (props) => {
   const ValidationSchema = yup.object({
-    value: yup.string().required(props.errorText).typeError(props.errorText),
+    value: yup.string().required(props.errorText || "Укажите информацию")
+      .typeError(props.errorText || "Укажите информацию"),
   });
 
   return (
@@ -31,7 +34,9 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
       <Text style={styles.title}>{props.valueName}</Text>
 
       <Formik
-        validationSchema={ValidationSchema}
+        validationSchema={props.PropValidationSchema
+          ? props.PropValidationSchema
+          : ValidationSchema}
         initialValues={{
           value: null as string | null,
         }}
@@ -43,8 +48,9 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
           <>
             <TextInput
               style={styles.input}
-              keyboardType="number-pad"
-              placeholder="0"
+              keyboardType={props.isNumberPad
+                ? "number-pad"
+                : "visible-password"}
               placeholderTextColor="rgba(0, 57, 45, 0.5)"
               value={FormikProps.values.value as any}
               onChangeText={FormikProps.handleChange("value")}

@@ -1,36 +1,56 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { compose } from "redux"
-import { connect } from "react-redux"
+import { compose } from "redux";
+import { connect } from "react-redux";
 
 // COMPONENTS IMPORTS //
-import MoneyMoveInScreen2 from "./MoneyMoveInScreen2"
+import MoneyMoveInScreen2 from "./MoneyMoveInScreen2";
 
 // EXTRA IMPORTS //
-import { AppStateType } from "~/Redux/ReduxStore"
+import { AppStateType } from "~/Redux/ReduxStore";
+import {
+  sendCGCMoneyThunkCreator,
+  ActionCreatorsList,
+} from "~/Redux/Reducers/FinancesReducers/FinancesSetReducer";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
-  navigation: any
-}
+  navigation: any;
+  route: any;
 
-type MapDispatchToPropsType = {}
+  transferStatus: boolean;
+};
+
+type MapDispatchToPropsType = {
+  setTransferStatusActionCreator: (transferStatus: boolean) => void;
+  sendCGCMoneyThunkCreator: (
+    selectedUserID: string,
+    password: string,
+    moneyAmount: number,
+  ) => void;
+};
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
-  }
-}
+    route: props.route,
+
+    transferStatus: state.FinancesSetState.transferStatus,
+  };
+};
 
 const MoneyMoveInScreen2Container = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
-  )
-)(MoneyMoveInScreen2)
+    {
+      setTransferStatusActionCreator:
+        ActionCreatorsList.setTransferStatusActionCreator,
+      sendCGCMoneyThunkCreator,
+    },
+  ),
+)(MoneyMoveInScreen2);
 
-export default MoneyMoveInScreen2Container
+export default MoneyMoveInScreen2Container;

@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
+import * as yup from "yup";
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header";
@@ -25,11 +26,23 @@ type PropsType = {
 
 const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
   const [selectedUserID, setSelectedUserID] = useState(
-    props.usersList && props.usersList[0].id as string | null,
+    null as string | null,
   );
   useEffect(() => {
     props.getUsersListThunkCreator();
   }, []);
+
+  useEffect(() => {
+    setSelectedUserID(
+      props.usersList && props.usersList[0] &&
+        props.usersList[0].id,
+    );
+  }, [props.usersList]);
+
+  const ValidationSchema = yup.object({
+    value: yup.number().required("Укажите сумму не больше вашего баланса")
+      .typeError("Укажите сумму"),
+  });
 
   return (
     <View style={styles.container}>
@@ -51,11 +64,14 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
               moneyAmount: Number(values.value),
               selectedUserID: selectedUserID,
             });
+          } else {
+            values.value = "";
           }
         }}
         valueName="Укажите сумму"
-        errorText="Укажите сумму"
         containerStyle={styles.footer_input}
+        PropValidationSchema={ValidationSchema}
+        isNumberPad
       />
     </View>
   );

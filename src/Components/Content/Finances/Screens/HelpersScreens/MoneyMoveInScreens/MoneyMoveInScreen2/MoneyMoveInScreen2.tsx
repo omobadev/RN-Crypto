@@ -1,39 +1,58 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button"
-import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection";
+
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-}
+  navigation: any;
+  route: any;
+  transferStatus: boolean;
+
+  setTransferStatusActionCreator: (transferStatus: boolean) => void;
+  sendCGCMoneyThunkCreator: (
+    selectedUserID: string,
+    password: string,
+    moneyAmount: number,
+  ) => any;
+};
 
 const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
-  const [popupVisible, setPopupVisible] = useState(false as boolean)
+  const moneyAmount = props.route.params.moneyAmount;
+  const selectedUserID = props.route.params.selectedUserID;
 
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          <Text style={styles.bold}>Внимание!</Text> Вы собираетесь сделать
-          перевод средств.
+          <Text style={styles.bold}>Внимание!{" "}</Text>
+          Вы собираетесь сделать перевод средств.
         </Text>
         <Text style={styles.paragraph}>
           Имейте ввиду что перевод средств, как правило, занимает 1-2 часа с
           момента осуществления перевода.
         </Text>
-        <Button
-          text="Оплатить"
-          onPress={() => setPopupVisible(true)}
-          buttonStyle={{ alignSelf: "center", marginTop: 15 }}
+
+        <FooterInput
+          buttonText="Оплатить"
+          action={(values: { value: string }) =>
+            props.sendCGCMoneyThunkCreator(
+              selectedUserID,
+              values.value,
+              moneyAmount,
+            )}
+          valueName="Введите пароль"
+          errorText="Введите пароль"
         />
       </View>
+
       <Popup
         title="Спасибо!"
         description="Ваш перевод прошёл успешно!"
@@ -44,12 +63,12 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
             action: () => props.navigation.navigate("FinancesMain"),
           },
         ]}
-        popupVisible={popupVisible}
-        setPopupVisible={setPopupVisible}
+        popupVisible={props.transferStatus}
+        setPopupVisible={props.setTransferStatusActionCreator}
       />
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -67,6 +86,6 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
-})
+});
 
-export default MoneyMoveInScreen2
+export default MoneyMoveInScreen2;
