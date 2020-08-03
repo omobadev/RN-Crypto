@@ -1,36 +1,49 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { compose } from "redux"
-import { connect } from "react-redux"
+import { compose } from "redux";
+import { connect } from "react-redux";
 
 // COMPONENTS IMPORTS //
-import MoneyMoveInScreen1 from "./MoneyMoveInScreen1"
+import MoneyMoveInScreen1 from "./MoneyMoveInScreen1";
 
 // EXTRA IMPORTS //
-import { AppStateType } from "~/Redux/ReduxStore"
+import { AppStateType } from "~/Redux/ReduxStore";
+import { getUsersListThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthGetReducer";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
-  navigation: any
-}
+  navigation: any;
 
-type MapDispatchToPropsType = {}
+  usersList: Array<any>;
+  CGCInfo: {
+    price: string;
+    value2: string;
+  };
+};
+
+type MapDispatchToPropsType = {
+  getUsersListThunkCreator: () => void;
+};
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
-  }
-}
+
+    CGCInfo: state.FinancesGetState.BudgetInfo.CGC,
+    usersList: state.AuthGetState.usersList,
+  };
+};
 
 const MoneyMoveInScreen1Container = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
-  )
-)(MoneyMoveInScreen1)
+    {
+      getUsersListThunkCreator: getUsersListThunkCreator,
+    },
+  ),
+)(MoneyMoveInScreen1);
 
-export default MoneyMoveInScreen1Container
+export default MoneyMoveInScreen1Container;

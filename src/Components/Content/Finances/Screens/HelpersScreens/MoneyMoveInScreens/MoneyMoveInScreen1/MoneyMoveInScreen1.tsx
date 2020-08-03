@@ -1,26 +1,43 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, StyleSheet } from "react-native"
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import Header from "./Header/Header"
-import usersList from "./usersList/usersList"
-import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
+import Header from "./Header/Header";
+import UsersList from "./UsersList/UsersList";
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection";
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-}
+  navigation: any;
+
+  usersList: Array<any>;
+  CGCInfo: {
+    price: string;
+    value2: string;
+  };
+
+  getUsersListThunkCreator: () => void;
+};
 
 const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
+  const [selectedUserID, setSelectedUserID] = useState(null as string | null);
+  useEffect(() => {
+    props.getUsersListThunkCreator();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Header />
+      <Header CGCInfo={props.CGCInfo} />
       <View style={styles.divider} />
-      <usersList />
+      <UsersList
+        usersList={props.usersList}
+        selectedUserID={selectedUserID}
+        setSelectedUserID={setSelectedUserID}
+      />
       <FooterInput
         buttonText="Перевод"
         action={() => props.navigation.navigate("MoneyMoveInScreen2")}
@@ -31,8 +48,8 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
         }}
       />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -46,6 +63,6 @@ const styles = StyleSheet.create({
     opacity: 0.2,
     marginVertical: 10,
   },
-})
+});
 
-export default MoneyMoveInScreen1
+export default MoneyMoveInScreen1;
