@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import UserItem from "../../../../Shared/Components/UserItem/UserItem";
+import UserItem from "~/Components/Shared/Components/UserItem/UserItem";
 
 // EXTRA IMPORTS //
 import { AntDesign } from "@expo/vector-icons";
