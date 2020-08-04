@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import React from "react";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 
 // COMPONENTS IMPORTS //
 
@@ -9,23 +9,29 @@ import { View, Text, StyleSheet } from "react-native"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  title: string
+  title: string;
 
-  firstValue: string
-  secondValue: string
-}
+  firstValue: string;
+  secondValue: string;
+  loading?: boolean;
+};
 
 const ListItem: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{props.title}</Text>
+      {props.loading &&
+        <ActivityIndicator
+          color="#F2F2F2"
+          style={{ marginLeft: "27%" }}
+        />}
       <View style={styles.wrapper}>
         <Text style={styles.title}>{props.firstValue}</Text>
         <Text style={styles.title}>({props.secondValue})</Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -51,6 +57,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16.5,
   },
-})
+});
 
-export default ListItem
+export default ListItem;

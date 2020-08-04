@@ -65,6 +65,7 @@ const TopBox: React.FC<PropsType> = (props) => {
             title="Майнинг CGC:"
             firstValue={props.BudgetInfo.MiningCGC.price}
             secondValue={`${props.BudgetInfo.MiningCGC.value2 || "0"} $`}
+            loading
           />
           <ListItem
             title="Доход в сутки:"
