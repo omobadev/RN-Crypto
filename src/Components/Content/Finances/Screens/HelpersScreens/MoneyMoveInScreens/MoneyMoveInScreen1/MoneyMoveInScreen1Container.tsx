@@ -14,6 +14,7 @@ import { getUsersListThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthGetR
 // TYPES
 type MapStateToPropsType = {
   navigation: any;
+  route: any;
 
   usersList: Array<any>;
   CGCInfo: {
@@ -31,6 +32,7 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
+    route: props.route,
 
     CGCInfo: state.FinancesGetState.BudgetInfo.CGC,
     usersList: state.AuthGetState.usersList,

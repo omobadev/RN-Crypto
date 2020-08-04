@@ -33,7 +33,12 @@ const NonAdminContent: React.FC<PropsType> = (props) => {
         />
         <CircleBtbItem
           icon={<FontAwesome name="dollar" size={24} color="black" />}
-          onPress={() => props.navigation.navigate("Finances")}
+          onPress={() => {
+            // props.navigation.navigate("Finances");
+            props.navigation.navigate("MoneyMoveInScreen1", {
+              selectedUserID: props.userData.name,
+            });
+          }}
         />
         <CircleBtbItem
           icon={<Feather name="phone-call" size={24} color="black" />}

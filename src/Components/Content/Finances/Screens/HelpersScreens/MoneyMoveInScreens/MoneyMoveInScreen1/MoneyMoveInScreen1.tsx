@@ -14,6 +14,7 @@ import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterI
 
 type PropsType = {
   navigation: any;
+  route: any;
 
   usersList: Array<any>;
   CGCInfo: {
@@ -34,8 +35,10 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
 
   useEffect(() => {
     setSelectedUserID(
-      props.usersList && props.usersList[0] &&
-        props.usersList[0].id,
+      props.route.params.selectedUserID
+        ? props.route.params.selectedUserID
+        : props.usersList && props.usersList[0] &&
+          props.usersList[0].id,
     );
   }, [props.usersList]);
 

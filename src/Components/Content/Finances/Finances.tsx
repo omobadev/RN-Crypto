@@ -75,6 +75,16 @@ const Finances: React.FC<PropsType> = (props) => {
           title: "Сделать перевод",
           headerTitleAlign: "center",
         })}
+        initialParams={{
+          selectedUserID: null,
+        }}
+        listeners={({ navigation, route }: any) => ({
+          focus: () => {
+            navigation.setParams({
+              selectedUserID: route.params.selectedUserID as any,
+            });
+          },
+        })}
       />
       <Stack.Screen
         name="MoneyMoveInScreen2"
