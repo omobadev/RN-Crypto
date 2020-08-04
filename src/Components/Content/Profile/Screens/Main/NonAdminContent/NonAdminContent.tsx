@@ -1,20 +1,20 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import CircleBtbItem from "./CircleBtnItem/CircleBtnItem"
+import CircleBtbItem from "./CircleBtnItem/CircleBtnItem";
 
 // EXTRA IMPORTS //
-import { Feather } from "@expo/vector-icons"
-import { FontAwesome } from "@expo/vector-icons"
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-  userData: any
-}
+  navigation: any;
+  userData: any;
+};
 
 const NonAdminContent: React.FC<PropsType> = (props) => {
   return (
@@ -28,16 +28,12 @@ const NonAdminContent: React.FC<PropsType> = (props) => {
       </Text>
       <View style={styles.btns_wrap}>
         <CircleBtbItem
-          onPress={() =>
-            props.navigation.navigate("DialogItem", {
-              userName: props.userData.name,
-            })
-          }
+          onPress={() => props.navigation.navigate("Dialogs")}
           icon={<Feather name="message-circle" size={24} color="black" />}
         />
         <CircleBtbItem
           icon={<FontAwesome name="dollar" size={24} color="black" />}
-          onPress={() => {}}
+          onPress={() => props.navigation.navigate("Finances")}
         />
         <CircleBtbItem
           icon={<Feather name="phone-call" size={24} color="black" />}
@@ -45,8 +41,8 @@ const NonAdminContent: React.FC<PropsType> = (props) => {
         />
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -70,6 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     width: "100%",
   },
-})
+});
 
-export default NonAdminContent
+export default NonAdminContent;
