@@ -37,7 +37,7 @@ const TopBox: React.FC<PropsType> = (props) => {
       values.title,
       values.message
     )
-    props.navigation.goBack()
+    props.navigation.navigate("NavigationCenterContainer")
   }
 
   const submitFunction = (selectedUsersIDs: Array<any>) => {
@@ -49,7 +49,7 @@ const TopBox: React.FC<PropsType> = (props) => {
     <>
       <ImageBackground
         source={require("~/Images/bg-1.png")}
-        // imageStyle={{ borderBottomRightRadius: 25, borderBottomLeftRadius: 25 }}
+        imageStyle={{ borderBottomRightRadius: 25, borderBottomLeftRadius: 25 }}
         style={styles.container}
       >
         <CustomHeader

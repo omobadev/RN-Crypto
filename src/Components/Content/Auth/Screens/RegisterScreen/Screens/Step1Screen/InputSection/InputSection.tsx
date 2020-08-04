@@ -1,26 +1,26 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, TextInput, Text, Keyboard, StyleSheet } from "react-native"
-import { Formik } from "formik"
-import * as yup from "yup"
+import React from "react";
+import { View, TextInput, Text, Keyboard, StyleSheet } from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button"
-import { TouchableOpacity } from "react-native-gesture-handler"
+import Button from "~/Components/Shared/Components/Button/Button";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-  route: any
+  navigation: any;
+  route: any;
 
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string
-  ) => void
-}
+    UserPassword: string,
+  ) => void;
+};
 
 const InputSection: React.FC<PropsType> = (props) => {
   const ValidationSchema = yup.object({
@@ -30,7 +30,7 @@ const InputSection: React.FC<PropsType> = (props) => {
       .min(6, "Пароль слишком короток - минимум 6 символов")
       .matches(/[a-zA-Z]/ as any, "Пароль может только иметь латинские символы")
       .required("Пароль обязателен"),
-  })
+  });
 
   return (
     <Formik
@@ -40,8 +40,8 @@ const InputSection: React.FC<PropsType> = (props) => {
         password: "" as string,
       }}
       onSubmit={(values: any) => {
-        props.setFirstScreenValuesActionCreator(values.login, values.password)
-        props.navigation.navigate("RegisterStep2Screen")
+        props.setFirstScreenValuesActionCreator(values.login, values.password);
+        props.navigation.navigate("RegisterStep2Screen");
       }}
     >
       {(FormikProps) => (
@@ -73,16 +73,18 @@ const InputSection: React.FC<PropsType> = (props) => {
           <TouchableOpacity
             style={[styles.input, styles.fake_input]}
             onPress={() => {
-              props.navigation.navigate("UsersIDsListScreen")
+              props.navigation.navigate("UsersIDsListScreen");
             }}
           >
-            {(
-              <Text style={[styles.fake_input_text, { color: "white" }]}>
-                {props.route.params.userInvitedID}
-              </Text>
-            ) || (
-              <Text style={styles.fake_input_text}>{"ID пригласившего"}</Text>
-            )}
+            {props.route.params.userInvitedID
+              ? (
+                <Text style={[styles.fake_input_text, { color: "white" }]}>
+                  {props.route.params.userInvitedID}
+                </Text>
+              )
+              : (
+                <Text style={styles.fake_input_text}>{"ID пригласившего"}</Text>
+              )}
           </TouchableOpacity>
 
           <Button
@@ -94,8 +96,8 @@ const InputSection: React.FC<PropsType> = (props) => {
         </View>
       )}
     </Formik>
-  )
-}
+  );
+};
 
 //   STYLES   //
 const styles = StyleSheet.create({
@@ -150,6 +152,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "rgba(242, 242, 242, 0.6)",
   },
-})
+});
 
-export default InputSection
+export default InputSection;

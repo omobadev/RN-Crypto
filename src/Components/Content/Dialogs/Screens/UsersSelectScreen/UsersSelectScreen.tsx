@@ -1,29 +1,29 @@
 // PLUGINS IMPORTS //
-import React, { useEffect, useState } from "react"
-import { ScrollView, TouchableOpacity, StyleSheet } from "react-native"
+import React, { useEffect, useState } from "react";
+import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import UserItem from "../../../../Shared/Components/UserItem/UserItem"
+import UserItem from "../../../../Shared/Components/UserItem/UserItem";
 
 // EXTRA IMPORTS //
-import { AntDesign } from "@expo/vector-icons"
+import { AntDesign } from "@expo/vector-icons";
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-  route: any
-  usersList: Array<any>
+  navigation: any;
+  route: any;
+  usersList: Array<any>;
 
-  getUsersListThunkCreator: () => void
-}
+  getUsersListThunkCreator: () => void;
+};
 
 const CreateNewDialog: React.FC<PropsType> = (props) => {
-  const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>)
+  const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>);
 
   useEffect(() => {
-    props.getUsersListThunkCreator()
-  }, [])
+    props.getUsersListThunkCreator();
+  }, []);
 
   return (
     <>
@@ -32,32 +32,33 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
           return (
             <UserItem
               id={user.id}
-              removeSelection
               isSelected={selectedUsersIDs.includes(user.id)}
               onPress={() => {
-                selectedUsersIDs.includes(user.id)
-                  ? setSelectedUsersIDs(
-                      selectedUsersIDs.filter(
-                        (userID: any) => userID !== user.id
-                      )
-                    )
-                  : setSelectedUsersIDs(selectedUsersIDs.concat(user.id))
+                if (selectedUsersIDs.includes(user.id)) {
+                  setSelectedUsersIDs(
+                    selectedUsersIDs.filter(
+                      (userID: any) => userID !== user.id,
+                    ),
+                  );
+                } else {
+                  setSelectedUsersIDs(selectedUsersIDs.concat(user.id));
+                }
               }}
             />
-          )
+          );
         })}
       </ScrollView>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          props.route.params.function(selectedUsersIDs)
+          props.route.params.function(selectedUsersIDs);
         }}
       >
         <AntDesign name="check" size={24} color="white" />
       </TouchableOpacity>
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +76,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 100,
   },
-})
+});
 
-export default CreateNewDialog
+export default CreateNewDialog;

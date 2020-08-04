@@ -24,17 +24,24 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
 
   const submitFunction = (selectedUsers: Array<any>) => {
     props.addUsersToChatThunkCreator(selectedUsers, chatInfo.chatID)
+    props.navigation.goBack()
+    props.navigation.goBack()
     props.navigation.navigate("Dialogs")
+ 
+
   }
 
+
+  
+
   return (
-    <View>
+    <ScrollView style={styles.wrapper}>
       {chatInfo.users && (
-        <ScrollView>
+        <View>
           {chatInfo.users.map((user: any) => {
-            return <UserItem id={user.uLogin} />
+            return <UserItem removeSelection id={user.uLogin} />
           })}
-        </ScrollView>
+        </View>
       )}
       <View style={styles.buttons_wrap}>
         <TouchableOpacity
@@ -54,17 +61,23 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
           style={[styles.button, { backgroundColor: "#db3236" }]}
           onPress={() => {
             props.leaveChatThunkCreator(chatInfo.chatID)
-            props.navigation.navigate("Dialogs")
+            props.navigation.goBack()
+            props.navigation.goBack()
+
           }}
         >
           <Text style={styles.button_text}>Выйти из чата</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+  marginBottom: 20
+},
+
   buttons_wrap: {
     marginTop: 20,
   },

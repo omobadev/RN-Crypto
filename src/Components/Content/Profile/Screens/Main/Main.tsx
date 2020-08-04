@@ -34,7 +34,7 @@ const Main: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Image style={styles.avatar} source={require("~/Images/avatar.png")} />
-      {props.route.params.isAdmin
+      {!props.route.params.isAdmin
         ? (
           <AdminContent userData={props.UserCredentials} />
         )
