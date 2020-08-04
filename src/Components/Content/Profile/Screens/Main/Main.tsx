@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useEffect } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
 import AdminContent from "./AdminContent/AdminContent";
@@ -33,7 +33,16 @@ const Main: React.FC<PropsType> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.avatar} source={require("~/Images/avatar.png")} />
+      <View style={styles.img_wrap}>
+        <Image
+          style={styles.img_wrap}
+          source={require("~/Images/default-avatar.png")}
+        />
+        <Text style={styles.letter}>
+          {props.UserCredentials.name &&
+            String(props.UserCredentials.name.charAt(0))}
+        </Text>
+      </View>
       {!props.route.params.isAdmin
         ? (
           <AdminContent userData={props.UserCredentials} />
@@ -54,18 +63,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
 
-  avatar: {
+  img_wrap: {
+    alignItems: "center",
     alignSelf: "center",
     borderRadius: 1000,
     height: 150,
     width: 150,
   },
 
-  content: {
-    marginTop: 50,
+  letter: {
+    position: "absolute",
+    fontSize: 99,
+    color: "#F2F2F2",
   },
-
-  bold_text: {},
 });
 
 export default Main;

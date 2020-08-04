@@ -68,6 +68,13 @@ const Profile: React.FC<PropsType> = (props) => {
         initialParams={{
           isAdmin: isAdmin,
         }}
+        listeners={({ navigation, route }: any) => ({
+          focus: () => {
+            navigation.setParams({
+              isAdmin: isAdmin,
+            });
+          },
+        })}
       />
       <Stack.Screen
         name="ProfileSettings"
