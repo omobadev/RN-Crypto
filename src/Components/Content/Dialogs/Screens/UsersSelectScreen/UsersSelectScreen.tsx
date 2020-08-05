@@ -21,10 +21,22 @@ type PropsType = {
 
 const CreateNewDialog: React.FC<PropsType> = (props) => {
   const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>);
-  const [queryValue, setQueryValue] = useState(null as string | null);
-  const [filteredUsers, SetFilteredUsers] = useState(
+  const [queryValue, setQueryValue] = useState("" as string);
+  const [filteredUsers, setFilteredUsers] = useState(
     props.usersList as Array<any>,
   );
+
+  useEffect(() => {
+    if (!queryValue.trim()) setFilteredUsers(props.usersList);
+    setFilteredUsers(
+      props.usersList
+        .filter(
+          (l) =>
+            l.id.toLowerCase().indexOf(queryValue.trim().toLowerCase()) === 0,
+        )
+        .map((l) => l),
+    );
+  }, [queryValue]);
 
   useEffect(() => {
     props.getUsersListThunkCreator();
@@ -34,7 +46,7 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
     <>
       <ScrollView style={styles.container}>
         <SearchSection value={queryValue} setValue={setQueryValue} />
-        {props.usersList.map((user: any) => {
+        {filteredUsers && filteredUsers.map((user: any) => {
           return (
             <UserItem
               id={user.id}
