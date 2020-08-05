@@ -1,35 +1,41 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { compose } from "redux"
-import { connect } from "react-redux"
+import React from "react";
+import { compose } from "redux";
+import { connect } from "react-redux";
 
 // COMPONENTS IMPORTS //
-import Main from "./Main"
+import Main from "./Main";
 
 // EXTRA IMPORTS //
-import { AppStateType } from "~/Redux/ReduxStore"
-import { getUserCredentialsThunkCreator } from "~/Redux/Reducers/UserReducers/UserGetReducer"
+import { AppStateType } from "~/Redux/ReduxStore";
+import { getUserCredentialsThunkCreator } from "~/Redux/Reducers/UserReducers/UserGetReducer";
+import { createNewDialogThunkCreator } from "~/Redux/Reducers/ChatsReducers/ChatsSetReducer";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
-  navigation: any
-  route: any
+  navigation: any;
+  route: any;
 
   UserCredentials: {
-    ID: string
-    name: string
-    login: string
-    email: string
-    location: string
-    invitedID: string
-  }
-}
+    ID: string;
+    name: string;
+    login: string;
+    email: string;
+    location: string;
+    invitedID: string;
+  };
+};
 
 type MapDispatchToPropsType = {
-  getUserCredentialsThunkCreator: () => void
-}
+  createNewDialogThunkCreator: (
+    selectedUsersIDs: Array<any>,
+    chatTitle: string,
+    message: string,
+  ) => void;
+  getUserCredentialsThunkCreator: () => void;
+};
 
 /////////////////////////////////////////////////////////////////
 
@@ -39,16 +45,17 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
     route: props.route,
 
     UserCredentials: state.UserGetState.UserCredentials,
-  }
-}
+  };
+};
 
 const MainContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
-      getUserCredentialsThunkCreator: getUserCredentialsThunkCreator,
-    }
-  )
-)(Main)
+      getUserCredentialsThunkCreator,
+      createNewDialogThunkCreator,
+    },
+  ),
+)(Main);
 
-export default MainContainer
+export default MainContainer;

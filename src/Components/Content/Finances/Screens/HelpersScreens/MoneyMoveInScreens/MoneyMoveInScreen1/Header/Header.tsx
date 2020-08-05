@@ -26,12 +26,12 @@ const Header: React.FC<PropsType> = (props) => {
 
       <View style={styles.content}>
         <Text style={styles.text}>Ваш баланс</Text>
-        <Text style={{ ...styles.text, fontWeight: "bold" }}>
-          {props.CGCInfo.value2} CGC
+        <Text style={[styles.text, { fontWeight: "bold" }]}>
+          {props.CGCInfo.value2 || 0} CGC
         </Text>
       </View>
 
-      <Text style={{ ...styles.text, marginTop: 30, fontSize: 17 }}>
+      <Text style={[styles.text, { marginTop: 30, fontSize: 17 }]}>
         Выберите получателя:
       </Text>
     </>

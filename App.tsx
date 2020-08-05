@@ -68,6 +68,8 @@ const App: React.FC<PropsType> = (props) => {
                 function: () => console.log(),
               }}
             />
+
+            
             
           </Stack.Navigator>
         ) : (

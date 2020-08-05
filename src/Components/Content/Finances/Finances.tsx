@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -25,13 +25,18 @@ import { Feather } from "@expo/vector-icons";
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {};
+type PropsType = {
+  route: any;
+};
 
 const Finances: React.FC<PropsType> = (props) => {
   const Stack = createStackNavigator();
 
+  const spcRoute = props.route.params.spcRoute;
+  const spcRouteData = props.route.params.spcRouteData;
+
   return (
-    <Stack.Navigator initialRouteName="FinancesMain">
+    <Stack.Navigator initialRouteName={spcRoute || "FinancesMain"}>
       <Stack.Screen
         name="FinancesMain"
         component={MainContainer}
@@ -76,13 +81,15 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
         })}
         initialParams={{
-          selectedUserID: null,
+          selectedUserID: spcRouteData.selectedUserID || null,
         }}
         listeners={({ navigation, route }: any) => ({
           focus: () => {
-            navigation.setParams({
-              selectedUserID: route.params.selectedUserID as any,
-            });
+            navigation.setParams(
+              {
+                selectedUserID: spcRouteData.selectedUserID || null as any,
+              },
+            );
           },
         })}
       />

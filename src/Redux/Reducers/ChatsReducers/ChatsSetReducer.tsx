@@ -48,7 +48,7 @@ export const createNewDialogThunkCreator = (
   message: string,
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    const uid = await AsyncStorage.getItem("uid");
+    const state = getState();
 
     await axios
       .post(
@@ -57,7 +57,7 @@ export const createNewDialogThunkCreator = (
           JWT.encode(
             {
               action: "new_user_chat_message",
-              uid: uid,
+              uid: state.AuthSetState.userID,
               topic: chatTitle,
               users: selectedUsersIDs,
               message: message,

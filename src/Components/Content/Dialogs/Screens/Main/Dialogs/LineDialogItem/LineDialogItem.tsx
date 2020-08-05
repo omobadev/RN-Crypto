@@ -1,7 +1,7 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, Text, Image, Dimensions, StyleSheet } from "react-native"
-import { RectButton } from "react-native-gesture-handler"
+import React from "react";
+import { View, Text, Image, Dimensions, StyleSheet } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 
 // COMPONENTS IMPORTS //
 
@@ -10,9 +10,9 @@ import { RectButton } from "react-native-gesture-handler"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any
-  dialog: any
-}
+  navigation: any;
+  dialog: any;
+};
 
 const LineDialogItem: React.FC<PropsType> = (props) => {
   return (
@@ -24,12 +24,14 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
             userName: props.dialog.chTopic,
             avatar: props.dialog.avatar,
             chatInfo: props.dialog,
-          })
-        }
+          })}
       >
         <View style={styles.credentials_wrap}>
           <View style={styles.img_wrap}>
-            <Image source={require("~/Images/default-avatar.png")} />
+            <Image
+              source={require("~/Images/default-avatar.png")}
+              style={styles.img_wrap}
+            />
             <Text style={styles.letter}>{props.dialog.chTopic.charAt(0)}</Text>
           </View>
           <View style={styles.text_wrap}>
@@ -43,10 +45,10 @@ const LineDialogItem: React.FC<PropsType> = (props) => {
       </RectButton>
       <View style={styles.divider} />
     </>
-  )
-}
+  );
+};
 
-const screenWidth = Dimensions.get("screen").width
+const screenWidth = Dimensions.get("screen").width;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -98,6 +100,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     alignSelf: "flex-end",
   },
-})
+});
 
-export default LineDialogItem
+export default LineDialogItem;

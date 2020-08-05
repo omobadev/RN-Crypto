@@ -23,6 +23,11 @@ type PropsType = {
     invitedID: string;
   };
 
+  createNewDialogThunkCreator: (
+    selectedUsersIDs: Array<any>,
+    chatTitle: string,
+    message: string,
+  ) => void;
   getUserCredentialsThunkCreator: () => void;
 };
 
@@ -51,6 +56,7 @@ const Main: React.FC<PropsType> = (props) => {
           <NonAdminContent
             userData={props.UserCredentials}
             navigation={props.navigation}
+            createNewDialogThunkCreator={props.createNewDialogThunkCreator}
           />
         )}
     </View>
