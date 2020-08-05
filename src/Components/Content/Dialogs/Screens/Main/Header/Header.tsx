@@ -9,6 +9,7 @@ import {
 
 // COMPONENTS IMPORTS //
 import DialogsInputPopup from "~/Components/Shared/Components/Popups/DialogsInputPopup/DialogsInputPopup"
+ 
 
 // EXTRA IMPORTS //
 import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader"
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "rgba(242, 242, 242, 0.2)",
+    color: "rgba(0, 57, 45, 1)",
     marginHorizontal: 16,
     borderRadius: 10,
     marginTop: 20,

@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
 import UserItem from "~/Components/Shared/Components/UserItem/UserItem";
+import SearchSection from "./SearchSection/SearchSection";
 
 // EXTRA IMPORTS //
 import { AntDesign } from "@expo/vector-icons";
@@ -20,6 +21,10 @@ type PropsType = {
 
 const CreateNewDialog: React.FC<PropsType> = (props) => {
   const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>);
+  const [queryValue, setQueryValue] = useState(null as string | null);
+  const [filteredUsers, SetFilteredUsers] = useState(
+    props.usersList as Array<any>,
+  );
 
   useEffect(() => {
     props.getUsersListThunkCreator();
@@ -28,6 +33,7 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
   return (
     <>
       <ScrollView style={styles.container}>
+        <SearchSection value={queryValue} setValue={setQueryValue} />
         {props.usersList.map((user: any) => {
           return (
             <UserItem
