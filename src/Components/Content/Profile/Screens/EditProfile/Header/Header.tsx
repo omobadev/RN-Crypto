@@ -1,25 +1,33 @@
 // PLUGINS IMPORTS //
-import React, { useState, useEffect } from "react"
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native"
-import * as ImagePicker from "expo-image-picker"
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  StyleSheet,
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import { Feather } from "@expo/vector-icons"
+import { Feather } from "@expo/vector-icons";
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  userData: any;
+};
 
 const Header: React.FC<PropsType> = (props) => {
-  const [avatar, setAvatar] = useState(null as string | null)
+  const [avatar, setAvatar] = useState(null as string | null);
 
   const selectAvatar = () => {
-    ;(async () => {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
+    (async () => {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
       if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!")
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
     })().then(async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -27,20 +35,30 @@ const Header: React.FC<PropsType> = (props) => {
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
-      })
+      });
 
       if (!result.cancelled) {
-        setAvatar(result.uri)
+        setAvatar(result.uri);
       }
-    })
-  }
-  console.log(avatar)
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.avatar}
-        source={avatar ? { uri: avatar } : require("~/Images/avatar.png")}
-      />
+      <View style={styles.img_wrap}>
+        <ImageBackground
+          style={styles.img_wrap}
+          source={avatar
+            ? { uri: avatar }
+            : require("~/Images/default-avatar.png")}
+        >
+          <Text style={styles.letter}>
+            {props.userData && props.userData.name &&
+              String(props.userData.name.charAt(0))}
+          </Text>
+        </ImageBackground>
+      </View>
+
       <View style={styles.content_wrap}>
         <TouchableOpacity
           style={styles.item_wrap}
@@ -55,20 +73,14 @@ const Header: React.FC<PropsType> = (props) => {
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 5,
     flexDirection: "row",
     alignItems: "center",
-  },
-
-  avatar: {
-    height: 122,
-    width: 122,
-    borderRadius: 100,
   },
 
   content_wrap: {
@@ -88,6 +100,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 210,
   },
-})
 
-export default Header
+  img_wrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    borderRadius: 1000,
+    height: 122,
+    width: 122,
+  },
+
+  letter: {
+    fontSize: 50,
+    color: "#F2F2F2",
+    marginBottom: "12%",
+    marginRight: "2%",
+  },
+});
+
+export default Header;

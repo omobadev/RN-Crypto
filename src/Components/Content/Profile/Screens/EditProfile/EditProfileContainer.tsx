@@ -1,32 +1,42 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { compose } from "redux"
-import { connect } from "react-redux"
+import { compose } from "redux";
+import { connect } from "react-redux";
 
 // COMPONENTS IMPORTS //
-import EditProfile from "./EditProfile"
+import EditProfile from "./EditProfile";
 
 // EXTRA IMPORTS //
-import { AppStateType } from "~/Redux/ReduxStore"
+import { AppStateType } from "~/Redux/ReduxStore";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
-type MapStateToPropsType = {}
+type MapStateToPropsType = {
+  UserCredentials: {
+    ID: string;
+    name: string;
+    login: string;
+    email: string;
+    location: string;
+    invitedID: string;
+  };
+};
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {};
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
-  return {}
-}
+  return {
+    UserCredentials: state.UserGetState.UserCredentials,
+  };
+};
 
 const EditProfileContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
-  )
-)(EditProfile)
+    {},
+  ),
+)(EditProfile);
 
-export default EditProfileContainer
+export default EditProfileContainer;

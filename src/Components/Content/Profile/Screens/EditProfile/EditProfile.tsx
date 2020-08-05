@@ -1,39 +1,39 @@
 // PLUGINS IMPORTS //
-import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 // COMPONENTS IMPORTS //
-import Header from "./Header/Header"
-import Body from "./Body/Body"
+import Header from "./Header/Header";
+import Body from "./Body/Body";
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  UserCredentials: {
+    ID: string;
+    name: string;
+    login: string;
+    email: string;
+    location: string;
+    invitedID: string;
+  };
+};
 
 const EditProfile: React.FC<PropsType> = (props) => {
-  const userData = {
-    ID: "2099321234",
-    name: "Дарья Иванова",
-    login: "IvanovаDR",
-    email: "IvanovaDR@gmail.com",
-    location: "Россия, Москва",
-    invitedID: "2099321234",
-  }
-
   return (
     <View style={styles.container}>
-      <Header />
-      <Body userData={userData} />
+      <Header userData={props.UserCredentials} />
+      <Body userData={props.UserCredentials} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 17,
   },
-})
+});
 
-export default EditProfile
+export default EditProfile;
