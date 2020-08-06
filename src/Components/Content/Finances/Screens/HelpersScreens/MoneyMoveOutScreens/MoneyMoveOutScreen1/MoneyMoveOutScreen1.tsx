@@ -31,9 +31,7 @@ const MoneyMoveOutScreen1: React.FC<PropsType> = (props) => {
         action={() => props.navigation.navigate("MoneyMoveOutScreen2")}
         valueName="Количество"
         errorText="Укажите количество"
-        containerStyle={{
-          marginTop: 135,
-        }}
+        containerStyle={styles.footer_input}
       />
     </ScrollView>
   )
@@ -43,6 +41,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 16,
+  },
+
+  footer_input: {
+    marginTop: 135,
   },
 })
 

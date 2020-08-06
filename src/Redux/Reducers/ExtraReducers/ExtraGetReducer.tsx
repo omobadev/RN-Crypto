@@ -1,11 +1,11 @@
 //    *GENERAL IMPORTS*   //
-import { ThunkAction } from "redux-thunk";
-import axios from "axios";
+import { ThunkAction } from "redux-thunk"
+import axios from "axios"
 // @ts-ignore
-import JWT from "expo-jwt";
+import JWT from "expo-jwt"
 
-import { AppStateType, InferActionsTypes } from "~/Redux/ReduxStore";
-const key = "shh";
+import { AppStateType, InferActionsTypes } from "~/Redux/ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -16,88 +16,91 @@ const initialState = {
   ReferalLink: null as string | null,
 
   TarifsList: [] as Array<{
-    color: string;
-    sale: string;
-    price: string;
-    duration: string;
+    color: string
+    sale: string
+    price: string
+    duration: string
   }>,
-};
+}
 
-type initialStateType = typeof initialState;
+type initialStateType = typeof initialState
 
 // *REDUCER* //
 const ExtraGetReducer = (
   state = initialState,
-  action: ActionTypes,
+  action: ActionTypes
 ): initialStateType => {
   if (action.type === "SET_TARIFS_INFO") {
     return {
       ...state,
       PaymentAmount: action.PaymentAmount,
       endDate: action.endDate,
-    };
+    }
   }
 
   if (action.type === "SET_TARIFS_LIST") {
     return {
       ...state,
       TarifsList: action.tarifsList,
-    };
+    }
   }
 
   if (action.type === "SET_REFERAL_LINK") {
     return {
       ...state,
       ReferalLink: action.referalLink,
-    };
+    }
   }
 
-  return state;
-};
+  return state
+}
 
-export default ExtraGetReducer;
+export default ExtraGetReducer
 
 ///////////////////////////////////////////////////////////////////////
 
-type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>;
+type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
 export const ActionCreatorsList = {
-  setTarifsInfoActionCreator: (PaymentAmount: string, endDate: string) => ({
-    type: "SET_TARIFS_INFO",
-    PaymentAmount,
-    endDate,
-  } as const),
+  setTarifsInfoActionCreator: (PaymentAmount: string, endDate: string) =>
+    ({
+      type: "SET_TARIFS_INFO",
+      PaymentAmount,
+      endDate,
+    } as const),
 
   setTarifsListActionCreator: (
     tarifsList: Array<{
-      color: string;
-      sale: string;
-      price: string;
-      duration: string;
-    }>,
-  ) => ({
-    type: "SET_TARIFS_LIST",
-    tarifsList,
-  } as const),
+      color: string
+      sale: string
+      price: string
+      duration: string
+    }>
+  ) =>
+    ({
+      type: "SET_TARIFS_LIST",
+      tarifsList,
+    } as const),
 
-  setReferaLinkActionCreator: (referalLink: string) => ({
-    type: "SET_REFERAL_LINK",
-    referalLink,
-  } as const),
-};
+  setReferaLinkActionCreator: (referalLink: string) =>
+    ({
+      type: "SET_REFERAL_LINK",
+      referalLink,
+    } as const),
+}
 
 //    *THUNKS*   //
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Get tarifs info
 export const getTarifsInfoThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     await axios.get("").then((res: any) => {
-      dispatch(ActionCreatorsList.setTarifsListActionCreator(res.data));
-    });
-  };
-};
+      dispatch(ActionCreatorsList.setTarifsListActionCreator(res.data))
+    })
+  }
+}
 
 // Get tarifs list
 export const getTarifsListThunkCreator = (): ThunkType => {
@@ -106,41 +109,39 @@ export const getTarifsListThunkCreator = (): ThunkType => {
       dispatch(
         ActionCreatorsList.setTarifsInfoActionCreator(
           res.data.PaymentAmount,
-          res.data.endDate,
-        ),
-      );
-    });
-  };
-};
+          res.data.endDate
+        )
+      )
+    })
+  }
+}
 
 // Get referal link
 export const getReferalLinkThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     await axios
       .post(
         "http://cgc.cgc.capital/api_interface",
-        JWT.encode(
-          {
-            action: "reflink",
-            uid: state.AuthSetState.userID,
-          },
-          key,
-        ),
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "reflink",
+              uid: state.AuthSetState.userID,
+            },
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        await console.log(JWT.decode(res.data.data, key).reflink);
-        dispatch(
-          ActionCreatorsList.setReferaLinkActionCreator(
-            JWT.decode(res.data.data, key).reflink,
-          ),
-        );
+        const link = JWT.decode(res.data.data, key).reflink
+        dispatch(ActionCreatorsList.setReferaLinkActionCreator(link))
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response)
         }
-      });
-  };
-};
+      })
+  }
+}
