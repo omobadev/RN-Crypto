@@ -1,11 +1,11 @@
 //    *GENERAL IMPORTS*   //
-import { ThunkAction } from "redux-thunk";
-import axios from "axios";
+import { ThunkAction } from "redux-thunk"
+import axios from "axios"
 // @ts-ignore
-import JWT from "expo-jwt";
+import JWT from "expo-jwt"
 
-import { AppStateType, InferActionsTypes } from "../../ReduxStore";
-const key = "shh";
+import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -33,19 +33,19 @@ const initialState = {
   },
 
   TransactionsList: [] as Array<{
-    isIncome: boolean;
-    moneyAmount: string;
-    createdAt: string;
-    ID: string;
+    isIncome: boolean
+    moneyAmount: string
+    createdAt: string
+    ID: string
   }>,
-};
+}
 
-type initialStateType = typeof initialState;
+type initialStateType = typeof initialState
 
 // *REDUCER* //
 const UserGetReducer = (
   state = initialState,
-  action: ActionTypes,
+  action: ActionTypes
 ): initialStateType => {
   if (action.type === "SET_USER_FINANCES_INFO") {
     return {
@@ -57,88 +57,92 @@ const UserGetReducer = (
         INPH: action.INPH,
         wallet: action.wallet,
       },
-    };
+    }
   }
 
   if (action.type === "SET_TRANSACTIONS_HISTORY") {
     return {
       ...state,
       TransactionsList: action.transactionsList,
-    };
+    }
   }
 
-  return state;
-};
+  return state
+}
 
-export default UserGetReducer;
+export default UserGetReducer
 
 ///////////////////////////////////////////////////////////////////////
 
-type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>;
+type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
 export const ActionCreatorsList = {
   setUserFinancesInfoActionCreator: (
     CGC: {
-      price: string;
-      value2: string;
+      price: string
+      value2: string
     },
     MiningCGC: {
-      price: string;
-      value2: string;
+      price: string
+      value2: string
     },
     DailyIncome: {
-      price: string;
-      value2: string;
+      price: string
+      value2: string
     },
     INPH: {
-      price: string;
-      value2: string;
+      price: string
+      value2: string
     },
-    wallet: string,
-  ) => ({
-    type: "SET_USER_FINANCES_INFO",
-    CGC,
-    MiningCGC,
-    DailyIncome,
-    INPH,
-    wallet,
-  } as const),
+    wallet: string
+  ) =>
+    ({
+      type: "SET_USER_FINANCES_INFO",
+      CGC,
+      MiningCGC,
+      DailyIncome,
+      INPH,
+      wallet,
+    } as const),
 
   setTransactionsHistoryActionCreator: (
     transactionsList: Array<{
-      isIncome: boolean;
-      moneyAmount: string;
-      createdAt: string;
-      ID: string;
-    }>,
-  ) => ({
-    type: "SET_TRANSACTIONS_HISTORY",
-    transactionsList,
-  } as const),
-};
+      isIncome: boolean
+      moneyAmount: string
+      createdAt: string
+      ID: string
+    }>
+  ) =>
+    ({
+      type: "SET_TRANSACTIONS_HISTORY",
+      transactionsList,
+    } as const),
+}
 
 //    *THUNKS*   //
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Get user finances info
 export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     await axios
       .post(
         "http://cgc.cgc.capital/api_interface",
-        JSON.stringify(JWT.encode(
-          {
-            action: "finance",
-            uid: state.AuthSetState.userID,
-          },
-          key,
-        )),
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "finance",
+              uid: state.AuthSetState.userID,
+            },
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        const data = JWT.decode(res.data.data, key);
+        const data = JWT.decode(res.data.data, key)
 
         dispatch(
           ActionCreatorsList.setUserFinancesInfoActionCreator(
@@ -147,50 +151,50 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
               value2: data.cgcUSD,
             },
             {
-              price: data.myToken,
-              value2: data.myTokenUSD,
-            },
-            {
               price: data.profit,
               value2: data.profitUSD,
+            },
+            {
+              price: data.profitSec,
+              value2: data.profitSecUSD,
             },
             {
               price: data.inph,
               value2: data.inphUSD,
             },
-            data.wallet,
-          ),
-        );
+            data.wallet
+          )
+        )
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response)
         }
-      });
-  };
-};
+      })
+  }
+}
 
 // Get transactions history
 export const getTransactionsHistoryThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     const data = JWT.encode(
       {
         action: "transactionsList",
         uid: state.AuthSetState.userID,
       },
-      key,
-    );
+      key
+    )
 
     await axios
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then((res: any) => {
         dispatch(
           ActionCreatorsList.setTransactionsHistoryActionCreator(
-            JWT.decode(res.data.data, key),
-          ),
-        );
-      });
-  };
-};
+            JWT.decode(res.data.data, key)
+          )
+        )
+      })
+  }
+}
