@@ -258,7 +258,7 @@ export const deriveMiningThunkCreator = (moneyAmount: string): ThunkType => {
         JSON.stringify(
           JWT.encode(
             {
-              action: "add_depo",
+              action: "sub_depo",
               uid: state.AuthSetState.userID,
               sum: Number(moneyAmount),
             },

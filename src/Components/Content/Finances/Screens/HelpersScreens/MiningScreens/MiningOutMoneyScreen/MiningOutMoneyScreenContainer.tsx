@@ -1,5 +1,4 @@
 // PLUGINS IMPORTS //
-import React from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
@@ -8,6 +7,7 @@ import MiningOutMoneyScreen from "./MiningOutMoneyScreen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { deriveMiningThunkCreator } from "~/Redux/Reducers/FinancesReducers/FinancesSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,9 @@ type MapStateToPropsType = {
   navigation: any
 }
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  deriveMiningThunkCreator: (moneyAmount: string) => void
+}
 
 /////////////////////////////////////////////////////////////////
 
@@ -29,7 +31,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 const MiningOutMoneyScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      deriveMiningThunkCreator,
+    }
   )
 )(MiningOutMoneyScreen)
 

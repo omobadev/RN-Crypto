@@ -13,6 +13,8 @@ import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 type PropsType = {
   navigation: any
   route: any
+
+  deriveMiningThunkCreator: (moneyAmount: string) => any
 }
 
 const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
@@ -25,9 +27,11 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
           buttonText="Пополнить"
           valueName="Укажите сумму"
           errorText="Сумма указана неверно"
-          action={() => {
+          action={(values: any) => {
             Keyboard.dismiss()
-            setPopupVisible(true)
+            props
+              .deriveMiningThunkCreator(values.value)
+              .then(() => setPopupVisible(true))
           }}
         />
       </View>

@@ -13,6 +13,8 @@ import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 type PropsType = {
   navigation: any
   route: any
+
+  addMiningThunkCreator: (moneyAmount: string) => any
 }
 
 const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
@@ -25,9 +27,12 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
           buttonText="Пополнить"
           valueName="Укажите сумму"
           errorText="Сумма указана неверно"
-          action={() => {
+          isNumberPad
+          action={(values: any) => {
             Keyboard.dismiss()
-            setPopupVisible(true)
+            props
+              .addMiningThunkCreator(values.value)
+              .then(() => setPopupVisible(true))
           }}
         />
       </View>
@@ -52,7 +57,6 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 130,
     marginLeft: -10,
   },
 })
