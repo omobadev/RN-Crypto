@@ -1,48 +1,48 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from "react"
+import { View, Text, StyleSheet, ScrollView } from "react-native"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection";
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
-import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp";
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any;
-  route: any;
+  navigation: any
+  route: any
   transferStatusRes: {
-    title: string;
-    text: string;
-    visible: boolean;
-    positive: boolean;
-  };
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+  }
 
   setTransferStatusResActionCreator: (config: {
-    title: string;
-    text: string;
-    visible: boolean;
-    positive: boolean;
-  }) => void;
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+  }) => void
   sendCGCMoneyThunkCreator: (
     selectedUserID: string,
     password: string,
-    moneyAmount: number,
-  ) => any;
-};
+    moneyAmount: number
+  ) => any
+}
 
 const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
-  const moneyAmount = props.route.params.moneyAmount;
-  const selectedUserID = props.route.params.selectedUserID;
+  const moneyAmount = props.route.params.moneyAmount
+  const selectedUserID = props.route.params.selectedUserID
 
   return (
-    <>
+    <ScrollView style={styles.wrapper}>
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          <Text style={styles.bold}>Внимание!{" "}</Text>
+          <Text style={styles.bold}>Внимание! </Text>
           Вы собираетесь сделать перевод средств.
         </Text>
         <Text style={styles.paragraph}>
@@ -56,8 +56,10 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
             props.sendCGCMoneyThunkCreator(
               selectedUserID,
               values.value,
-              moneyAmount,
-            )}
+              moneyAmount
+            )
+          }
+          containerStyle={styles.footer_input}
           valueName="Введите пароль"
           errorText="Введите пароль"
         />
@@ -75,15 +77,21 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
         ]}
         popupVisible={props.transferStatusRes.visible}
         setPopupVisible={(visibility: boolean) =>
-          props.setTransferStatusResActionCreator(
-            { ...props.transferStatusRes, visible: visibility },
-          )}
+          props.setTransferStatusResActionCreator({
+            ...props.transferStatusRes,
+            visible: visibility,
+          })
+        }
       />
-    </>
-  );
-};
+    </ScrollView>
+  )
+}
 
 const styles = StyleSheet.create({
+  wrapper: {
+    marginBottom: 10,
+  },
+
   container: {
     flex: 1,
     marginHorizontal: 20,
@@ -101,6 +109,10 @@ const styles = StyleSheet.create({
   },
 
   popup: { width: "80%" },
-});
 
-export default MoneyMoveInScreen2;
+  footer_input: {
+    marginTop: 135,
+  },
+})
+
+export default MoneyMoveInScreen2

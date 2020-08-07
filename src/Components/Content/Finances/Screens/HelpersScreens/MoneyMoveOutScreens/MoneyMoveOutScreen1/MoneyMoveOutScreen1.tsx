@@ -16,22 +16,28 @@ type PropsType = {
 }
 
 const MoneyMoveOutScreen1: React.FC<PropsType> = (props) => {
-  const [selectedComission, setSelectedComission] = useState("Малая" as string)
+  const [selectedCurrency, setSelectedCurrency] = useState("CGC" as string)
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header />
       <Body
-        selectedComission={selectedComission}
-        setSelectedComission={setSelectedComission}
+        selectedCurrency={selectedCurrency}
+        setSelectedCurrency={setSelectedCurrency}
       />
 
       <FooterInput
         buttonText="Далее"
-        action={() => props.navigation.navigate("MoneyMoveOutScreen2")}
+        action={(values: { value: string }) =>
+          props.navigation.navigate("MoneyMoveOutScreen2", {
+            moneyAmount: values.value,
+            currency: selectedCurrency,
+          })
+        }
         valueName="Количество"
         errorText="Укажите количество"
         containerStyle={styles.footer_input}
+        isNumberPad
       />
     </ScrollView>
   )
@@ -44,7 +50,8 @@ const styles = StyleSheet.create({
   },
 
   footer_input: {
-    marginTop: 135,
+    marginTop: 120,
+    marginBottom: 15,
   },
 })
 

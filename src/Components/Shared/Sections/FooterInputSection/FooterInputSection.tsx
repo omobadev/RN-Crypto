@@ -1,61 +1,65 @@
 // PLUGINS IMPORTS //
-import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
-import { Formik } from "formik";
-import * as yup from "yup";
+import React from "react"
+import { View, Text, TextInput, StyleSheet } from "react-native"
+import { Formik } from "formik"
+import * as yup from "yup"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button";
+import Button from "~/Components/Shared/Components/Button/Button"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  valueName: string;
-  errorText?: string;
-  buttonText: string;
+  valueName: string
+  errorText?: string
+  buttonText: string
 
-  action: (values: { value: string }) => void;
+  action: (values: { value: string }) => void
 
-  isNumberPad?: boolean;
-  containerStyle?: any;
-  PropValidationSchema?: any;
-};
+  isNumberPad?: boolean
+  containerStyle?: any
+  PropValidationSchema?: any
+}
 
 const FooterInputSection: React.FC<PropsType> = (props) => {
   const ValidationSchema = yup.object({
-    value: yup.string().required(props.errorText || "Укажите информацию")
+    value: yup
+      .string()
+      .required(props.errorText || "Укажите информацию")
       .typeError(props.errorText || "Укажите информацию"),
-  });
+  })
 
   return (
     <View style={{ ...styles.container, ...props.containerStyle }}>
       <Text style={styles.title}>{props.valueName}</Text>
 
       <Formik
-        validationSchema={props.PropValidationSchema
-          ? props.PropValidationSchema
-          : ValidationSchema}
+        validationSchema={
+          props.PropValidationSchema
+            ? props.PropValidationSchema
+            : ValidationSchema
+        }
         initialValues={{
           value: null as string | null,
         }}
         onSubmit={(values: any) => {
-          props.action(values);
+          props.action(values)
         }}
       >
         {(FormikProps) => (
           <>
             <TextInput
               style={styles.input}
-              keyboardType={props.isNumberPad
-                ? "number-pad"
-                : "visible-password"}
+              keyboardType={
+                props.isNumberPad ? "number-pad" : "visible-password"
+              }
               placeholderTextColor="rgba(0, 57, 45, 0.5)"
               value={FormikProps.values.value as any}
               onChangeText={FormikProps.handleChange("value")}
               onBlur={() => {
-                FormikProps.handleBlur("value");
+                FormikProps.handleBlur("value")
               }}
             />
             {FormikProps.touched.value && FormikProps.errors.value && (
@@ -72,13 +76,12 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
         )}
       </Formik>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop: 135,
   },
 
   title: {
@@ -101,6 +104,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: -8,
   },
-});
+})
 
-export default FooterInputSection;
+export default FooterInputSection

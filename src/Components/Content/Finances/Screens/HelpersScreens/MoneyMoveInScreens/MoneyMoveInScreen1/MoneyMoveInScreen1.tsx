@@ -1,53 +1,52 @@
 // PLUGINS IMPORTS //
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import * as yup from "yup";
+import React, { useEffect, useState } from "react"
+import { View, StyleSheet } from "react-native"
+import * as yup from "yup"
 
 // COMPONENTS IMPORTS //
-import Header from "./Header/Header";
-import UsersList from "./UsersList/UsersList";
-import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection";
+import Header from "./Header/Header"
+import UsersList from "./UsersList/UsersList"
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any;
-  route: any;
+  navigation: any
+  route: any
 
-  usersList: Array<any>;
+  usersList: Array<any>
   CGCInfo: {
-    price: string;
-    value2: string;
-  };
+    price: string
+    value2: string
+  }
 
-  getUsersListThunkCreator: () => void;
-};
+  getUsersListThunkCreator: () => void
+}
 
 const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
-  const [selectedUserID, setSelectedUserID] = useState(
-    null as string | null,
-  );
+  const [selectedUserID, setSelectedUserID] = useState(null as string | null)
   useEffect(() => {
-    props.getUsersListThunkCreator();
-  }, []);
+    props.getUsersListThunkCreator()
+  }, [])
 
-  console.log(props.CGCInfo);
+  console.log(props.CGCInfo)
 
   useEffect(() => {
     setSelectedUserID(
       props.route.params.selectedUserID
         ? props.route.params.selectedUserID
-        : props.usersList && props.usersList[0] &&
-          props.usersList[0].id,
-    );
-  }, [props.usersList]);
+        : props.usersList && props.usersList[0] && props.usersList[0].id
+    )
+  }, [props.usersList])
 
   const ValidationSchema = yup.object({
-    value: yup.number().required("Укажите сумму не больше вашего баланса")
+    value: yup
+      .number()
+      .required("Укажите сумму не больше вашего баланса")
       .typeError("Укажите сумму"),
-  });
+  })
 
   return (
     <View style={styles.container}>
@@ -62,15 +61,16 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
         buttonText="Перевод"
         action={(values: { value: string }) => {
           if (
-            !isNaN(Number(values.value)) && Number(values.value) > 0 &&
+            !isNaN(Number(values.value)) &&
+            Number(values.value) > 0 &&
             selectedUserID
           ) {
             props.navigation.navigate("MoneyMoveInScreen2", {
               moneyAmount: Number(values.value),
               selectedUserID: selectedUserID,
-            });
+            })
           } else {
-            values.value = "";
+            values.value = ""
           }
         }}
         valueName="Укажите сумму"
@@ -79,8 +79,8 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
         isNumberPad
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   },
 
   footer_input: {
-    marginBottom: 40,
+    marginBottom: 29,
+    marginTop: 50,
   },
 
   divider: {
@@ -98,6 +99,6 @@ const styles = StyleSheet.create({
     opacity: 0.2,
     marginVertical: 10,
   },
-});
+})
 
-export default MoneyMoveInScreen1;
+export default MoneyMoveInScreen1

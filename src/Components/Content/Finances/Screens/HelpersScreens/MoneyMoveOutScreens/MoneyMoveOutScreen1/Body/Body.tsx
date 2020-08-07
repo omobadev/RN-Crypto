@@ -10,33 +10,24 @@ import RadioItem from "./RadioItem/RadioItem"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  selectedComission: string
-
-  setSelectedComission: (selectedComission: string) => void
+  selectedCurrency: string
+  setSelectedCurrency: (selectedCurrency: string) => void
 }
 
 const Body: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Комиссия</Text>
+      <Text style={styles.title}>Валюта</Text>
       <View style={styles.radios_wrap}>
         <RadioItem
-          selectedComission={props.selectedComission}
-          value={"Малая"}
-          price={5}
-          setSelectedComission={props.setSelectedComission}
+          selectedCurrency={props.selectedCurrency}
+          value={"CGC"}
+          setSelectedCurrency={props.setSelectedCurrency}
         />
         <RadioItem
-          selectedComission={props.selectedComission}
-          value={"Средняя"}
-          price={10}
-          setSelectedComission={props.setSelectedComission}
-        />
-        <RadioItem
-          selectedComission={props.selectedComission}
-          value={"Высокая"}
-          price={15}
-          setSelectedComission={props.setSelectedComission}
+          selectedCurrency={props.selectedCurrency}
+          value={"INPH"}
+          setSelectedCurrency={props.setSelectedCurrency}
         />
       </View>
     </View>

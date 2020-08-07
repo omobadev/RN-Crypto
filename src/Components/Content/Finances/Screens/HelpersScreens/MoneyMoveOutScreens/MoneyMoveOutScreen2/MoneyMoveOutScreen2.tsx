@@ -5,6 +5,7 @@ import { Formik } from "formik"
 import * as yup from "yup"
 
 // COMPONENTS IMPORTS //
+import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
 import Button from "~/Components/Shared/Components/Button/Button"
@@ -13,9 +14,18 @@ import Button from "~/Components/Shared/Components/Button/Button"
 
 type PropsType = {
   navigation: any
+  route: any
+
+  deriveMoneyThunkCreator: (
+    moneyAmount: number,
+    currency: string,
+    wallet: string,
+    password: string
+  ) => void
 }
 
 const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
+  const [wallet, setWallet] = useState(null as string | null)
   const ValidationSchema = yup.object({
     value: yup
       .string()
@@ -23,45 +33,36 @@ const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
       .typeError(`Укажите адрес для вывода`),
   })
 
+  const moneyAmount = props.route.params.moneyAmount
+  const currency = props.route.params.currency
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Укажите адрес для вывода:</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Укажите адрес для вывода:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="0"
+          placeholderTextColor="rgba(0, 57, 45, 0.5)"
+          value={wallet as string}
+          onChangeText={(text: string) => setWallet(text)}
+        />
+      </View>
 
-      <Formik
-        validationSchema={ValidationSchema}
-        initialValues={{
-          value: null as string | null,
+      <FooterInput
+        buttonText="Вывести"
+        action={(values: { value: string }) => {
+          props.deriveMoneyThunkCreator(
+            moneyAmount,
+            currency,
+            wallet as string,
+            values.value
+          )
         }}
-        onSubmit={(values: any) => {
-          props.navigation.navigate("FinancesMain")
-        }}
-      >
-        {(FormikProps) => (
-          <>
-            <TextInput
-              style={styles.input}
-              placeholder="0"
-              placeholderTextColor="rgba(0, 57, 45, 0.5)"
-              value={FormikProps.values.value as any}
-              onChangeText={FormikProps.handleChange("value")}
-              onBlur={() => {
-                FormikProps.handleBlur("value")
-              }}
-            />
-            {FormikProps.touched.value && FormikProps.errors.value && (
-              <Text style={styles.error_message}>
-                {FormikProps.touched.value && FormikProps.errors.value}
-              </Text>
-            )}
-
-            <Button
-              text={"Готово"}
-              buttonStyle={{ alignSelf: "center" }}
-              onPress={FormikProps.handleSubmit}
-            />
-          </>
-        )}
-      </Formik>
+        containerStyle={styles.footer_input}
+        valueName="Введите пароль"
+        errorText="Введите пароль"
+      />
     </View>
   )
 }
@@ -71,6 +72,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 20,
     marginTop: 30,
+  },
+
+  content: {
+    flex: 1,
   },
 
   title: {
@@ -93,6 +98,11 @@ const styles = StyleSheet.create({
     color: "red",
     marginBottom: 15,
     marginTop: -8,
+  },
+
+  footer_input: {
+    flex: 1,
+    marginBottom: 15,
   },
 })
 

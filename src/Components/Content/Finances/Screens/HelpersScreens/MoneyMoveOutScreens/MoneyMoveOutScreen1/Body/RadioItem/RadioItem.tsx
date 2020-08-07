@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 import { RadioButton } from "react-native-paper"
 
@@ -10,11 +10,10 @@ import { RadioButton } from "react-native-paper"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  selectedComission: string
+  selectedCurrency: string
   value: string
-  price: number
 
-  setSelectedComission: (selectedComission: string) => void
+  setSelectedCurrency: (selectedCurrency: string) => void
 }
 
 const RadioItem: React.FC<PropsType> = (props) => {
@@ -24,13 +23,12 @@ const RadioItem: React.FC<PropsType> = (props) => {
         value={props.value}
         color="#006F5F"
         status={
-          props.selectedComission === props.value ? "checked" : "unchecked"
+          props.selectedCurrency === props.value ? "checked" : "unchecked"
         }
-        onPress={() => props.setSelectedComission(props.value)}
+        onPress={() => props.setSelectedCurrency(props.value)}
       />
       <View style={styles.content}>
         <Text style={styles.title}>{props.value}</Text>
-        <Text style={styles.price}>({props.price} CGC)</Text>
       </View>
     </View>
   )
