@@ -26,7 +26,7 @@ const TransactionsHistory: React.FC<PropsType> = (props) => {
   }, [])
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {props.TransactionsList.map(
         (transaction: {
           isIncome: boolean

@@ -1,14 +1,11 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet } from "react-native"
-import { Formik } from "formik"
-import * as yup from "yup"
 
 // COMPONENTS IMPORTS //
 import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -21,17 +18,11 @@ type PropsType = {
     currency: string,
     wallet: string,
     password: string
-  ) => void
+  ) => any
 }
 
 const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
   const [wallet, setWallet] = useState(null as string | null)
-  const ValidationSchema = yup.object({
-    value: yup
-      .string()
-      .required(`Укажите адрес для вывода`)
-      .typeError(`Укажите адрес для вывода`),
-  })
 
   const moneyAmount = props.route.params.moneyAmount
   const currency = props.route.params.currency
@@ -52,12 +43,14 @@ const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
       <FooterInput
         buttonText="Вывести"
         action={(values: { value: string }) => {
-          props.deriveMoneyThunkCreator(
-            moneyAmount,
-            currency,
-            wallet as string,
-            values.value
-          )
+          props
+            .deriveMoneyThunkCreator(
+              moneyAmount,
+              currency,
+              wallet as string,
+              values.value
+            )
+            .then(() => props.navigation.navigate("FinancesMain"))
         }}
         containerStyle={styles.footer_input}
         valueName="Введите пароль"

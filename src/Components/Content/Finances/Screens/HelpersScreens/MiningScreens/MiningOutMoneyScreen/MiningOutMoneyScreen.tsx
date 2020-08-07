@@ -44,9 +44,7 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
         ]}
         title="Спасибо!"
         description="Ваша заявка поступила в обработку"
-        containerStyle={{
-          width: "90%",
-        }}
+        containerStyle={styles.popup}
         popupVisible={popupVisible}
         setPopupVisible={setPopupVisible}
       />
@@ -56,8 +54,12 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 130,
-    marginLeft: -10,
+    flex: 1,
+    justifyContent: "center",
+  },
+
+  popup: {
+    width: "90%",
   },
 })
 

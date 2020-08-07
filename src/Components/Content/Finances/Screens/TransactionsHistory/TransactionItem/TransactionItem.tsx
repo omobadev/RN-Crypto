@@ -38,16 +38,15 @@ const TransactionItem: React.FC<PropsType> = (props) => {
         <Text style={styles.date}>{props.date}</Text>
         <View style={styles.price_wrap}>
           <Text
-            style={
-              props.positive
-                ? styles.positive_income_text
-                : styles.negative_income_text
-            }
+            style={[
+              styles.price,
+              props.positive ? { color: "#54bf70" } : { color: "#D50102" },
+            ]}
           >
             {props.positive ? "+" : "-"}
             {props.amountChanged}
           </Text>
-          <Text style={styles.letter}>{props.letter}</Text>
+          {/* <Text style={styles.letter}>{props.letter}</Text> */}
         </View>
       </View>
     </View>
@@ -79,18 +78,20 @@ const styles = StyleSheet.create({
   date: {
     textAlign: "right",
     color: "gray",
+    fontSize: 12,
   },
 
   price_wrap: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: 55,
+    alignSelf: "flex-end",
   },
 
-  positive_income_text: {
-    color: "#54bf70",
+  price: {
     fontSize: 18,
+    width: 100,
+    textAlign: "right",
   },
 
   negative_income_text: {
