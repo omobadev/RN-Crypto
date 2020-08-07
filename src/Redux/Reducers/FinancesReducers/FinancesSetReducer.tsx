@@ -1,162 +1,278 @@
 //    *GENERAL IMPORTS*   //
-import { ThunkAction } from "redux-thunk";
-import axios from "axios";
+import { ThunkAction } from "redux-thunk"
+import axios from "axios"
 // @ts-ignore
-import JWT from "expo-jwt";
+import JWT from "expo-jwt"
 
-import { AppStateType, InferActionsTypes } from "../../ReduxStore";
-const key = "shh";
+import { AppStateType, InferActionsTypes } from "../../ReduxStore"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
   transferStatusRes: {} as {
-    title: string;
-    text: string;
-    visible: boolean;
-    positive: boolean;
-    link?: string;
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
   },
-};
+}
 
-type initialStateType = typeof initialState;
+type initialStateType = typeof initialState
 
 // *REDUCER* //
 const FinancesSetReducer = (
   state = initialState,
-  action: ActionTypes,
+  action: ActionTypes
 ): initialStateType => {
   if (action.type === "SET_TRANSFER_STATUS") {
     return {
       ...state,
       transferStatusRes: action.config,
-    };
+    }
   }
 
-  return state;
-};
+  return state
+}
 
-export default FinancesSetReducer;
+export default FinancesSetReducer
 
 ///////////////////////////////////////////////////////////////////////
 
-type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>;
+type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
 export const ActionCreatorsList = {
-  setTransferStatusResActionCreator: (
-    config: {
-      title: string;
-      text: string;
-      visible: boolean;
-      positive: boolean;
-      link?: string;
-    },
-  ) => ({
-    type: "SET_TRANSFER_STATUS",
-    config,
-  } as const),
-};
+  setTransferStatusResActionCreator: (config: {
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }) =>
+    ({
+      type: "SET_TRANSFER_STATUS",
+      config,
+    } as const),
+}
 
 //    *THUNKS*   //
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 export const sendCGCMoneyThunkCreator = (
   selectedUserID: string,
   password: string,
-  moneyAmount: number,
+  moneyAmount: number
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     await axios
       .post(
         "http://cgc.cgc.capital/api_interface",
-        JSON.stringify(JWT.encode(
-          {
-            action: "send_cgc_to_user",
-            uid: state.AuthSetState.userID,
-            touid: selectedUserID,
-            password: password,
-            sum: moneyAmount,
-          },
-          key,
-        )),
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "send_cgc_to_user",
+              uid: state.AuthSetState.userID,
+              touid: selectedUserID,
+              password: password,
+              sum: moneyAmount,
+            },
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        const status = JWT.decode(res.status, key);
+        const status = JWT.decode(res.status, key)
         if (Number(status) === 200) {
-          dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
-            title: "Спасибо!",
-            text: "Ваш перевод прошёл успешно!",
-            positive: true,
-            visible: true,
-          }));
+          dispatch(
+            ActionCreatorsList.setTransferStatusResActionCreator({
+              title: "Спасибо!",
+              text: "Ваш перевод прошёл успешно!",
+              positive: true,
+              visible: true,
+            })
+          )
         }
       })
       .catch((err) => {
         if (err.response) {
-          dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
-            title: "Ошибка...",
-            text: "Что то пошло не так, попробуйте снова.",
-            positive: false,
-            visible: true,
-          }));
+          dispatch(
+            ActionCreatorsList.setTransferStatusResActionCreator({
+              title: "Ошибка...",
+              text: "Что то пошло не так, попробуйте снова.",
+              positive: false,
+              visible: true,
+            })
+          )
         }
-      });
-  };
-};
+      })
+  }
+}
 
 export const buyMoneyThunkCreator = (
   moneyAmount: number,
-  currency: string,
+  currency: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     const renderCID = () => {
       if (currency === "BTC") {
-        return 5;
+        return 5
       } else if (currency === "ETH") {
-        return 6;
+        return 6
       } else if (currency === "Payeer") {
-        return 8;
+        return 8
       }
-    };
+    }
 
     await axios
       .post(
         "http://cgc.cgc.capital/api_interface",
-        JSON.stringify(JWT.encode(
-          {
-            action: "cashin",
-            uid: state.AuthSetState.userID,
-            cid: renderCID(),
-            sum: moneyAmount,
-          },
-          key,
-        )),
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "cashin",
+              uid: state.AuthSetState.userID,
+              cid: renderCID(),
+              sum: moneyAmount,
+            },
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        const data = JWT.decode(res.data.data, key);
+        const data = JWT.decode(res.data.data, key)
 
-        dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
-          title: "Спасибо!",
-          text: `Перейдите по этому адресу для оплаты`,
-          positive: true,
-          visible: true,
-          link: data.url,
-        }));
+        dispatch(
+          ActionCreatorsList.setTransferStatusResActionCreator({
+            title: "Спасибо!",
+            text: `Перейдите по этому адресу для оплаты`,
+            positive: true,
+            visible: true,
+            link: data.url,
+          })
+        )
       })
       .catch((err) => {
         if (err.response) {
-          dispatch(ActionCreatorsList.setTransferStatusResActionCreator({
-            title: "Ошибка...",
-            text: "Что то пошло не так, попробуйте снова.",
-            positive: false,
-            visible: true,
-          }));
+          dispatch(
+            ActionCreatorsList.setTransferStatusResActionCreator({
+              title: "Ошибка...",
+              text: "Что то пошло не так, попробуйте снова.",
+              positive: false,
+              visible: true,
+            })
+          )
         }
-      });
-  };
-};
+      })
+  }
+}
+
+export const deriveMoneyThunkCreator = (
+  moneyAmount: number,
+  currency: string,
+  wallet: string,
+  password: string
+): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    const renderCID = () => {
+      if (currency === "CGC") {
+        return 1
+      } else if (currency === "INPH") {
+        return 2
+      }
+    }
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "cashout",
+              uid: state.AuthSetState.userID,
+              pass: password,
+              fromcid: renderCID(),
+              cid: 6,
+              wallet: wallet,
+              sum: Number(moneyAmount),
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
+  }
+}
+
+// MINING
+export const addMiningThunkCreator = (moneyAmount: string): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "add_depo",
+              uid: state.AuthSetState.userID,
+              sum: Number(moneyAmount),
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
+  }
+}
+
+export const deriveMiningThunkCreator = (moneyAmount: string): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "add_depo",
+              uid: state.AuthSetState.userID,
+              sum: Number(moneyAmount),
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
+  }
+}
