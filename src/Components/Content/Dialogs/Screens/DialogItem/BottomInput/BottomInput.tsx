@@ -24,7 +24,6 @@ type PropsType = {
 
 const BottomInput: React.FC<PropsType> = (props) => {
   const [images, setImages] = useState([] as Array<any>)
-  let [message, setMessage] = useState(null as string | null)
 
   return (
     <View style={styles.container}>

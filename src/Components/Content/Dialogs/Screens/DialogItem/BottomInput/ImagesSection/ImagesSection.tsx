@@ -23,6 +23,11 @@ type PropsType = {
 
 const screenWidth = Dimensions.get("screen").width
 const ImagesSection: React.FC<PropsType> = (props) => {
+  const removeImage = (image: string) => {
+    const filteredImages = props.images.filter((val: any) => val !== image)
+    props.setImages(filteredImages)
+  }
+
   return (
     <>
       {props.images && props.images.length > 0 && (
@@ -42,8 +47,11 @@ const ImagesSection: React.FC<PropsType> = (props) => {
                   ]}
                   source={{ uri: image }}
                 />
-                <TouchableOpacity style={styles.close_icon}>
-                  <AntDesign name="closecircleo" size={24} color="black" />
+                <TouchableOpacity
+                  style={styles.close_icon}
+                  onPress={() => removeImage(image)}
+                >
+                  <AntDesign name="closecircle" size={15} color="white" />
                 </TouchableOpacity>
               </View>
             )
@@ -67,6 +75,8 @@ const styles = StyleSheet.create({
 
   close_icon: {
     position: "absolute",
+    right: 6,
+    top: 6,
   },
 })
 
