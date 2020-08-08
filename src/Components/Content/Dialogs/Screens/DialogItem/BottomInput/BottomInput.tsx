@@ -1,10 +1,22 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, Keyboard, TextInput, StyleSheet } from "react-native"
+import React, { useState, useEffect } from "react"
+import {
+  View,
+  ScrollView,
+  Keyboard,
+  Image,
+  TextInput,
+  Dimensions,
+  StyleSheet,
+} from "react-native"
+import * as ImagePicker from "expo-image-picker"
+import Constants from "expo-constants"
+import * as Permissions from "expo-permissions"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
+import { Feather } from "@expo/vector-icons"
 import { FontAwesome } from "@expo/vector-icons"
 import { BorderlessButton } from "react-native-gesture-handler"
 
@@ -16,13 +28,45 @@ type PropsType = {
   sendMessageThunkCreator: (message: string, chatID: string) => void
 }
 
+const screenWidth = Dimensions.get("screen").width
 const BottomInput: React.FC<PropsType> = (props) => {
-  const [message, setMessage] = useState(null as string | null)
+  const [images, setImages] = useState([] as Array<any>)
+  let [message, setMessage] = useState(null as string | null)
+
+  useEffect(() => {
+    const getPermissions = async () => {
+      if (Constants.platform?.ios) {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!")
+        }
+      }
+    }
+
+    getPermissions()
+  }, [])
+
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
+      if (!result.cancelled) {
+        setImages([...images, result.uri])
+      }
+    } catch (E) {}
+  }
 
   const sendMessage = () => {
-    props.sendMessageThunkCreator(message as string, props.chatID)
-    setMessage(null)
-    Keyboard.dismiss()
+    if (message && message?.length > 0) {
+      props.sendMessageThunkCreator(message as string, props.chatID)
+      setMessage(null)
+      setImages([])
+      Keyboard.dismiss()
+    }
   }
 
   return (
@@ -34,9 +78,35 @@ const BottomInput: React.FC<PropsType> = (props) => {
         value={message as string}
         style={styles.input}
       />
-      <BorderlessButton style={styles.send_icon} onPress={sendMessage}>
+      <BorderlessButton
+        style={[styles.icon, { right: 55, marginTop: 1.5 }]}
+        onPress={pickImage}
+      >
+        <Feather name="image" size={24} color="#006F5F" />
+      </BorderlessButton>
+      <BorderlessButton
+        style={[styles.icon, { right: 25 }]}
+        onPress={sendMessage}
+      >
         <FontAwesome name="send-o" size={20} color="#006F5F" />
       </BorderlessButton>
+      {images && images.length > 0 && (
+        <ScrollView style={styles.images_wrap} horizontal>
+          {images.map((image: any) => {
+            return (
+              <Image
+                style={[
+                  styles.image,
+                  {
+                    width: image.length <= 4 ? screenWidth / images.length : 85,
+                  },
+                ]}
+                source={{ uri: image }}
+              />
+            )
+          })}
+        </ScrollView>
+      )}
     </View>
   )
 }
@@ -45,6 +115,7 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 10,
     marginTop: 7,
+    flexDirection: "column",
   },
 
   input: {
@@ -54,13 +125,23 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     fontSize: 16,
+    paddingRight: 85,
   },
 
-  send_icon: {
+  icon: {
     position: "absolute",
-    right: 25,
     marginTop: 4,
     padding: 10,
+  },
+
+  images_wrap: {
+    marginTop: 20,
+  },
+
+  image: {
+    height: 90,
+    minWidth: 85,
+    marginHorizontal: 1,
   },
 })
 

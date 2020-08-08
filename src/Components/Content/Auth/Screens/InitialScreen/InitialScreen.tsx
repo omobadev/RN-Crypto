@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { Image, ImageBackground, StyleSheet } from "react-native"
+import { Image, View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -15,10 +15,7 @@ type PropsType = {
 
 const InitialScreen: React.FC<PropsType> = (props) => {
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require("~/Images/bg-2.png")}
-    >
+    <View style={styles.container}>
       <Image style={styles.logo} source={require("~/Images/logo-big.png")} />
       <Button
         onPress={() => props.navigation.navigate("LoginScreen")}
@@ -42,7 +39,7 @@ const InitialScreen: React.FC<PropsType> = (props) => {
           paddingVertical: 13,
         }}
       />
-    </ImageBackground>
+    </View>
   )
 }
 
@@ -52,6 +49,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 50,
+    backgroundColor: "white",
   },
 
   logo: {
