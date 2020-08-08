@@ -1,41 +1,41 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react"
+import { View, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button";
-import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp";
+import Button from "~/Components/Shared/Components/Button/Button"
+import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any;
-  route: any;
+  navigation: any
+  route: any
 
-  wallet: string;
+  wallet: string
   transferStatusRes: {
-    title: string;
-    text: string;
-    visible: boolean;
-    positive: boolean;
-    link?: string;
-  };
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }
 
   setTransferStatusResActionCreator: (config: {
-    title: string;
-    text: string;
-    visible: boolean;
-    positive: boolean;
-    link?: string;
-  }) => void;
-  buyMoneyThunkCreator: (moneyAmount: number, currency: string) => void;
-};
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }) => void
+  buyMoneyThunkCreator: (moneyAmount: number, currency: string) => void
+}
 
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
-  const price = props.route.params.price;
-  const currency = props.route.params.currency;
+  const price = props.route.params.price
+  const currency = props.route.params.currency
 
   return (
     <>
@@ -43,29 +43,18 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
         <Text style={styles.paragraph}>
           Для пополнения на сумму{" "}
           <Text style={styles.bold}>
-            {price}
-            {" "}
-            {currency}
-            {" "}
+            {price} {currency}{" "}
           </Text>
           вам необходимо совершить перевод в размере:
+          <Text style={styles.bold}> {price} CGC</Text>
         </Text>
 
-        <Text style={[styles.paragraph, styles.price_paragraph]}>
-          <Text style={styles.bold}>
-            {price}
-            {" "}
-            {currency}
-            {" "}
-          </Text>
-          на адрес {props.wallet}
-        </Text>
-        <Text style={[styles.paragraph, { fontSize: 16.5 }]}>
+        <Text style={[styles.paragraph, { fontSize: 16.5, marginTop: 10 }]}>
           После того как ваша транзакция осуществится ваш баланс автоматически
           пополнится
         </Text>
         <Button
-          text="Готово"
+          text="Получить ссылку"
           onPress={() => props.buyMoneyThunkCreator(price, currency)}
           buttonStyle={{
             marginTop: 50,
@@ -85,13 +74,15 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
         ]}
         popupVisible={props.transferStatusRes.visible}
         setPopupVisible={(visibility: boolean) =>
-          props.setTransferStatusResActionCreator(
-            { ...props.transferStatusRes, visible: visibility },
-          )}
+          props.setTransferStatusResActionCreator({
+            ...props.transferStatusRes,
+            visible: visibility,
+          })
+        }
       />
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -112,6 +103,6 @@ const styles = StyleSheet.create({
   price_paragraph: {
     marginVertical: 20,
   },
-});
+})
 
-export default BuyMoneyScreen2;
+export default BuyMoneyScreen2

@@ -1,9 +1,11 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
-import { View, Text, TextInput, StyleSheet } from "react-native"
+import React, { useState, useEffect } from "react"
+import { View, Text, TextInput, StyleSheet, CheckBox } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage"
 
 // COMPONENTS IMPORTS //
 import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
+import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 // EXTRA IMPORTS //
 
@@ -13,50 +15,118 @@ type PropsType = {
   navigation: any
   route: any
 
+  transferStatusRes: {
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }
+
   deriveMoneyThunkCreator: (
     moneyAmount: number,
     currency: string,
     wallet: string,
     password: string
   ) => any
+  setTransferStatusResActionCreator: (config: {
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }) => void
 }
 
 const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
+  const [isSaveWallet, setIsSaveWallet] = useState(false as boolean)
   const [wallet, setWallet] = useState(null as string | null)
+
+  useEffect(() => {
+    props.navigation.addListener("focus", () => {
+      const getData = async () => {
+        const defaultWallet = await AsyncStorage.getItem("defaultWallet")
+        setWallet(JSON.parse(defaultWallet as string))
+      }
+
+      getData()
+    })
+    props.navigation.addListener("blur", () => {
+      props.setTransferStatusResActionCreator({
+        title: null as any,
+        text: null as any,
+        visible: false,
+        positive: false,
+        link: null as any,
+      })
+    })
+  }, [props.navigation])
 
   const moneyAmount = props.route.params.moneyAmount
   const currency = props.route.params.currency
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Укажите адрес для вывода:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="0"
-          placeholderTextColor="rgba(0, 57, 45, 0.5)"
-          value={wallet as string}
-          onChangeText={(text: string) => setWallet(text)}
-        />
-      </View>
+    <>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Text style={styles.title}>Укажите адрес для вывода:</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="0"
+            placeholderTextColor="rgba(0, 57, 45, 0.5)"
+            value={wallet as string}
+            onChangeText={(text: string) => setWallet(text)}
+          />
+          <View style={styles.checkbox_wrap}>
+            <CheckBox
+              value={isSaveWallet}
+              onChange={() => setIsSaveWallet(!isSaveWallet)}
+            />
+            <Text>Сохранить текущий адрес</Text>
+          </View>
+        </View>
 
-      <FooterInput
-        buttonText="Вывести"
-        action={(values: { value: string }) => {
-          props
-            .deriveMoneyThunkCreator(
+        <FooterInput
+          buttonText="Вывести"
+          action={async (values: { value: string }) => {
+            if (isSaveWallet) {
+              await AsyncStorage.setItem(
+                "defaultWallet",
+                JSON.stringify(wallet)
+              )
+            }
+            props.deriveMoneyThunkCreator(
               moneyAmount,
               currency,
               wallet as string,
               values.value
             )
-            .then(() => props.navigation.navigate("FinancesMain"))
-        }}
-        containerStyle={styles.footer_input}
-        valueName="Введите пароль"
-        errorText="Введите пароль"
+          }}
+          containerStyle={styles.footer_input}
+          valueName="Введите пароль"
+          errorText="Введите пароль"
+        />
+      </View>
+
+      <PopUp
+        title={props.transferStatusRes.title}
+        description={props.transferStatusRes.text}
+        link={props.transferStatusRes.link}
+        buttonsArray={[
+          {
+            text: "OK",
+            action: () => props.navigation.navigate("FinancesMain"),
+          },
+        ]}
+        popupVisible={props.transferStatusRes.visible}
+        setPopupVisible={(visibility: boolean) =>
+          props.setTransferStatusResActionCreator({
+            ...props.transferStatusRes,
+            visible: visibility,
+          })
+        }
       />
-    </View>
+    </>
   )
 }
 
@@ -85,6 +155,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     paddingBottom: 5,
     color: "#006F5F",
+  },
+
+  checkbox_wrap: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   error_message: {

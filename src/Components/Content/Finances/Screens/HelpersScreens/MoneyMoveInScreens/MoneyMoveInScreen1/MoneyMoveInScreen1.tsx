@@ -31,8 +31,6 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
     props.getUsersListThunkCreator()
   }, [])
 
-  console.log(props.CGCInfo)
-
   useEffect(() => {
     setSelectedUserID(
       props.route.params.selectedUserID

@@ -208,11 +208,36 @@ export const deriveMoneyThunkCreator = (
         )
       )
       .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key))
+        dispatch(
+          ActionCreatorsList.setTransferStatusResActionCreator({
+            title: "Спасибо!",
+            text: "Ваш вывод прошёл успешно!",
+            positive: true,
+            visible: true,
+          })
+        )
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response)
+          if (err.response.data.message === "wrong pass") {
+            dispatch(
+              ActionCreatorsList.setTransferStatusResActionCreator({
+                title: "Ошибка...",
+                text: "Неверный пароль",
+                positive: false,
+                visible: true,
+              })
+            )
+          } else {
+            dispatch(
+              ActionCreatorsList.setTransferStatusResActionCreator({
+                title: "Ошибка...",
+                text: "Что то пошло не так, попробуйте снова.",
+                positive: false,
+                visible: true,
+              })
+            )
+          }
         }
       })
   }

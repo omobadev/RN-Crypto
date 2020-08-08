@@ -7,7 +7,10 @@ import MoneyMoveOutScreen2 from "./MoneyMoveOutScreen2"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { deriveMoneyThunkCreator } from "~/Redux/Reducers/FinancesReducers/FinancesSetReducer"
+import {
+  deriveMoneyThunkCreator,
+  ActionCreatorsList,
+} from "~/Redux/Reducers/FinancesReducers/FinancesSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,6 +18,14 @@ import { deriveMoneyThunkCreator } from "~/Redux/Reducers/FinancesReducers/Finan
 type MapStateToPropsType = {
   navigation: any
   route: any
+
+  transferStatusRes: {
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }
 }
 
 type MapDispatchToPropsType = {
@@ -24,6 +35,13 @@ type MapDispatchToPropsType = {
     wallet: string,
     password: string
   ) => void
+  setTransferStatusResActionCreator: (config: {
+    title: string
+    text: string
+    visible: boolean
+    positive: boolean
+    link?: string
+  }) => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -32,6 +50,8 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
     route: props.route,
+
+    transferStatusRes: state.FinancesSetState.transferStatusRes,
   }
 }
 
@@ -40,6 +60,8 @@ const MoneyMoveOutScreen2Container = compose(
     mapStateToProps,
     {
       deriveMoneyThunkCreator,
+      setTransferStatusResActionCreator:
+        ActionCreatorsList.setTransferStatusResActionCreator,
     }
   )
 )(MoneyMoveOutScreen2)

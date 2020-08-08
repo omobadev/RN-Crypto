@@ -31,7 +31,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
       <ListItem
         navigation={props.navigation}
         navigationDestination="MoneyMoveOutScreen1"
-        title="Вывод CGC"
+        title="Вывод"
         icon={
           <Image
             style={styles.icon}
@@ -42,7 +42,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
       <ListItem
         navigation={props.navigation}
         navigationDestination="BuyMoneyScreen1"
-        title="Купить CGC"
+        title="Купить"
         icon={
           <Image
             style={styles.icon}
