@@ -1,19 +1,12 @@
 // PLUGINS IMPORTS //
 import React, { useState, useEffect } from "react"
-import {
-  View,
-  ScrollView,
-  Keyboard,
-  Image,
-  TextInput,
-  Dimensions,
-  StyleSheet,
-} from "react-native"
+import { View, Keyboard, TextInput, StyleSheet } from "react-native"
 import * as ImagePicker from "expo-image-picker"
 import Constants from "expo-constants"
 import * as Permissions from "expo-permissions"
 
 // COMPONENTS IMPORTS //
+import ImagesSection from "./ImagesSection/ImagesSection"
 
 // EXTRA IMPORTS //
 import { Feather } from "@expo/vector-icons"
@@ -28,7 +21,6 @@ type PropsType = {
   sendMessageThunkCreator: (message: string, chatID: string) => void
 }
 
-const screenWidth = Dimensions.get("screen").width
 const BottomInput: React.FC<PropsType> = (props) => {
   const [images, setImages] = useState([] as Array<any>)
   let [message, setMessage] = useState(null as string | null)
@@ -90,23 +82,7 @@ const BottomInput: React.FC<PropsType> = (props) => {
       >
         <FontAwesome name="send-o" size={20} color="#006F5F" />
       </BorderlessButton>
-      {images && images.length > 0 && (
-        <ScrollView style={styles.images_wrap} horizontal>
-          {images.map((image: any) => {
-            return (
-              <Image
-                style={[
-                  styles.image,
-                  {
-                    width: image.length <= 4 ? screenWidth / images.length : 85,
-                  },
-                ]}
-                source={{ uri: image }}
-              />
-            )
-          })}
-        </ScrollView>
-      )}
+      <ImagesSection images={images} setImages={setImages} />
     </View>
   )
 }
@@ -132,16 +108,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginTop: 4,
     padding: 10,
-  },
-
-  images_wrap: {
-    marginTop: 20,
-  },
-
-  image: {
-    height: 90,
-    minWidth: 85,
-    marginHorizontal: 1,
   },
 })
 
