@@ -64,6 +64,10 @@ const styles = StyleSheet.create({
     minWidth: 85,
     marginHorizontal: 1,
   },
+
+  close_icon: {
+    position: "absolute",
+  },
 })
 
 export default ImagesSection

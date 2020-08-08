@@ -6,6 +6,7 @@ import Constants from "expo-constants"
 import * as Permissions from "expo-permissions"
 
 // COMPONENTS IMPORTS //
+import MainSection from "./MainSection/MainSection"
 import ImagesSection from "./ImagesSection/ImagesSection"
 
 // EXTRA IMPORTS //
@@ -25,63 +26,14 @@ const BottomInput: React.FC<PropsType> = (props) => {
   const [images, setImages] = useState([] as Array<any>)
   let [message, setMessage] = useState(null as string | null)
 
-  useEffect(() => {
-    const getPermissions = async () => {
-      if (Constants.platform?.ios) {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!")
-        }
-      }
-    }
-
-    getPermissions()
-  }, [])
-
-  const pickImage = async () => {
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      })
-      if (!result.cancelled) {
-        setImages([...images, result.uri])
-      }
-    } catch (E) {}
-  }
-
-  const sendMessage = () => {
-    if (message && message?.length > 0) {
-      props.sendMessageThunkCreator(message as string, props.chatID)
-      setMessage(null)
-      setImages([])
-      Keyboard.dismiss()
-    }
-  }
-
   return (
     <View style={styles.container}>
-      <TextInput
-        placeholder="Введите сообщение"
-        placeholderTextColor="rgba(0, 57, 45, 0.4)"
-        onChangeText={(text: string) => setMessage(text)}
-        value={message as string}
-        style={styles.input}
+      <MainSection
+        chatID={props.chatID}
+        images={images}
+        setImages={setImages}
+        sendMessageThunkCreator={props.sendMessageThunkCreator}
       />
-      <BorderlessButton
-        style={[styles.icon, { right: 55, marginTop: 1.5 }]}
-        onPress={pickImage}
-      >
-        <Feather name="image" size={24} color="#006F5F" />
-      </BorderlessButton>
-      <BorderlessButton
-        style={[styles.icon, { right: 25 }]}
-        onPress={sendMessage}
-      >
-        <FontAwesome name="send-o" size={20} color="#006F5F" />
-      </BorderlessButton>
       <ImagesSection images={images} setImages={setImages} />
     </View>
   )
