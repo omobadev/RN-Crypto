@@ -3,11 +3,12 @@ import React, { useState } from "react"
 import { View, Text, Keyboard, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
+import InputSection from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
+
 import RadioItem from "~/Components/Shared/Components/RadioItem/RadioItem"
 
 // EXTRA IMPORTS //
-import InputSection from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
-import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +28,7 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
       <View style={styles.container}>
         <View style={styles.currency_wrap}>
           <Text style={styles.title}>Валюта</Text>
-          <View style={styles.radios_wrap}>
+          <View>
             <RadioItem
               selectedCurrency={selectedCurrency}
               value={"CGC"}
@@ -90,7 +91,9 @@ const styles = StyleSheet.create({
     color: "#9E9E9E",
   },
 
-  footer_input: { flex: 1 },
+  footer_input: {
+    flex: 1,
+  },
 })
 
 export default MiningInMoneyScreen

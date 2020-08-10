@@ -17,7 +17,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-  deriveMiningThunkCreator: (moneyAmount: string) => void
+  deriveMiningThunkCreator: (moneyAmount: string, currency: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -29,12 +29,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 }
 
 const MiningOutMoneyScreenContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
-    mapStateToProps,
-    {
-      deriveMiningThunkCreator,
-    }
-  )
+  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
+    deriveMiningThunkCreator,
+  })
 )(MiningOutMoneyScreen)
 
 export default MiningOutMoneyScreenContainer
