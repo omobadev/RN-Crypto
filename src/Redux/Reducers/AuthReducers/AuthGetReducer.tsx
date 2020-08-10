@@ -16,10 +16,7 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const AuthGetReducer = (
-  state = initialState,
-  action: ActionTypes
-): initialStateType => {
+const AuthGetReducer = (state = initialState, action: ActionTypes): initialStateType => {
   if (action.type === "SET_USERS_IDS_LIST") {
     return {
       ...state,
@@ -62,6 +59,7 @@ export const getUsersListThunkCreator = (): ThunkType => {
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
         const usersList = JWT.decode(res.data.data, key)
+        console.log(usersList)
         dispatch(ActionCreatorsList.setUsersIDsListActionCreator(usersList))
       })
       .catch((err) => {

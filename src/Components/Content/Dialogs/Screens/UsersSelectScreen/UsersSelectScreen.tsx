@@ -1,82 +1,77 @@
 // PLUGINS IMPORTS //
-import React, { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react"
+import { ScrollView, TouchableOpacity, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import UserItem from "~/Components/Shared/Components/UserItem/UserItem";
-import SearchSection from "./SearchSection/SearchSection";
+import UserItem from "~/Components/Shared/Components/UserItem/UserItem"
+import SearchSection from "./SearchSection/SearchSection"
 
 // EXTRA IMPORTS //
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any;
-  route: any;
-  usersList: Array<any>;
+  navigation: any
+  route: any
+  usersList: Array<any>
 
-  getUsersListThunkCreator: () => void;
-};
+  getUsersListThunkCreator: () => void
+}
 
 const CreateNewDialog: React.FC<PropsType> = (props) => {
-  const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>);
-  const [queryValue, setQueryValue] = useState("" as string);
-  const [filteredUsers, setFilteredUsers] = useState(
-    props.usersList as Array<any>,
-  );
+  const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>)
+  const [queryValue, setQueryValue] = useState("" as string)
+  const [filteredUsers, setFilteredUsers] = useState(props.usersList as Array<any>)
 
   useEffect(() => {
-    if (!queryValue.trim()) setFilteredUsers(props.usersList);
+    if (!queryValue.trim()) setFilteredUsers(props.usersList)
     setFilteredUsers(
       props.usersList
-        .filter(
-          (l) =>
-            l.id.toLowerCase().indexOf(queryValue.trim().toLowerCase()) === 0,
-        )
-        .map((l) => l),
-    );
-  }, [queryValue]);
+        .filter((l) => l.id.toLowerCase().indexOf(queryValue.trim().toLowerCase()) === 0)
+        .map((l) => l)
+    )
+  }, [queryValue])
 
   useEffect(() => {
-    props.getUsersListThunkCreator();
-  }, []);
+    props.getUsersListThunkCreator()
+  }, [])
 
   return (
     <>
       <ScrollView style={styles.container}>
         <SearchSection value={queryValue} setValue={setQueryValue} />
-        {filteredUsers && filteredUsers.map((user: any) => {
-          return (
-            <UserItem
-              id={user.id}
-              isSelected={selectedUsersIDs.includes(user.id)}
-              onPress={() => {
-                if (selectedUsersIDs.includes(user.id)) {
-                  setSelectedUsersIDs(
-                    selectedUsersIDs.filter(
-                      (userID: any) => userID !== user.id,
-                    ),
-                  );
-                } else {
-                  setSelectedUsersIDs(selectedUsersIDs.concat(user.id));
-                }
-              }}
-            />
-          );
-        })}
+        {filteredUsers &&
+          filteredUsers.map((user: any) => {
+            return (
+              <UserItem
+                id={user.id}
+                avatar={user.avatar}
+                isSelected={selectedUsersIDs.includes(user.id)}
+                onPress={() => {
+                  if (selectedUsersIDs.includes(user.id)) {
+                    setSelectedUsersIDs(
+                      selectedUsersIDs.filter((userID: any) => userID !== user.id)
+                    )
+                  } else {
+                    setSelectedUsersIDs(selectedUsersIDs.concat(user.id))
+                  }
+                }}
+              />
+            )
+          })}
       </ScrollView>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          props.route.params.function(selectedUsersIDs);
+          props.route.params.function(selectedUsersIDs)
         }}
       >
         <AntDesign name="check" size={24} color="white" />
       </TouchableOpacity>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -94,6 +89,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 100,
   },
-});
+})
 
-export default CreateNewDialog;
+export default CreateNewDialog

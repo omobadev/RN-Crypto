@@ -1,22 +1,23 @@
 // PLUGINS IMPORTS //
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import React from "react"
+import { View, Text, Image, StyleSheet } from "react-native"
+import { RectButton } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  id: string;
-  isSelected?: boolean;
+  id: string
+  avatar: string
+  isSelected?: boolean
 
-  onPress?: any;
-  removeSelection?: boolean;
-};
+  onPress?: any
+  removeSelection?: boolean
+}
 
 const UserItem: React.FC<PropsType> = (props) => {
   return (
@@ -25,22 +26,20 @@ const UserItem: React.FC<PropsType> = (props) => {
         <View style={styles.img_wrap}>
           <Image
             style={styles.img_wrap}
-            source={require("~/Images/default-avatar.png")}
+            source={props.avatar ? { uri: props.avatar } : require("~/Images/default-avatar.png")}
           />
-          <Text style={styles.letter}>{props.id && props.id.charAt(0)}</Text>
+          {!props.avatar && <Text style={styles.letter}>{props.id && props.id.charAt(0)}</Text>}
         </View>
         <Text style={styles.name}>{props.id}</Text>
       </View>
-      {props.removeSelection ? null : props.isSelected
-        ? (
-          <AntDesign name="checkcircle" size={24} color="#006F5F" />
-        )
-        : (
-          <AntDesign name="checkcircleo" size={24} color="#006F5F" />
-        )}
+      {props.removeSelection ? null : props.isSelected ? (
+        <AntDesign name="checkcircle" size={24} color="#006F5F" />
+      ) : (
+        <AntDesign name="checkcircleo" size={24} color="#006F5F" />
+      )}
     </RectButton>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -79,6 +78,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#F2F2F2",
   },
-});
+})
 
-export default UserItem;
+export default UserItem

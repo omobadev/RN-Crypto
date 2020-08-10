@@ -27,19 +27,14 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
     props.navigation.goBack()
     props.navigation.goBack()
     props.navigation.navigate("Dialogs")
- 
-
   }
-
-
-  
 
   return (
     <ScrollView style={styles.wrapper}>
       {chatInfo.users && (
         <View>
           {chatInfo.users.map((user: any) => {
-            return <UserItem removeSelection id={user.uLogin} />
+            return <UserItem removeSelection id={user.uLogin} avatar={user.avatar} />
           })}
         </View>
       )}
@@ -63,7 +58,6 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
             props.leaveChatThunkCreator(chatInfo.chatID)
             props.navigation.goBack()
             props.navigation.goBack()
-
           }}
         >
           <Text style={styles.button_text}>Выйти из чата</Text>
@@ -75,8 +69,8 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-  marginBottom: 20
-},
+    marginBottom: 20,
+  },
 
   buttons_wrap: {
     marginTop: 20,
