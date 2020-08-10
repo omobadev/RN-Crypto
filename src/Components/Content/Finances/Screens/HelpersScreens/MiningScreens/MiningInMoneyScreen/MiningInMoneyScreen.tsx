@@ -1,8 +1,9 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Keyboard, StyleSheet } from "react-native"
+import { View, Text, Keyboard, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
+import RadioItem from "~/Components/Shared/Components/RadioItem/RadioItem"
 
 // EXTRA IMPORTS //
 import InputSection from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
@@ -14,15 +15,31 @@ type PropsType = {
   navigation: any
   route: any
 
-  addMiningThunkCreator: (moneyAmount: string) => any
+  addMiningThunkCreator: (moneyAmount: string, currency: string) => any
 }
 
 const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
   const [popupVisible, setPopupVisible] = useState(false as boolean)
+  const [selectedCurrency, setSelectedCurrency] = useState("CGC" as string)
 
   return (
     <>
       <View style={styles.container}>
+        <View style={styles.currency_wrap}>
+          <Text style={styles.title}>Валюта</Text>
+          <View style={styles.radios_wrap}>
+            <RadioItem
+              selectedCurrency={selectedCurrency}
+              value={"CGC"}
+              setSelectedCurrency={setSelectedCurrency}
+            />
+            <RadioItem
+              selectedCurrency={selectedCurrency}
+              value={"INPH"}
+              setSelectedCurrency={setSelectedCurrency}
+            />
+          </View>
+        </View>
         <InputSection
           buttonText="Пополнить"
           valueName="Укажите сумму"
@@ -31,9 +48,10 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
           action={(values: any) => {
             Keyboard.dismiss()
             props
-              .addMiningThunkCreator(values.value)
+              .addMiningThunkCreator(values.value, selectedCurrency)
               .then(() => setPopupVisible(true))
           }}
+          containerStyle={styles.footer_input}
         />
       </View>
       <Popup
@@ -58,8 +76,21 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
+
+  currency_wrap: {
+    marginHorizontal: 15,
+    flex: 1,
+    marginTop: 20,
+  },
+
+  title: {
+    color: "#9E9E9E",
+  },
+
+  footer_input: { flex: 1 },
 })
 
 export default MiningInMoneyScreen

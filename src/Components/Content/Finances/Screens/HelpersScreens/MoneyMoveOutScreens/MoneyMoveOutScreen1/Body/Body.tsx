@@ -3,7 +3,7 @@ import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import RadioItem from "./RadioItem/RadioItem"
+import RadioItem from "~/Components/Shared/Components/RadioItem/RadioItem"
 
 // EXTRA IMPORTS //
 
@@ -18,7 +18,7 @@ const Body: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Валюта</Text>
-      <View style={styles.radios_wrap}>
+      <View>
         <RadioItem
           selectedCurrency={props.selectedCurrency}
           value={"CGC"}
@@ -41,10 +41,6 @@ const styles = StyleSheet.create({
 
   title: {
     color: "#9E9E9E",
-  },
-
-  radios_wrap: {
-    // marginTop: 15,
   },
 })
 

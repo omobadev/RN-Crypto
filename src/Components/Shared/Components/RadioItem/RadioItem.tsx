@@ -22,9 +22,7 @@ const RadioItem: React.FC<PropsType> = (props) => {
       <RadioButton
         value={props.value}
         color="#006F5F"
-        status={
-          props.selectedCurrency === props.value ? "checked" : "unchecked"
-        }
+        status={props.selectedCurrency === props.value ? "checked" : "unchecked"}
         onPress={() => props.setSelectedCurrency(props.value)}
       />
       <View style={styles.content}>
