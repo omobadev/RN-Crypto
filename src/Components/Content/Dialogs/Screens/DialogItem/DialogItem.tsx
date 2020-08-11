@@ -14,7 +14,7 @@ type PropsType = {
   route: any
   currentChatMessages: Array<any>
 
-  sendMessageThunkCreator: (message: string, chatID: string) => void
+  sendMessageThunkCreator: (message: string, images: Array<Blob>, chatID: string) => void
   getCurrentChatMessagesThunkCreator: (chatID: string) => void
 }
 
@@ -37,10 +37,7 @@ const DialogItem: React.FC<PropsType> = (props) => {
           return <MessageItem message={message} />
         })}
       </ScrollView>
-      <BottomInput
-        chatID={chatID}
-        sendMessageThunkCreator={props.sendMessageThunkCreator}
-      />
+      <BottomInput chatID={chatID} sendMessageThunkCreator={props.sendMessageThunkCreator} />
     </View>
   )
 }

@@ -20,6 +20,8 @@ type PropsType = {
     location: string
     invitedID: string
   }
+
+  uploadAvatarThunkCreator: (avatar: Blob) => void
 }
 
 const Header: React.FC<PropsType> = (props) => {
@@ -41,6 +43,10 @@ const Header: React.FC<PropsType> = (props) => {
 
       if (!result.cancelled) {
         setAvatar(result.uri)
+
+        const response = await fetch(result.uri)
+        const blob = await response.blob()
+        props.uploadAvatarThunkCreator(blob)
       }
     })
   }

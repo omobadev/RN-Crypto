@@ -30,19 +30,12 @@ const Body: React.FC<PropsType> = (props) => {
     <View style={!senderMe && styles.container}>
       {!senderMe && (
         <View style={styles.img_wrap}>
-          <Image
-            style={styles.img_wrap}
-            source={require("~/Images/default-avatar.png")}
-          />
-          <Text style={styles.letter}>
-            {String(props.message.uLogin.charAt(0))}
-          </Text>
+          <Image style={styles.img_wrap} source={require("~/Images/default-avatar.png")} />
+          <Text style={styles.letter}>{String(props.message.uLogin.charAt(0))}</Text>
         </View>
       )}
       <View style={senderMe ? styles.message_me : styles.message_friend}>
-        <Text style={senderMe ? styles.text_me : styles.text_friend}>
-          {props.message.chmText}
-        </Text>
+        <Text style={senderMe ? styles.text_me : styles.text_friend}>{props.message.chmText}</Text>
         <Text style={styles.time}>{props.message.chmTS}</Text>
       </View>
     </View>

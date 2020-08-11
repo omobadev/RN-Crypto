@@ -7,6 +7,7 @@ import EditProfile from "./EditProfile"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { uploadAvatarThunkCreator } from "~/Redux/Reducers/UserReducers/UserSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,7 +24,9 @@ type MapStateToPropsType = {
   }
 }
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  uploadAvatarThunkCreator: (avatar: Blob) => void
+}
 
 /////////////////////////////////////////////////////////////////
 
@@ -34,7 +37,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 }
 
 const EditProfileContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {})
+  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
+    uploadAvatarThunkCreator,
+  })
 )(EditProfile)
 
 export default EditProfileContainer

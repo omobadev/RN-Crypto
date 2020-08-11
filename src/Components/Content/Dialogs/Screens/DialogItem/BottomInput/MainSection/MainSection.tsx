@@ -20,10 +20,11 @@ type PropsType = {
   images: Array<any>
   setImages: (newImages: Array<any>) => void
 
-  sendMessageThunkCreator: (message: string, chatID: string) => void
+  sendMessageThunkCreator: (message: string, images: Array<Blob>, chatID: string) => void
 }
 
 const MainSection: React.FC<PropsType> = (props) => {
+  const [imagesBlobArray, setImagesBlobArray] = useState([] as Array<Blob>)
   let [message, setMessage] = useState(null as string | null)
 
   useEffect(() => {
@@ -48,14 +49,18 @@ const MainSection: React.FC<PropsType> = (props) => {
         quality: 1,
       })
       if (!result.cancelled) {
-        props.setImages([...props.images, result.uri])
+        props.setImages(props.images.concat(result.uri))
+
+        const response = await fetch(result.uri)
+        const blob = await response.blob()
+        setImagesBlobArray(imagesBlobArray.concat(blob))
       }
     } catch (E) {}
   }
 
   const sendMessage = () => {
     if (message && message?.length > 0) {
-      props.sendMessageThunkCreator(message as string, props.chatID)
+      props.sendMessageThunkCreator(message as string, imagesBlobArray, props.chatID)
       setMessage(null)
       props.setImages([])
       Keyboard.dismiss()
@@ -71,16 +76,10 @@ const MainSection: React.FC<PropsType> = (props) => {
         value={message as string}
         style={styles.input}
       />
-      <BorderlessButton
-        style={[styles.icon, { right: 55, marginTop: 1.5 }]}
-        onPress={pickImage}
-      >
+      <BorderlessButton style={[styles.icon, { right: 55, marginTop: 1.5 }]} onPress={pickImage}>
         <Feather name="image" size={24} color="#006F5F" />
       </BorderlessButton>
-      <BorderlessButton
-        style={[styles.icon, { right: 25 }]}
-        onPress={sendMessage}
-      >
+      <BorderlessButton style={[styles.icon, { right: 25 }]} onPress={sendMessage}>
         <FontAwesome name="send-o" size={20} color="#006F5F" />
       </BorderlessButton>
     </>

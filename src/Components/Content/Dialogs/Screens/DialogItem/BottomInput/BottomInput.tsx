@@ -19,7 +19,7 @@ import { BorderlessButton } from "react-native-gesture-handler"
 type PropsType = {
   chatID: string
 
-  sendMessageThunkCreator: (message: string, chatID: string) => void
+  sendMessageThunkCreator: (message: string, images: Array<Blob>, chatID: string) => void
 }
 
 const BottomInput: React.FC<PropsType> = (props) => {

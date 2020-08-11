@@ -20,12 +20,17 @@ type PropsType = {
     location: string
     invitedID: string
   }
+
+  uploadAvatarThunkCreator: (avatar: Blob) => void
 }
 
 const EditProfile: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
-      <Header userData={props.UserCredentials} />
+      <Header
+        userData={props.UserCredentials}
+        uploadAvatarThunkCreator={props.uploadAvatarThunkCreator}
+      />
       <Body userData={props.UserCredentials} />
     </View>
   )

@@ -1,54 +1,51 @@
 //    *GENERAL IMPORTS*   //
-import { ThunkAction } from "redux-thunk";
-import axios from "axios";
+import { ThunkAction } from "redux-thunk"
+import axios from "axios"
 // @ts-ignore
-import JWT from "expo-jwt";
-import AsyncStorage from "@react-native-community/async-storage";
+import JWT from "expo-jwt"
+import AsyncStorage from "@react-native-community/async-storage"
 
-import { AppStateType, InferActionsTypes } from "../../ReduxStore";
+import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 import {
   getDialogsChatsListThunkCreator,
   getCurrentChatMessagesThunkCreator,
-} from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer";
-const key = "shh";
+} from "~/Redux/Reducers/ChatsReducers/ChatsGetReducer"
+const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
   DialogsChatsList: [] as Array<any>,
   GroupsChatsList: [] as Array<any>,
-};
+}
 
-type initialStateType = typeof initialState;
+type initialStateType = typeof initialState
 
 // *REDUCER* //
-const ChatsSetReducer = (
-  state = initialState,
-  action: ActionTypes,
-): initialStateType => {
-  return state;
-};
+const ChatsSetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+  return state
+}
 
-export default ChatsSetReducer;
+export default ChatsSetReducer
 
 ///////////////////////////////////////////////////////////////////////
 
-type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>;
+type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
-export const ActionCreatorsList = {};
+export const ActionCreatorsList = {}
 
 //    *THUNKS*   //
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Create new dialog
 export const createNewDialogThunkCreator = (
   selectedUsersIDs: Array<any>,
   chatTitle: string,
-  message: string,
+  message: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     await axios
       .post(
@@ -62,28 +59,25 @@ export const createNewDialogThunkCreator = (
               users: selectedUsersIDs,
               message: message,
             },
-            key,
-          ),
-        ),
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        dispatch(getDialogsChatsListThunkCreator());
+        dispatch(getDialogsChatsListThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response)
         }
-      });
-  };
-};
+      })
+  }
+}
 
 // Add users to chat
-export const addUsersToChatThunkCreator = (
-  newUsers: Array<any>,
-  chatID: string,
-): ThunkType => {
+export const addUsersToChatThunkCreator = (newUsers: Array<any>, chatID: string): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState();
+    const state = getState()
 
     await axios
       .post(
@@ -96,26 +90,26 @@ export const addUsersToChatThunkCreator = (
               chatid: chatID,
               users: newUsers,
             },
-            key,
-          ),
-        ),
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        dispatch(getCurrentChatMessagesThunkCreator(chatID));
-        dispatch(getDialogsChatsListThunkCreator());
+        dispatch(getCurrentChatMessagesThunkCreator(chatID))
+        dispatch(getDialogsChatsListThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response)
         }
-      });
-  };
-};
+      })
+  }
+}
 
 // Leave chat
 export const leaveChatThunkCreator = (chatID: string): ThunkType => {
   return async (dispatch, getState: any) => {
-    const uid = await AsyncStorage.getItem("uid");
+    const state = getState()
 
     await axios
       .post(
@@ -124,31 +118,32 @@ export const leaveChatThunkCreator = (chatID: string): ThunkType => {
           JWT.encode(
             {
               action: "exit_chat",
-              uid: uid,
+              uid: state.AuthSetState.userID,
               chatid: chatID,
             },
-            key,
-          ),
-        ),
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        dispatch(getDialogsChatsListThunkCreator());
+        dispatch(getDialogsChatsListThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response)
         }
-      });
-  };
-};
+      })
+  }
+}
 
 // Send message
 export const sendMessageThunkCreator = (
   message: string,
-  chatID: string,
+  images: Array<Blob>,
+  chatID: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
-    const uid = await AsyncStorage.getItem("uid");
+    const state = getState()
 
     await axios
       .post(
@@ -157,22 +152,23 @@ export const sendMessageThunkCreator = (
           JWT.encode(
             {
               action: "write_message_to_chat",
-              uid: uid,
+              uid: state.AuthSetState.userID,
               chatid: chatID,
               message: message,
+              images: images,
             },
-            key,
-          ),
-        ),
+            key
+          )
+        )
       )
       .then(async (res: any) => {
-        dispatch(getCurrentChatMessagesThunkCreator(chatID));
-        dispatch(getDialogsChatsListThunkCreator());
+        dispatch(getCurrentChatMessagesThunkCreator(chatID))
+        dispatch(getDialogsChatsListThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response);
+          console.log(err.response)
         }
-      });
-  };
-};
+      })
+  }
+}
