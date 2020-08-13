@@ -7,58 +7,77 @@ import { RectButton } from "react-native-gesture-handler"
 
 // EXTRA IMPORTS //
 import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
+import { number } from "yup"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  price: string
-  sale: string
-  duration: string
+  tarif: {
+    ID: string
+    title: string
+    price: string
+    duration: string
+  }
 
-  containerStyle?: any
-  textStyle?: any
+  backgroundColor: string
+  textColor: string
 
   buyTarifThunkCreator: (tarifID: string, currency: string) => void
 }
 
 const TarifItem: React.FC<PropsType> = (props) => {
   const [popupVisible, setPopupVisible] = useState(false as boolean)
-  const [confirmPopUpVisible, setConfirmPopUpVisible] = useState(false as boolean)
+  const [confirmPopUpVisible, setConfirmPopUpVisible] = useState(
+    false as boolean
+  )
+
+  const renderDuration = () => {
+    const date = Number(props.tarif.duration) / 24 / 30
+    if (Number(date) < 12) {
+      return `${date} месяц`
+    } else {
+      return "1 год"
+    }
+  }
 
   return (
     <>
-      <Text style={styles.title}> Тариф за {props.duration}</Text>
+      <Text style={styles.title}> Тариф за {renderDuration()}</Text>
       <RectButton
-        style={{ ...styles.container, ...props.containerStyle }}
+        style={[styles.container, { backgroundColor: props.backgroundColor }]}
         onPress={() => setPopupVisible(true)}
       >
-        <Text style={{ ...styles.price, ...props.textStyle }}>{props.price} CGC</Text>
-        {props.sale && (
-          <Text style={{ ...styles.sale, ...props.textStyle }}>Скидка {props.sale}</Text>
+        <Text style={[styles.price, { color: props.textColor }]}>
+          {props.tarif.price} CGC
+        </Text>
+        {props.tarif.title && (
+          <Text style={[styles.sale_text, { color: props.textColor }]}>
+            Скидка {props.tarif.title}
+          </Text>
         )}
       </RectButton>
 
       <PopUp
         popupVisible={popupVisible}
         setPopupVisible={setPopupVisible}
-        title={`Вы собираетесь продлить использование платных функций на ${props.duration}`}
+        title={`Вы собираетесь продлить использование платных функций на ${props.tarif.duration}`}
         buttonsArray={[
           {
             text: "Отмена",
             action: () => setPopupVisible(false),
           },
           {
-            text: "Продлить с CGC",
+            text: "Купить с CGC",
             action: () => {
-              props.buyTarifThunkCreator("14", "CGC")
+              props.buyTarifThunkCreator(props.tarif.ID, "CGC")
               setPopupVisible(false)
               setConfirmPopUpVisible(true)
             },
           },
           {
-            text: "Продлить с INPH",
+            text: "Купить с INPH",
             action: () => {
-              props.buyTarifThunkCreator("14", "INPH")
+              props.buyTarifThunkCreator(props.tarif.ID, "INPH")
               setPopupVisible(false)
               setConfirmPopUpVisible(true)
             },
@@ -93,6 +112,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     height: 100,
+    paddingHorizontal: 15,
   },
 
   price: {
@@ -101,9 +121,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  sale: {
+  sale_text: {
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 16,
   },
 
   popup: {

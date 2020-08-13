@@ -21,8 +21,9 @@ type MapStateToPropsType = {
   endDate: string | null
 
   TarifsList: Array<{
-    color: string
-    sale: string
+    ID: string
+    title: string
+    description: string
     price: string
     duration: string
   }>
@@ -45,11 +46,14 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 }
 
 const TarifsScreenContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
-    getTarifsInfoThunkCreator,
-    getTarifsListThunkCreator,
-    buyTarifThunkCreator,
-  })
+  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
+    mapStateToProps,
+    {
+      getTarifsInfoThunkCreator,
+      getTarifsListThunkCreator,
+      buyTarifThunkCreator,
+    }
+  )
 )(TarifsScreen)
 
 export default TarifsScreenContainer

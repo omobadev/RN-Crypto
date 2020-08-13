@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useEffect } from "react"
-import { View, StyleSheet } from "react-native"
+import { ScrollView, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
@@ -15,8 +15,8 @@ type PropsType = {
   endDate: string | null
 
   TarifsList: Array<{
-    color: string
-    sale: string
+    ID: string
+    title: string
     price: string
     duration: string
   }>
@@ -33,13 +33,13 @@ const TarifsScreen: React.FC<PropsType> = (props) => {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header PaymentAmount={props.PaymentAmount} endDate={props.endDate} />
       <Body
         TarifsList={props.TarifsList}
         buyTarifThunkCreator={props.buyTarifThunkCreator}
       />
-    </View>
+    </ScrollView>
   )
 }
 

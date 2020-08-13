@@ -1,5 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
+import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import TarifItem from "./TarifItem/TarifItem"
@@ -10,8 +11,8 @@ import TarifItem from "./TarifItem/TarifItem"
 
 type PropsType = {
   TarifsList: Array<{
-    color: string
-    sale: string
+    ID: string
+    title: string
     price: string
     duration: string
   }>
@@ -19,26 +20,41 @@ type PropsType = {
 }
 
 const Body: React.FC<PropsType> = (props) => {
+  const colors = ["#F2F2F2", "#006F5F", "#C0A33D", "#C0A33D"]
+  const textColors = ["#006F5F", "white", "white", "white"]
+
   return (
-    <>
+    <View style={styles.container}>
       {props.TarifsList &&
         props.TarifsList.length > 0 &&
         props.TarifsList.map(
-          (tarif: { color: string; sale: string; price: string; duration: string }) => {
+          (
+            tarif: {
+              ID: string
+              title: string
+              price: string
+              duration: string
+            },
+            index: number
+          ) => {
             return (
               <TarifItem
-                price={tarif.price}
-                sale={tarif.sale}
-                duration={tarif.duration}
-                containerStyle={{ backgroundColor: tarif.color }}
-                textStyle={{ color: "#00392D", marginHorizontal: 25 }}
+                tarif={tarif}
+                backgroundColor={colors[index]}
+                textColor={textColors[index]}
                 buyTarifThunkCreator={props.buyTarifThunkCreator}
               />
             )
           }
         )}
-    </>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 25,
+  },
+})
 
 export default Body

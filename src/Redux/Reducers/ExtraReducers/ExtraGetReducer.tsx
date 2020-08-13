@@ -16,8 +16,8 @@ const initialState = {
   ReferalLink: null as string | null,
 
   TarifsList: [] as Array<{
-    color: string
-    sale: string
+    ID: string
+    title: string
     price: string
     duration: string
   }>,
@@ -26,7 +26,10 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const ExtraGetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const ExtraGetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
   if (action.type === "SET_TARIFS_INFO") {
     return {
       ...state,
@@ -69,8 +72,8 @@ export const ActionCreatorsList = {
 
   setTarifsListActionCreator: (
     tarifsList: Array<{
-      color: string
-      sale: string
+      ID: string
+      title: string
       price: string
       duration: string
     }>
@@ -110,7 +113,9 @@ export const getTarifsInfoThunkCreator = (): ThunkType => {
       )
       .then(async (res: any) => {
         const data = JWT.decode(res.data.data, key)
-        dispatch(ActionCreatorsList.setTarifsInfoActionCreator("0", data.time))
+        dispatch(
+          ActionCreatorsList.setTarifsInfoActionCreator(data.sum, data.time)
+        )
       })
       .catch((err) => {
         if (err.response) {
@@ -123,14 +128,36 @@ export const getTarifsInfoThunkCreator = (): ThunkType => {
 // Get tarifs list
 export const getTarifsListThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(
-        ActionCreatorsList.setTarifsInfoActionCreator(
-          res.data.PaymentAmount,
-          res.data.endDate
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "get_abon_plans",
+            },
+            key
+          )
         )
       )
-    })
+      .then(async (res: any) => {
+        const data = JWT.decode(res.data.data, key)
+        const cleanData = data.plans.map((tarif: any) => {
+          return {
+            title: tarif.pName,
+            price: tarif.pMin,
+            duration: tarif.pPer,
+            ID: tarif.pID,
+          }
+        })
+
+        dispatch(ActionCreatorsList.setTarifsListActionCreator(cleanData))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
 
