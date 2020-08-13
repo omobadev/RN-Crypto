@@ -26,10 +26,7 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const ExtraGetReducer = (
-  state = initialState,
-  action: ActionTypes
-): initialStateType => {
+const ExtraGetReducer = (state = initialState, action: ActionTypes): initialStateType => {
   if (action.type === "SET_TARIFS_INFO") {
     return {
       ...state,
@@ -96,9 +93,70 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 // Get tarifs info
 export const getTarifsInfoThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
-    await axios.get("").then((res: any) => {
-      dispatch(ActionCreatorsList.setTarifsListActionCreator(res.data))
-    })
+    const state = getState()
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "get_abon_time",
+              uid: state.AuthSetState.userID,
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        const data = JWT.decode(res.data.data, key)
+        console.log(data)
+        // dispatch(ActionCreatorsList.setTarifsListActionCreator(res.data))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
+  }
+}
+
+// Buy tarif
+export const buyTarifThunkCreator = (tarifID: string, currency: string): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    const renderCurrency = () => {
+      if (currency === "CGC") {
+        return 4
+      } else if (currency === "INPH") {
+        return 14
+      }
+    }
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "new_abon",
+              uid: state.AuthSetState.userID,
+              pid: tarifID,
+              cid: renderCurrency(),
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
 

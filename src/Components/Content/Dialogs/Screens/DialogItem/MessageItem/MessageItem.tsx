@@ -25,6 +25,8 @@ const Body: React.FC<PropsType> = (props) => {
     getData()
   }, [])
 
+  console.log(props.message)
+
   const senderMe = props.message.uID === myUID
   return (
     <View style={!senderMe && styles.container}>

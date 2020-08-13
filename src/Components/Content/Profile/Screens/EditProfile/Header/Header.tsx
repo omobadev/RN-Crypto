@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     borderRadius: 1000,
-    height: 122,
-    width: 122,
+    height: 95,
+    width: 95,
   },
 
   letter: {

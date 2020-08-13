@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     borderRadius: 1000,
-    height: 150,
-    width: 150,
+    height: 130,
+    width: 130,
   },
 
   letter: {
