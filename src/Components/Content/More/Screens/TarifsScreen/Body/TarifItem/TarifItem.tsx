@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { Text, StyleSheet } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
@@ -21,9 +21,7 @@ type PropsType = {
 
 const TarifItem: React.FC<PropsType> = (props) => {
   const [popupVisible, setPopupVisible] = useState(false as boolean)
-  const [confirmPopUpVisible, setConfirmPopUpVisible] = useState(
-    false as boolean
-  )
+  const [confirmPopUpVisible, setConfirmPopUpVisible] = useState(false as boolean)
 
   return (
     <>
@@ -32,15 +30,12 @@ const TarifItem: React.FC<PropsType> = (props) => {
         style={{ ...styles.container, ...props.containerStyle }}
         onPress={() => setPopupVisible(true)}
       >
-        <Text style={{ ...styles.price, ...props.textStyle }}>
-          {props.price} CGC
-        </Text>
+        <Text style={{ ...styles.price, ...props.textStyle }}>{props.price} CGC</Text>
         {props.sale && (
-          <Text style={{ ...styles.sale, ...props.textStyle }}>
-            Скидка {props.sale}
-          </Text>
+          <Text style={{ ...styles.sale, ...props.textStyle }}>Скидка {props.sale}</Text>
         )}
       </RectButton>
+
       <PopUp
         popupVisible={popupVisible}
         setPopupVisible={setPopupVisible}
@@ -51,16 +46,14 @@ const TarifItem: React.FC<PropsType> = (props) => {
             action: () => setPopupVisible(false),
           },
           {
-            text: "Продолжить",
+            text: "Продлить",
             action: () => {
               setPopupVisible(false)
               setConfirmPopUpVisible(true)
             },
           },
         ]}
-        containerStyle={{
-          width: 350,
-        }}
+        containerStyle={styles.popup}
       />
       <PopUp
         popupVisible={confirmPopUpVisible}
@@ -73,9 +66,7 @@ const TarifItem: React.FC<PropsType> = (props) => {
             action: () => setConfirmPopUpVisible(false),
           },
         ]}
-        containerStyle={{
-          width: 350,
-        }}
+        containerStyle={styles.popup}
       />
     </>
   )
@@ -102,6 +93,10 @@ const styles = StyleSheet.create({
   sale: {
     fontWeight: "bold",
     fontSize: 17,
+  },
+
+  popup: {
+    width: 350,
   },
 })
 

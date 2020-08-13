@@ -120,45 +120,6 @@ export const getTarifsInfoThunkCreator = (): ThunkType => {
   }
 }
 
-// Buy tarif
-export const buyTarifThunkCreator = (tarifID: string, currency: string): ThunkType => {
-  return async (dispatch, getState: any) => {
-    const state = getState()
-
-    const renderCurrency = () => {
-      if (currency === "CGC") {
-        return 4
-      } else if (currency === "INPH") {
-        return 14
-      }
-    }
-
-    await axios
-      .post(
-        "http://cgc.cgc.capital/api_interface",
-        JSON.stringify(
-          JWT.encode(
-            {
-              action: "new_abon",
-              uid: state.AuthSetState.userID,
-              pid: tarifID,
-              cid: renderCurrency(),
-            },
-            key
-          )
-        )
-      )
-      .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key))
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response)
-        }
-      })
-  }
-}
-
 // Get tarifs list
 export const getTarifsListThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
