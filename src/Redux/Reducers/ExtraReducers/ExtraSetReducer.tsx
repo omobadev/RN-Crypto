@@ -9,12 +9,24 @@ const key = "shh"
 
 ////////////////////////////////////////////////////////////////////////
 
-const initialState = {}
+const initialState = {
+  responseStatus: { show: false, positive: false },
+}
 
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const ExtraSetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const ExtraSetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
+  if (action.type === "SET_RESPONSE_STATUS") {
+    return {
+      ...state,
+      responseStatus: action.responseStatus,
+    }
+  }
+
   return state
 }
 
@@ -25,23 +37,24 @@ export default ExtraSetReducer
 type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 
 //    *ACTION CREATORS*   //
-export const ActionCreatorsList = {}
+export const ActionCreatorsList = {
+  setResponseStatusActionCreator: (responseStatus: {
+    positive: boolean
+    show: boolean
+  }) =>
+    ({
+      type: "SET_RESPONSE_STATUS",
+      responseStatus,
+    } as const),
+}
 
 //    *THUNKS*   //
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Buy tarif
-export const buyTarifThunkCreator = (tarifID: string, currency: string): ThunkType => {
+export const buyTarifThunkCreator = (tarifID: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
-
-    const renderCurrency = () => {
-      if (currency === "CGC") {
-        return 4
-      } else if (currency === "INPH") {
-        return 14
-      }
-    }
 
     await axios
       .post(
@@ -52,19 +65,26 @@ export const buyTarifThunkCreator = (tarifID: string, currency: string): ThunkTy
               action: "new_abon",
               uid: state.AuthSetState.userID,
               pid: tarifID,
-              cid: renderCurrency(),
             },
             key
           )
         )
       )
       .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key))
+        dispatch(
+          ActionCreatorsList.setResponseStatusActionCreator({
+            positive: true,
+            show: true,
+          })
+        )
       })
       .catch((err) => {
-        if (err.response) {
-          console.log(err.response)
-        }
+        dispatch(
+          ActionCreatorsList.setResponseStatusActionCreator({
+            positive: false,
+            show: true,
+          })
+        )
       })
   }
 }

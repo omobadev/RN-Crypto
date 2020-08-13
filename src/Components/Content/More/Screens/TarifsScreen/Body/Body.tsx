@@ -10,13 +10,22 @@ import TarifItem from "./TarifItem/TarifItem"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  responseStatus: {
+    positive: boolean
+    show: boolean
+  }
   TarifsList: Array<{
     ID: string
     title: string
     price: string
     duration: string
   }>
-  buyTarifThunkCreator: (tarifID: string, currency: string) => void
+
+  setResponseStatusActionCreator: (responseStatus: {
+    positive: boolean
+    show: boolean
+  }) => void
+  buyTarifThunkCreator: (tarifID: string) => void
 }
 
 const Body: React.FC<PropsType> = (props) => {
@@ -42,7 +51,11 @@ const Body: React.FC<PropsType> = (props) => {
                 tarif={tarif}
                 backgroundColor={colors[index]}
                 textColor={textColors[index]}
+                responseStatus={props.responseStatus}
                 buyTarifThunkCreator={props.buyTarifThunkCreator}
+                setResponseStatusActionCreator={
+                  props.setResponseStatusActionCreator
+                }
               />
             )
           }

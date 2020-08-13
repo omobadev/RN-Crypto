@@ -11,12 +11,19 @@ import {
   getTarifsInfoThunkCreator,
   getTarifsListThunkCreator,
 } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
-import { buyTarifThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraSetReducer"
+import {
+  buyTarifThunkCreator,
+  ActionCreatorsList,
+} from "~/Redux/Reducers/ExtraReducers/ExtraSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {
+  responseStatus: {
+    positive: boolean
+    show: boolean
+  }
   PaymentAmount: string | null
   endDate: string | null
 
@@ -32,13 +39,18 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   getTarifsInfoThunkCreator: () => void
   getTarifsListThunkCreator: () => void
-  buyTarifThunkCreator: (tarifID: string, currency: string) => void
+  setResponseStatusActionCreator: (responseStatus: {
+    positive: boolean
+    show: boolean
+  }) => void
+  buyTarifThunkCreator: (tarifID: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
+    responseStatus: state.ExtraSetState.responseStatus,
     TarifsList: state.ExtraGetState.TarifsList,
     PaymentAmount: state.ExtraGetState.PaymentAmount,
     endDate: state.ExtraGetState.endDate,
@@ -49,6 +61,8 @@ const TarifsScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
+      setResponseStatusActionCreator:
+        ActionCreatorsList.setResponseStatusActionCreator,
       getTarifsInfoThunkCreator,
       getTarifsListThunkCreator,
       buyTarifThunkCreator,

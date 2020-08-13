@@ -11,6 +11,10 @@ import Body from "./Body/Body"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  responseStatus: {
+    positive: boolean
+    show: boolean
+  }
   PaymentAmount: string | null
   endDate: string | null
 
@@ -23,7 +27,11 @@ type PropsType = {
 
   getTarifsInfoThunkCreator: () => void
   getTarifsListThunkCreator: () => void
-  buyTarifThunkCreator: (tarifID: string, currency: string) => void
+  setResponseStatusActionCreator: (responseStatus: {
+    positive: boolean
+    show: boolean
+  }) => void
+  buyTarifThunkCreator: (tarifID: string) => void
 }
 
 const TarifsScreen: React.FC<PropsType> = (props) => {
@@ -37,7 +45,9 @@ const TarifsScreen: React.FC<PropsType> = (props) => {
       <Header PaymentAmount={props.PaymentAmount} endDate={props.endDate} />
       <Body
         TarifsList={props.TarifsList}
+        responseStatus={props.responseStatus}
         buyTarifThunkCreator={props.buyTarifThunkCreator}
+        setResponseStatusActionCreator={props.setResponseStatusActionCreator}
       />
     </ScrollView>
   )

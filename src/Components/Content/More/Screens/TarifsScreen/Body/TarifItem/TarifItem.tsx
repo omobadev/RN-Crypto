@@ -2,16 +2,20 @@
 import React, { useState } from "react"
 import { Text, StyleSheet } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
+import dayjs from "dayjs"
 
 // COMPONENTS IMPORTS //
 
 // EXTRA IMPORTS //
 import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
-import { number } from "yup"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  responseStatus: {
+    positive: boolean
+    show: boolean
+  }
   tarif: {
     ID: string
     title: string
@@ -22,14 +26,15 @@ type PropsType = {
   backgroundColor: string
   textColor: string
 
-  buyTarifThunkCreator: (tarifID: string, currency: string) => void
+  setResponseStatusActionCreator: (responseStatus: {
+    positive: boolean
+    show: boolean
+  }) => void
+  buyTarifThunkCreator: (tarifID: string) => void
 }
 
 const TarifItem: React.FC<PropsType> = (props) => {
   const [popupVisible, setPopupVisible] = useState(false as boolean)
-  const [confirmPopUpVisible, setConfirmPopUpVisible] = useState(
-    false as boolean
-  )
 
   const renderDuration = () => {
     const date = Number(props.tarif.duration) / 24 / 30
@@ -60,40 +65,43 @@ const TarifItem: React.FC<PropsType> = (props) => {
       <PopUp
         popupVisible={popupVisible}
         setPopupVisible={setPopupVisible}
-        title={`Вы собираетесь продлить использование платных функций на ${props.tarif.duration}`}
+        title={`Вы собираетесь купить использование платных функций на ${renderDuration()}`}
         buttonsArray={[
           {
             text: "Отмена",
             action: () => setPopupVisible(false),
           },
           {
-            text: "Купить с CGC",
+            text: "Купить",
             action: () => {
-              props.buyTarifThunkCreator(props.tarif.ID, "CGC")
               setPopupVisible(false)
-              setConfirmPopUpVisible(true)
-            },
-          },
-          {
-            text: "Купить с INPH",
-            action: () => {
-              props.buyTarifThunkCreator(props.tarif.ID, "INPH")
-              setPopupVisible(false)
-              setConfirmPopUpVisible(true)
+              props.buyTarifThunkCreator(props.tarif.ID)
             },
           },
         ]}
         containerStyle={styles.popup}
       />
       <PopUp
-        popupVisible={confirmPopUpVisible}
-        setPopupVisible={setConfirmPopUpVisible}
-        title={`Спасибо!`}
-        description={"Ваш тариф продлен до 31.01.2021"}
+        popupVisible={props.responseStatus.show}
+        setPopupVisible={() =>
+          props.setResponseStatusActionCreator({ positive: false, show: false })
+        }
+        title={props.responseStatus.positive ? `Спасибо!` : "Ошибка..."}
+        description={
+          props.responseStatus.positive
+            ? `Ваш тариф продлен до ${dayjs()
+                .add(Number(props.tarif.duration), "hour")
+                .format("DD-MM-YYYY")}`
+            : `Что то пошло не так, проверьте свой баланс и попробуйте снова.`
+        }
         buttonsArray={[
           {
             text: "OK",
-            action: () => setConfirmPopUpVisible(false),
+            action: () =>
+              props.setResponseStatusActionCreator({
+                positive: false,
+                show: false,
+              }),
           },
         ]}
         containerStyle={styles.popup}
