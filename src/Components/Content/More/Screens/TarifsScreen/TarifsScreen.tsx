@@ -23,6 +23,7 @@ type PropsType = {
 
   getTarifsInfoThunkCreator: () => void
   getTarifsListThunkCreator: () => void
+  buyTarifThunkCreator: (tarifID: string, currency: string) => void
 }
 
 const TarifsScreen: React.FC<PropsType> = (props) => {
@@ -34,7 +35,10 @@ const TarifsScreen: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <Header PaymentAmount={props.PaymentAmount} endDate={props.endDate} />
-      <Body TarifsList={props.TarifsList} />
+      <Body
+        TarifsList={props.TarifsList}
+        buyTarifThunkCreator={props.buyTarifThunkCreator}
+      />
     </View>
   )
 }

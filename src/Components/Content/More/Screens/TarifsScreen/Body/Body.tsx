@@ -15,6 +15,7 @@ type PropsType = {
     price: string
     duration: string
   }>
+  buyTarifThunkCreator: (tarifID: string, currency: string) => void
 }
 
 const Body: React.FC<PropsType> = (props) => {
@@ -23,12 +24,7 @@ const Body: React.FC<PropsType> = (props) => {
       {props.TarifsList &&
         props.TarifsList.length > 0 &&
         props.TarifsList.map(
-          (tarif: {
-            color: string
-            sale: string
-            price: string
-            duration: string
-          }) => {
+          (tarif: { color: string; sale: string; price: string; duration: string }) => {
             return (
               <TarifItem
                 price={tarif.price}
@@ -36,6 +32,7 @@ const Body: React.FC<PropsType> = (props) => {
                 duration={tarif.duration}
                 containerStyle={{ backgroundColor: tarif.color }}
                 textStyle={{ color: "#00392D", marginHorizontal: 25 }}
+                buyTarifThunkCreator={props.buyTarifThunkCreator}
               />
             )
           }

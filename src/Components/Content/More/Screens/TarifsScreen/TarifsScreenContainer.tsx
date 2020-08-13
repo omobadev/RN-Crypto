@@ -11,6 +11,7 @@ import {
   getTarifsInfoThunkCreator,
   getTarifsListThunkCreator,
 } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
+import { buyTarifThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -30,6 +31,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   getTarifsInfoThunkCreator: () => void
   getTarifsListThunkCreator: () => void
+  buyTarifThunkCreator: (tarifID: string, currency: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -44,8 +46,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 
 const TarifsScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
-    getTarifsInfoThunkCreator: getTarifsInfoThunkCreator,
-    getTarifsListThunkCreator: getTarifsListThunkCreator,
+    getTarifsInfoThunkCreator,
+    getTarifsListThunkCreator,
+    buyTarifThunkCreator,
   })
 )(TarifsScreen)
 

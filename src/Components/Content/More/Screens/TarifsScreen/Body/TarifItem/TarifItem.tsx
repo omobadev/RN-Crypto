@@ -17,6 +17,8 @@ type PropsType = {
 
   containerStyle?: any
   textStyle?: any
+
+  buyTarifThunkCreator: (tarifID: string, currency: string) => void
 }
 
 const TarifItem: React.FC<PropsType> = (props) => {
@@ -46,8 +48,17 @@ const TarifItem: React.FC<PropsType> = (props) => {
             action: () => setPopupVisible(false),
           },
           {
-            text: "Продлить",
+            text: "Продлить с CGC",
             action: () => {
+              props.buyTarifThunkCreator("14", "CGC")
+              setPopupVisible(false)
+              setConfirmPopUpVisible(true)
+            },
+          },
+          {
+            text: "Продлить с INPH",
+            action: () => {
+              props.buyTarifThunkCreator("14", "INPH")
               setPopupVisible(false)
               setConfirmPopUpVisible(true)
             },
