@@ -75,7 +75,10 @@ export const createNewDialogThunkCreator = (
 }
 
 // Add users to chat
-export const addUsersToChatThunkCreator = (newUsers: Array<any>, chatID: string): ThunkType => {
+export const addUsersToChatThunkCreator = (
+  newUsers: Array<any>,
+  chatID: string
+): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
@@ -148,6 +151,7 @@ export const sendMessageThunkCreator = (
     await axios
       .post(
         "http://cgc.cgc.capital/api_interface",
+
         JSON.stringify(
           JWT.encode(
             {

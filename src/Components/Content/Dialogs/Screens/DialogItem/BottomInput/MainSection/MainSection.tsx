@@ -53,7 +53,27 @@ const MainSection: React.FC<PropsType> = (props) => {
 
         const response = await fetch(result.uri)
         const blob = await response.blob()
-        setImagesBlobArray(imagesBlobArray.concat(blob))
+        // setImagesBlobArray(imagesBlobArray.concat(blob))
+
+        const blobToBase64 = (blob: any) => {
+          const reader = new FileReader()
+          reader.readAsDataURL(blob)
+          return new Promise((resolve) => {
+            reader.onloadend = () => {
+              resolve(reader.result)
+            }
+          })
+        }
+
+        const formData = new FormData()
+        const base64 = await blobToBase64(blob)
+        formData.append("file", base64 as any)
+
+        console.log(formData)
+
+        await setImagesBlobArray(
+          imagesBlobArray.push(JSON.stringify(formData) as any) as any
+        )
       }
     } catch (E) {}
   }
@@ -76,7 +96,10 @@ const MainSection: React.FC<PropsType> = (props) => {
         value={message as string}
         style={styles.input}
       />
-      <BorderlessButton style={[styles.icon, { right: 55, marginTop: 1.5 }]} onPress={pickImage}>
+      <BorderlessButton
+        style={[styles.icon, { right: 55, marginTop: 1.5 }]}
+        onPress={pickImage}
+      >
         <Feather name="image" size={24} color="#006F5F" />
       </BorderlessButton>
       <BorderlessButton style={[styles.icon, { right: 25 }]} onPress={sendMessage}>

@@ -110,8 +110,7 @@ export const getTarifsInfoThunkCreator = (): ThunkType => {
       )
       .then(async (res: any) => {
         const data = JWT.decode(res.data.data, key)
-        console.log(data)
-        // dispatch(ActionCreatorsList.setTarifsListActionCreator(res.data))
+        dispatch(ActionCreatorsList.setTarifsInfoActionCreator("0", data.time))
       })
       .catch((err) => {
         if (err.response) {

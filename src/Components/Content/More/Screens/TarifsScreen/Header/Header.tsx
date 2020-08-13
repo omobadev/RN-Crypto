@@ -11,24 +11,31 @@ import ListItem from "./ListItem/ListItem"
 
 type PropsType = {
   PaymentAmount: string | null
-  endDate: string | null
+  endDate: string | number | null
 }
 
 const Header: React.FC<PropsType> = (props) => {
+  const tarifExist =
+    props.endDate !== 0 && props.endDate !== null && props.endDate !== "0"
+
   return (
     <View style={styles.container}>
+      {tarifExist && (
+        <>
+          <ListItem
+            title="Абонентсая плата"
+            desc={`${props.PaymentAmount || "0"} GC`}
+            descStyle={{ fontSize: 16, fontWeight: "bold", color: "#006F5F" }}
+          />
+          <ListItem
+            title="Мой тариф"
+            desc={`Доступен до ${props.endDate}`}
+            descStyle={{ fontSize: 16, color: "#9E9E9E" }}
+          />
+        </>
+      )}
       <ListItem
-        title="Абонентсая плата"
-        desc={`${props.PaymentAmount || "0"} GC`}
-        descStyle={{ fontSize: 16, fontWeight: "bold", color: "#006F5F" }}
-      />
-      <ListItem
-        title="Мой тариф"
-        desc={`Доступен до ${props.endDate || ""}`}
-        descStyle={{ fontSize: 16, color: "#9E9E9E" }}
-      />
-      <ListItem
-        title="Другие тарифы:"
+        title={tarifExist ? "Другие тарифы:" : "Тарифы:"}
         descStyle={{ fontSize: 16, color: "#9E9E9E" }}
       />
     </View>
