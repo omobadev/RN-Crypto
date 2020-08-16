@@ -22,7 +22,10 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const ChatsSetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const ChatsSetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
   return state
 }
 
@@ -142,7 +145,7 @@ export const leaveChatThunkCreator = (chatID: string): ThunkType => {
 // Send message
 export const sendMessageThunkCreator = (
   message: string,
-  images: Array<Blob>,
+  images: Array<string>,
   chatID: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {

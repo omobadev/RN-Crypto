@@ -19,7 +19,11 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-  sendMessageThunkCreator: (message: string, images: Array<Blob>, chatID: string) => void
+  sendMessageThunkCreator: (
+    message: string,
+    images: Array<string>,
+    chatID: string
+  ) => void
   getCurrentChatMessagesThunkCreator: (chatID: string) => void
 }
 
@@ -33,10 +37,13 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 }
 
 const DialogItemContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
-    sendMessageThunkCreator: sendMessageThunkCreator,
-    getCurrentChatMessagesThunkCreator: getCurrentChatMessagesThunkCreator,
-  })
+  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
+    mapStateToProps,
+    {
+      sendMessageThunkCreator: sendMessageThunkCreator,
+      getCurrentChatMessagesThunkCreator: getCurrentChatMessagesThunkCreator,
+    }
+  )
 )(DialogItem)
 
 export default DialogItemContainer

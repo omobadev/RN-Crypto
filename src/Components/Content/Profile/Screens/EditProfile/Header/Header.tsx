@@ -1,6 +1,13 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, Image, TouchableOpacity, ImageBackground, StyleSheet } from "react-native"
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+  StyleSheet,
+} from "react-native"
 import * as ImagePicker from "expo-image-picker"
 
 // COMPONENTS IMPORTS //
@@ -21,7 +28,7 @@ type PropsType = {
     invitedID: string
   }
 
-  uploadAvatarThunkCreator: (avatar: Blob) => void
+  uploadAvatarThunkCreator: (avatar: string) => void
 }
 
 const Header: React.FC<PropsType> = (props) => {
@@ -36,17 +43,13 @@ const Header: React.FC<PropsType> = (props) => {
     })().then(async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
       })
 
       if (!result.cancelled) {
         setAvatar(result.uri)
-
-        const response = await fetch(result.uri)
-        const blob = await response.blob()
-        props.uploadAvatarThunkCreator(blob)
+        props.uploadAvatarThunkCreator(result.uri)
       }
     })
   }
@@ -55,18 +58,29 @@ const Header: React.FC<PropsType> = (props) => {
     <View style={styles.container}>
       <View style={styles.img_wrap}>
         {avatar || props.userData.avatar ? (
-          <Image style={styles.img_wrap} source={{ uri: avatar || props.userData.avatar }} />
+          <Image
+            style={styles.img_wrap}
+            source={{ uri: avatar || props.userData.avatar }}
+          />
         ) : (
-          <ImageBackground style={styles.img_wrap} source={require("~/Images/default-avatar.png")}>
+          <ImageBackground
+            style={styles.img_wrap}
+            source={require("~/Images/default-avatar.png")}
+          >
             <Text style={styles.letter}>
-              {props.userData && props.userData.name && String(props.userData.name.charAt(0))}
+              {props.userData &&
+                props.userData.name &&
+                String(props.userData.name.charAt(0))}
             </Text>
           </ImageBackground>
         )}
       </View>
 
       <View style={styles.content_wrap}>
-        <TouchableOpacity style={styles.item_wrap} onPress={() => selectAvatar()}>
+        <TouchableOpacity
+          style={styles.item_wrap}
+          onPress={() => selectAvatar()}
+        >
           <Text style={styles.text}>Сменить фотографию</Text>
           <Feather name="camera" size={24} color="#006F5F" />
         </TouchableOpacity>

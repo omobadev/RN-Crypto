@@ -21,7 +21,7 @@ type PropsType = {
     invitedID: string
   }
 
-  uploadAvatarThunkCreator: (avatar: Blob) => void
+  uploadAvatarThunkCreator: (avatar: string) => void
 }
 
 const EditProfile: React.FC<PropsType> = (props) => {

@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState, useEffect } from "react"
-import { Keyboard, TextInput, ImageStore, StyleSheet } from "react-native"
+import { Keyboard, TextInput, StyleSheet } from "react-native"
 import * as ImagePicker from "expo-image-picker"
 import Constants from "expo-constants"
 import * as Permissions from "expo-permissions"
@@ -20,11 +20,14 @@ type PropsType = {
   images: Array<any>
   setImages: (newImages: Array<any>) => void
 
-  sendMessageThunkCreator: (message: string, images: Array<Blob>, chatID: string) => void
+  sendMessageThunkCreator: (
+    message: string,
+    images: Array<string>,
+    chatID: string
+  ) => void
 }
 
 const MainSection: React.FC<PropsType> = (props) => {
-  const [imagesBlobArray, setImagesBlobArray] = useState([] as Array<Blob>)
   let [message, setMessage] = useState(null as string | null)
 
   useEffect(() => {
@@ -50,37 +53,17 @@ const MainSection: React.FC<PropsType> = (props) => {
       })
       if (!result.cancelled) {
         props.setImages(props.images.concat(result.uri))
-
-        const response = await fetch(result.uri)
-        const blob = await response.blob()
-        // setImagesBlobArray(imagesBlobArray.concat(blob))
-
-        const blobToBase64 = (blob: any) => {
-          const reader = new FileReader()
-          reader.readAsDataURL(blob)
-          return new Promise((resolve) => {
-            reader.onloadend = () => {
-              resolve(reader.result)
-            }
-          })
-        }
-
-        const formData = new FormData()
-        const base64 = await blobToBase64(blob)
-        formData.append("file", base64 as any)
-
-        console.log(formData)
-
-        await setImagesBlobArray(
-          imagesBlobArray.push(JSON.stringify(formData) as any) as any
-        )
       }
     } catch (E) {}
   }
 
   const sendMessage = () => {
     if (message && message?.length > 0) {
-      props.sendMessageThunkCreator(message as string, imagesBlobArray, props.chatID)
+      props.sendMessageThunkCreator(
+        message as string,
+        props.images,
+        props.chatID
+      )
       setMessage(null)
       props.setImages([])
       Keyboard.dismiss()
@@ -102,7 +85,10 @@ const MainSection: React.FC<PropsType> = (props) => {
       >
         <Feather name="image" size={24} color="#006F5F" />
       </BorderlessButton>
-      <BorderlessButton style={[styles.icon, { right: 25 }]} onPress={sendMessage}>
+      <BorderlessButton
+        style={[styles.icon, { right: 25 }]}
+        onPress={sendMessage}
+      >
         <FontAwesome name="send-o" size={20} color="#006F5F" />
       </BorderlessButton>
     </>

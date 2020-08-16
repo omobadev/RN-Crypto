@@ -1,8 +1,8 @@
 //    *GENERAL IMPORTS*   //
 import { ThunkAction } from "redux-thunk"
-import axios from "axios"
 // @ts-ignore
 import JWT from "expo-jwt"
+import uploadImageAsync from "~/Redux/Reducers/Helpers/UploadImageFn"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 const key = "shh"
@@ -14,7 +14,10 @@ const initialState = {}
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const UsersSetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const UsersSetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
   return state
 }
 
@@ -31,31 +34,18 @@ export const ActionCreatorsList = {}
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Upload avatar
-export const uploadAvatarThunkCreator = (avatar: Blob): ThunkType => {
+export const uploadAvatarThunkCreator = (avatar: string): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState()
-
-    await axios
-      .post(
-        "http://cgc.cgc.capital/api_interface",
-        JSON.stringify(
-          JWT.encode(
-            {
-              action: "send_avatar",
-              uid: state.AuthSetState.userID,
-              image: avatar,
-            },
-            key
-          )
-        )
+    const jsonVal = JSON.stringify(
+      JWT.encode(
+        {
+          action: "send_avatar",
+          uid: 2,
+        },
+        key
       )
-      .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key))
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response)
-        }
-      })
+    )
+
+    uploadImageAsync(avatar, jsonVal)
   }
 }

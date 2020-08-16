@@ -10,16 +10,17 @@ import MainSection from "./MainSection/MainSection"
 import ImagesSection from "./ImagesSection/ImagesSection"
 
 // EXTRA IMPORTS //
-import { Feather } from "@expo/vector-icons"
-import { FontAwesome } from "@expo/vector-icons"
-import { BorderlessButton } from "react-native-gesture-handler"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
   chatID: string
 
-  sendMessageThunkCreator: (message: string, images: Array<Blob>, chatID: string) => void
+  sendMessageThunkCreator: (
+    message: string,
+    images: Array<string>,
+    chatID: string
+  ) => void
 }
 
 const BottomInput: React.FC<PropsType> = (props) => {

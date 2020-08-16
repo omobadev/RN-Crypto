@@ -25,7 +25,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-  uploadAvatarThunkCreator: (avatar: Blob) => void
+  uploadAvatarThunkCreator: (avatar: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -37,9 +37,12 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 }
 
 const EditProfileContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
-    uploadAvatarThunkCreator,
-  })
+  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
+    mapStateToProps,
+    {
+      uploadAvatarThunkCreator,
+    }
+  )
 )(EditProfile)
 
 export default EditProfileContainer
