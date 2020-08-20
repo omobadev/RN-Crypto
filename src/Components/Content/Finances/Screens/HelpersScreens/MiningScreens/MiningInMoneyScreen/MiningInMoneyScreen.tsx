@@ -44,7 +44,7 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
           },
         ]}
         title="Спасибо!"
-        description="Ваша заявка поступила в обработку"
+        description="Спасибо! Депозит осуществлён."
         containerStyle={{
           width: "90%",
         }}

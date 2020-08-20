@@ -51,7 +51,7 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
         </Text>
 
         <FooterInput
-          buttonText="Оплатить"
+          buttonText="Перевести"
           action={(values: { value: string }) =>
             props.sendCGCMoneyThunkCreator(
               selectedUserID,
