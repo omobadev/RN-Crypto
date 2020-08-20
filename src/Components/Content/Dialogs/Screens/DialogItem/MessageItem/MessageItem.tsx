@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState, useEffect } from "react"
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native"
 import AsyncStorage from "@react-native-community/async-storage"
 
 // COMPONENTS IMPORTS //
@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-community/async-storage"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  navigation: any
   message: any
 }
 
@@ -25,19 +26,32 @@ const Body: React.FC<PropsType> = (props) => {
     getData()
   }, [])
 
-  console.log(props.message)
-
   const senderMe = props.message.uID === myUID
   return (
     <View style={!senderMe && styles.container}>
       {!senderMe && (
         <View style={styles.img_wrap}>
-          <Image style={styles.img_wrap} source={require("~/Images/default-avatar.png")} />
-          <Text style={styles.letter}>{String(props.message.uLogin.charAt(0))}</Text>
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate("Profile", {
+                uid: props.message.uID,
+              })
+            }
+          >
+            <Image
+              style={styles.img_wrap}
+              source={require("~/Images/default-avatar.png")}
+            />
+          </TouchableOpacity>
+          <Text style={styles.letter}>
+            {String(props.message.uLogin.charAt(0))}
+          </Text>
         </View>
       )}
       <View style={senderMe ? styles.message_me : styles.message_friend}>
-        <Text style={senderMe ? styles.text_me : styles.text_friend}>{props.message.chmText}</Text>
+        <Text style={senderMe ? styles.text_me : styles.text_friend}>
+          {props.message.chmText}
+        </Text>
         <Text style={styles.time}>{props.message.chmTS}</Text>
       </View>
     </View>

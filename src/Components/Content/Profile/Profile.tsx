@@ -15,7 +15,10 @@ import { Feather } from "@expo/vector-icons"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  navigation: any
+  route: any
   userID: string
+
   UserCredentials: {
     ID: string
     name: string
@@ -45,10 +48,17 @@ const Profile: React.FC<PropsType> = (props) => {
           headerRight: () =>
             isAdmin ? (
               <View style={styles.icons_wrap}>
-                <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
-                  <Image style={styles.icon} source={require("~/Images/Icons/icon-edit.png")} />
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("EditProfile")}
+                >
+                  <Image
+                    style={styles.icon}
+                    source={require("~/Images/Icons/icon-edit.png")}
+                  />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("ProfileSettings")}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("ProfileSettings")}
+                >
                   <Feather name="settings" size={24} color="#006F5F" />
                 </TouchableOpacity>
               </View>
@@ -57,12 +67,19 @@ const Profile: React.FC<PropsType> = (props) => {
           headerTitleAlign: isAdmin ? "left" : "center",
         })}
         initialParams={{
+          uid: props.route.params.uid,
           isAdmin: isAdmin,
         }}
         listeners={({ navigation, route }: any) => ({
           focus: () => {
             navigation.setParams({
+              uid: props.route.params.uid,
               isAdmin: isAdmin,
+            })
+          },
+          blur: () => {
+            props.navigation.setParams({
+              uid: null,
             })
           },
         })}

@@ -14,6 +14,7 @@ import { getCurrentChatMessagesThunkCreator } from "~/Redux/Reducers/ChatsReduce
 
 // TYPES
 type MapStateToPropsType = {
+  navigation: any
   route: any
   currentChatMessages: Array<any>
 }
@@ -31,6 +32,7 @@ type MapDispatchToPropsType = {
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
+    navigation: props.navigation,
     route: props.route,
     currentChatMessages: state.ChatsGetState.currentChatMessages,
   }

@@ -12,6 +12,7 @@ import BottomInput from "./BottomInput/BottomInput"
 
 type PropsType = {
   route: any
+  navigation: any
   currentChatMessages: Array<any>
 
   sendMessageThunkCreator: (
@@ -38,7 +39,7 @@ const DialogItem: React.FC<PropsType> = (props) => {
         showsVerticalScrollIndicator={false}
       >
         {props.currentChatMessages.reverse().map((message: any) => {
-          return <MessageItem message={message} />
+          return <MessageItem message={message} navigation={props.navigation} />
         })}
       </ScrollView>
       <BottomInput

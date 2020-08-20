@@ -199,8 +199,9 @@ const Finances: React.FC<PropsType> = (props) => {
           ),
           headerTitleStyle: {
             color: "#00392D",
+            fontSize: 18,
           },
-          title: "Сделать перевод",
+          title: "Сделать майнинг депозит",
           headerTitleAlign: "center",
         })}
         initialParams={{

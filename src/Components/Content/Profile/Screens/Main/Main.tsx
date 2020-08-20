@@ -1,10 +1,12 @@
 // PLUGINS IMPORTS //
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage"
 
 // COMPONENTS IMPORTS //
 import AdminContent from "./AdminContent/AdminContent"
 import NonAdminContent from "./NonAdminContent/NonAdminContent"
+import { ActivityIndicator } from "react-native-paper"
 
 // EXTRA IMPORTS //
 
@@ -29,37 +31,71 @@ type PropsType = {
     chatTitle: string,
     message: string
   ) => void
-  getUserCredentialsThunkCreator: () => void
+  getUserCredentialsThunkCreator: (uid: string) => any
 }
 
 const Main: React.FC<PropsType> = (props) => {
+  const [loading, setLoading] = useState(false as boolean)
+  const routeUID = props.route.params.uid
+
   useEffect(() => {
-    props.getUserCredentialsThunkCreator()
-  }, [])
+    setLoading(true)
+    const getData = async () => {
+      const uid = await AsyncStorage.getItem("uid")
+      props
+        .getUserCredentialsThunkCreator(routeUID ? routeUID : uid)
+        .then(() => setLoading(false))
+    }
+
+    getData()
+  }, [routeUID])
+
+  useEffect(() => {
+    props.navigation.addListener("blur", () => {
+      props.navigation.setParams({
+        uid: null,
+      })
+    })
+  }, [props.navigation])
 
   return (
-    <View style={styles.container}>
-      <View style={styles.img_wrap}>
-        {props.UserCredentials.avatar ? (
-          <Image style={styles.img_wrap} source={{ uri: props.UserCredentials.avatar }} />
-        ) : (
-          <ImageBackground style={styles.img_wrap} source={require("~/Images/default-avatar.png")}>
-            <Text style={styles.letter}>
-              {props.UserCredentials.name && String(props.UserCredentials.name.charAt(0))}
-            </Text>
-          </ImageBackground>
-        )}
-      </View>
-      {props.route.params.isAdmin ? (
-        <AdminContent userData={props.UserCredentials} />
+    <>
+      {loading ? (
+        <View style={styles.loading_wrapper}>
+          <ActivityIndicator color={"#006F5F"} />
+        </View>
       ) : (
-        <NonAdminContent
-          userData={props.UserCredentials}
-          navigation={props.navigation}
-          createNewDialogThunkCreator={props.createNewDialogThunkCreator}
-        />
+        <View style={styles.container}>
+          <View style={styles.img_wrap}>
+            {props.UserCredentials.avatar ? (
+              <Image
+                style={styles.img_wrap}
+                source={{ uri: props.UserCredentials.avatar }}
+              />
+            ) : (
+              <ImageBackground
+                style={styles.img_wrap}
+                source={require("~/Images/default-avatar.png")}
+              >
+                <Text style={styles.letter}>
+                  {props.UserCredentials.name &&
+                    String(props.UserCredentials.name.charAt(0))}
+                </Text>
+              </ImageBackground>
+            )}
+          </View>
+          {props.route.params.isAdmin ? (
+            <AdminContent userData={props.UserCredentials} />
+          ) : (
+            <NonAdminContent
+              userData={props.UserCredentials}
+              navigation={props.navigation}
+              createNewDialogThunkCreator={props.createNewDialogThunkCreator}
+            />
+          )}
+        </View>
       )}
-    </View>
+    </>
   )
 }
 
@@ -81,6 +117,12 @@ const styles = StyleSheet.create({
     fontSize: 99,
     color: "#F2F2F2",
     marginRight: "2%",
+  },
+
+  loading_wrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 })
 

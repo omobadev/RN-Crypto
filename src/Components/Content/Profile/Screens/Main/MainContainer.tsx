@@ -35,7 +35,7 @@ type MapDispatchToPropsType = {
     chatTitle: string,
     message: string
   ) => void
-  getUserCredentialsThunkCreator: () => void
+  getUserCredentialsThunkCreator: (uid: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -50,10 +50,13 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 }
 
 const MainContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(mapStateToProps, {
-    getUserCredentialsThunkCreator,
-    createNewDialogThunkCreator,
-  })
+  connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
+    mapStateToProps,
+    {
+      getUserCredentialsThunkCreator,
+      createNewDialogThunkCreator,
+    }
+  )
 )(Main)
 
 export default MainContainer

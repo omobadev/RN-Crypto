@@ -24,7 +24,10 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const UserGetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const UserGetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
   if (action.type === "SET_USER_DATA") {
     return {
       ...state,
@@ -76,10 +79,8 @@ export const ActionCreatorsList = {
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 // Get user credentials
-export const getUserCredentialsThunkCreator = (): ThunkType => {
+export const getUserCredentialsThunkCreator = (uid: string): ThunkType => {
   return async (dispatch, getState: any) => {
-    const state = getState()
-
     await axios
       .post(
         "http://cgc.cgc.capital/api_interface",
@@ -87,7 +88,7 @@ export const getUserCredentialsThunkCreator = (): ThunkType => {
           JWT.encode(
             {
               action: "userinfo",
-              uid: state.AuthSetState.userID,
+              uid: uid,
             },
             key
           )

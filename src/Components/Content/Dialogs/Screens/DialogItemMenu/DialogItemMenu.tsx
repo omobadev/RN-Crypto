@@ -34,7 +34,19 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
       {chatInfo.users && (
         <View>
           {chatInfo.users.map((user: any) => {
-            return <UserItem removeSelection id={user.uLogin} avatar={user.avatar} />
+            console.log(user)
+            return (
+              <UserItem
+                onPress={() =>
+                  props.navigation.navigate("Profile", {
+                    uid: user.uID,
+                  })
+                }
+                removeSelection
+                id={user.uLogin}
+                avatar={user.avatar}
+              />
+            )
           })}
         </View>
       )}
@@ -48,7 +60,7 @@ const DialogItemMenu: React.FC<PropsType> = (props) => {
             })
           }
         >
-          <AntDesign name="plus" size={20} color="white" />
+          <AntDesign name="plus" size={20} color="white" style={styles.icon} />
           <Text style={styles.button_text}>Добавить участника</Text>
         </TouchableOpacity>
 
@@ -79,7 +91,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     marginHorizontal: 85,
     borderRadius: 8,
     paddingVertical: 6,
@@ -88,6 +100,10 @@ const styles = StyleSheet.create({
 
   button_text: {
     color: "white",
+  },
+
+  icon: {
+    marginRight: 10,
   },
 })
 

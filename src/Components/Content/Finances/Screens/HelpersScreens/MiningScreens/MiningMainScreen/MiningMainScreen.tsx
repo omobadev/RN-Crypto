@@ -31,7 +31,7 @@ const MiningMainScreen: React.FC<PropsType> = (props) => {
         <ListItem
           navigation={props.navigation}
           navigationDestination={"MiningInMoneyScreen"}
-          title="Пополнить CGC"
+          title="Депозит CGC"
           icon={
             <Image
               style={styles.icon}
