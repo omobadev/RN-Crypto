@@ -22,14 +22,19 @@ type PropsType = {
 const CreateNewDialog: React.FC<PropsType> = (props) => {
   const [selectedUsersIDs, setSelectedUsersIDs] = useState([] as Array<any>)
   const [queryValue, setQueryValue] = useState("" as string)
-  const [filteredUsers, setFilteredUsers] = useState(props.usersList as Array<any>)
+  const [filteredUsers, setFilteredUsers] = useState([] as Array<any>)
 
   useEffect(() => {
-    if (!queryValue.trim()) setFilteredUsers(props.usersList)
     setFilteredUsers(
-      props.usersList
-        .filter((l) => l.id.toLowerCase().indexOf(queryValue.trim().toLowerCase()) === 0)
-        .map((l) => l)
+      queryValue
+        ? props.usersList
+            .filter(
+              (l) =>
+                l.id.toLowerCase().indexOf(queryValue.trim().toLowerCase()) ===
+                0
+            )
+            .map((l) => l)
+        : []
     )
   }, [queryValue])
 
@@ -51,7 +56,9 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
                 onPress={() => {
                   if (selectedUsersIDs.includes(user.id)) {
                     setSelectedUsersIDs(
-                      selectedUsersIDs.filter((userID: any) => userID !== user.id)
+                      selectedUsersIDs.filter(
+                        (userID: any) => userID !== user.id
+                      )
                     )
                   } else {
                     setSelectedUsersIDs(selectedUsersIDs.concat(user.id))
