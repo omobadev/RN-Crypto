@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
-import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import React from "react"
+import { View, Text, TextInput, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 
@@ -10,10 +10,13 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 
 type PropsType = {
   CGCInfo: {
-    price: string;
-    value2: string;
-  };
-};
+    price: string
+    value2: string
+  }
+
+  queryValue: string
+  setQueryValue: (newQueryValue: string) => void
+}
 
 const Header: React.FC<PropsType> = (props) => {
   return (
@@ -22,6 +25,8 @@ const Header: React.FC<PropsType> = (props) => {
         style={styles.input}
         placeholder="Поиск"
         placeholderTextColor="rgba(0, 57, 45, 0.5)"
+        value={props.queryValue}
+        onChangeText={(text: string) => props.setQueryValue(text)}
       />
 
       <View style={styles.content}>
@@ -35,8 +40,8 @@ const Header: React.FC<PropsType> = (props) => {
         Выберите получателя:
       </Text>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   input: {
@@ -60,6 +65,6 @@ const styles = StyleSheet.create({
     color: "#00392D",
     fontSize: 18,
   },
-});
+})
 
-export default Header;
+export default Header

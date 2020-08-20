@@ -34,6 +34,7 @@ const UsersList: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: -6,
+    height: 260,
   },
 })
 

@@ -25,6 +25,10 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
   const [filteredUsers, setFilteredUsers] = useState([] as Array<any>)
 
   useEffect(() => {
+    props.getUsersListThunkCreator()
+  }, [])
+
+  useEffect(() => {
     setFilteredUsers(
       queryValue
         ? props.usersList
@@ -37,10 +41,6 @@ const CreateNewDialog: React.FC<PropsType> = (props) => {
         : []
     )
   }, [queryValue])
-
-  useEffect(() => {
-    props.getUsersListThunkCreator()
-  }, [])
 
   return (
     <>

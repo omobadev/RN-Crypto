@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet } from "react-native"
+import { ScrollView, View, StyleSheet } from "react-native"
 import * as yup from "yup"
 
 // COMPONENTS IMPORTS //
@@ -27,9 +27,28 @@ type PropsType = {
 
 const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
   const [selectedUserID, setSelectedUserID] = useState(null as string | null)
+  const [queryValue, setQueryValue] = useState("" as string)
+  const [filteredUsers, setFilteredUsers] = useState([] as Array<any>)
+
   useEffect(() => {
     props.getUsersListThunkCreator()
   }, [])
+
+  useEffect(() => {
+    setFilteredUsers(
+      queryValue
+        ? props.usersList
+            .filter(
+              (l) =>
+                l.id.toLowerCase().indexOf(queryValue.trim().toLowerCase()) ===
+                0
+            )
+            .map((l) => l)
+        : []
+    )
+  }, [queryValue])
+
+  console.log(queryValue)
 
   useEffect(() => {
     setSelectedUserID(
@@ -47,11 +66,15 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
   })
 
   return (
-    <View style={styles.container}>
-      <Header CGCInfo={props.CGCInfo} />
+    <ScrollView style={styles.container}>
+      <Header
+        CGCInfo={props.CGCInfo}
+        queryValue={queryValue}
+        setQueryValue={setQueryValue}
+      />
       <View style={styles.divider} />
       <UsersList
-        usersList={props.usersList}
+        usersList={filteredUsers}
         selectedUserID={selectedUserID}
         setSelectedUserID={setSelectedUserID}
       />
@@ -76,19 +99,18 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
         PropValidationSchema={ValidationSchema}
         isNumberPad
       />
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginHorizontal: 16,
   },
 
   footer_input: {
-    marginBottom: 29,
-    marginTop: 50,
+    marginBottom: 20,
+    marginTop: 20,
   },
 
   divider: {
