@@ -1,5 +1,4 @@
 // PLUGINS IMPORTS //
-import React from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
@@ -8,13 +7,16 @@ import Main from "./Main"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { VerifyIfAuthentificatedThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {}
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  VerifyIfAuthentificatedThunkCreator: () => void
+}
 
 /////////////////////////////////////////////////////////////////
 
@@ -25,7 +27,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 const MainContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      VerifyIfAuthentificatedThunkCreator,
+    }
   )
 )(Main)
 

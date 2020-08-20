@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React from "react"
 import { View, StyleSheet } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage"
 
 // COMPONENTS IMPORTS //
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
@@ -14,6 +15,8 @@ import { Entypo } from "@expo/vector-icons"
 
 type PropsType = {
   navigation: any
+
+  VerifyIfAuthentificatedThunkCreator: () => void
 }
 
 const Main: React.FC<PropsType> = (props) => {
@@ -30,9 +33,7 @@ const Main: React.FC<PropsType> = (props) => {
         icon={
           <SimpleLineIcons name="earphones-alt" size={24} color="#006F5F" />
         }
-        titleStyle={{
-          fontWeight: null,
-        }}
+        titleStyle={styles.text}
       />
 
       <ListItem
@@ -40,32 +41,41 @@ const Main: React.FC<PropsType> = (props) => {
         navigationDestination="TarifsScreen"
         title="Мой тариф"
         icon={<FontAwesome name="star-o" size={24} color="#006F5F" />}
-        titleStyle={{
-          fontWeight: null,
-        }}
+        titleStyle={styles.text}
       />
       <ListItem
         navigation={props.navigation}
         navigationDestination="ReferalLinkScreen"
         title="Реферальная ссылка"
         icon={<Entypo name="link" size={24} color="#006F5F" />}
-        titleStyle={{
-          fontWeight: null,
-        }}
+        titleStyle={styles.text}
       />
 
       <ListItem
         navigation={props.navigation}
         title="Информация"
         icon={<SimpleLineIcons name="question" size={24} color="#006F5F" />}
-        titleStyle={{
-          fontWeight: null,
+        titleStyle={styles.text}
+      />
+
+      <ListItem
+        navigation={props.navigation}
+        title="Выйти"
+        icon={<SimpleLineIcons name="logout" size={24} color="#006F5F" />}
+        action={async () => {
+          await AsyncStorage.removeItem("uid")
+          props.VerifyIfAuthentificatedThunkCreator()
         }}
+        titleStyle={styles.text}
       />
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  text: {
+    fontWeight: "100",
+  },
+})
 
 export default Main
