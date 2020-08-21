@@ -1,13 +1,20 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Clipboard,
+  StyleSheet,
+} from "react-native"
 import { TextInput } from "react-native-paper"
 
 // COMPONENTS IMPORTS //
-
-// EXTRA IMPORTS //
 import Button from "~/Components/Shared/Components/Button/Button"
 import PopUp from "~/Components/Shared/Components/Popups/PopUp/PopUp"
+
+// EXTRA IMPORTS //
+import { FontAwesome5 } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -37,6 +44,7 @@ type PropsType = {
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
   const [sendingAdress, setSendingAdress] = useState(null as string | null)
   const price = props.route.params.price
+  const adress = "MSJKNSKJANSKAMSA"
 
   return (
     <>
@@ -50,16 +58,20 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
           Сделайте перевод на сумму <Text style={styles.bold}>{price} </Text>
           на указанный ETH адрес:
         </Text>
-        <Text style={[styles.paragraph, { marginTop: 25 }]}>
-          <Text style={styles.bold}>{price} </Text>
-        </Text>
 
-        <Text style={styles.paragraph}>
-          Укажите здесь с какого адреса вы отправляли ETH
-        </Text>
+        <View style={[styles.adress_wrap, { marginTop: 25 }]}>
+          <Text style={styles.paragraph}>{adress}</Text>
+          <TouchableOpacity
+            onPress={async () => await Clipboard.setString(adress)}
+          >
+            <FontAwesome5 name="copy" size={24} color="#00392D" />
+          </TouchableOpacity>
+        </View>
+
         <TextInput
           value={sendingAdress as string}
           onChangeText={(text: string) => setSendingAdress(text)}
+          theme={{ colors: { primary: "#00392D" } }}
         />
         <Button
           text="Я сделал это"
@@ -112,6 +124,12 @@ const styles = StyleSheet.create({
 
   price_paragraph: {
     marginVertical: 20,
+  },
+
+  adress_wrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 })
 
