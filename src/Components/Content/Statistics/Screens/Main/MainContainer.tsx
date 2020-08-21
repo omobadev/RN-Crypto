@@ -17,6 +17,8 @@ type MapStateToPropsType = {
   MonthlyIncome: string | null
   OverallIncome: string | null
   ConnectionsAmount: string | null
+
+  GraphData: Array<any>
 }
 
 type MapDispatchToPropsType = {

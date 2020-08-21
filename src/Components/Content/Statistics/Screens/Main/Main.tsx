@@ -14,6 +14,7 @@ type PropsType = {
   MonthlyIncome: string | null
   OverallIncome: string | null
   ConnectionsAmount: string | null
+  GraphData: Array<any>
 
   getStatsInfoThunkCreator: () => void
 }
@@ -31,7 +32,7 @@ const Main: React.FC<PropsType> = (props) => {
 
   return (
     <View>
-      <Header />
+      <Header GraphData={props.GraphData} />
       <Body StatsInfo={StatsInfo} />
     </View>
   )

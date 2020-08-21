@@ -9,7 +9,9 @@ import { LineChart } from "react-native-chart-kit"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  GraphData: Array<any>
+}
 
 const Header: React.FC<PropsType> = (props) => {
   return (
