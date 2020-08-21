@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { View, Text, Keyboard, TextInput, StyleSheet } from "react-native"
 import { Formik } from "formik"
 import * as yup from "yup"
@@ -17,6 +17,7 @@ type PropsType = {
   buttonText: string
 
   action: (values: { value: string }) => void
+  onChangeText?: (text: string) => void
 
   isNumberPad?: boolean
   containerStyle?: any
@@ -49,32 +50,39 @@ const FooterInputSection: React.FC<PropsType> = (props) => {
           props.action(values)
         }}
       >
-        {(FormikProps) => (
-          <>
-            <TextInput
-              style={styles.input}
-              keyboardType={
-                props.isNumberPad ? "number-pad" : "visible-password"
-              }
-              placeholderTextColor="rgba(0, 57, 45, 0.5)"
-              value={FormikProps.values.value as any}
-              onChangeText={FormikProps.handleChange("value")}
-              onBlur={() => {
-                FormikProps.handleBlur("value")
-              }}
-            />
-            {FormikProps.touched.value && FormikProps.errors.value && (
-              <Text style={styles.error_message}>
-                {FormikProps.touched.value && FormikProps.errors.value}
-              </Text>
-            )}
+        {(FormikProps) => {
+          useEffect(() => {
+            props.onChangeText &&
+              props.onChangeText(FormikProps.values.value as any)
+          }, [FormikProps.values.value])
 
-            <Button
-              text={props.buttonText}
-              onPress={FormikProps.handleSubmit}
-            />
-          </>
-        )}
+          return (
+            <>
+              <TextInput
+                style={styles.input}
+                keyboardType={
+                  props.isNumberPad ? "numeric" : "visible-password"
+                }
+                placeholderTextColor="rgba(0, 57, 45, 0.5)"
+                value={FormikProps.values.value as any}
+                onChangeText={FormikProps.handleChange("value")}
+                onBlur={() => {
+                  FormikProps.handleBlur("value")
+                }}
+              />
+              {FormikProps.touched.value && FormikProps.errors.value && (
+                <Text style={styles.error_message}>
+                  {FormikProps.touched.value && FormikProps.errors.value}
+                </Text>
+              )}
+
+              <Button
+                text={props.buttonText}
+                onPress={FormikProps.handleSubmit}
+              />
+            </>
+          )
+        }}
       </Formik>
     </View>
   )

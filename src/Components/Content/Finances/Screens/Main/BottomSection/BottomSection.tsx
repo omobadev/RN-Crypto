@@ -42,7 +42,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
       <ListItem
         navigation={props.navigation}
         navigationDestination="BuyMoneyScreen1"
-        title="Купить"
+        title="Купить CGC"
         icon={
           <Image
             style={styles.icon}

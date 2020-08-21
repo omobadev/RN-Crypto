@@ -157,7 +157,7 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleStyle: {
             color: "#00392D",
           },
-          title: "Пополнение",
+          title: "Покупка CGC",
           headerTitleAlign: "center",
         })}
       />

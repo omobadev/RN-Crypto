@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
 import { View, Text, StyleSheet } from "react-native"
+import { TextInput } from "react-native-paper"
 
 // COMPONENTS IMPORTS //
 
@@ -30,32 +31,41 @@ type PropsType = {
     positive: boolean
     link?: string
   }) => void
-  buyMoneyThunkCreator: (moneyAmount: number, currency: string) => void
+  buyMoneyThunkCreator: (moneyAmount: number, sendingAdress: string) => void
 }
 
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
+  const [sendingAdress, setSendingAdress] = useState(null as string | null)
   const price = props.route.params.price
-  const currency = props.route.params.currency
 
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          Для пополнения на сумму{" "}
-          <Text style={styles.bold}>
-            {price} {currency}{" "}
-          </Text>
-          вам необходимо совершить перевод в размере:
-          <Text style={styles.bold}> {price} CGC</Text>
+          Внимание перевод можно делать только с персонального кошелька, не с
+          кошелька биржи!
         </Text>
 
-        <Text style={[styles.paragraph, { fontSize: 16.5, marginTop: 10 }]}>
-          После того как ваша транзакция осуществится ваш баланс автоматически
-          пополнится
+        <Text style={[styles.paragraph, { marginTop: 25 }]}>
+          Сделайте перевод на сумму <Text style={styles.bold}>{price} </Text>
+          на указанный ETH адрес:
         </Text>
+        <Text style={[styles.paragraph, { marginTop: 25 }]}>
+          <Text style={styles.bold}>{price} </Text>
+        </Text>
+
+        <Text style={styles.paragraph}>
+          Укажите здесь с какого адреса вы отправляли ETH
+        </Text>
+        <TextInput
+          value={sendingAdress as string}
+          onChangeText={(text: string) => setSendingAdress(text)}
+        />
         <Button
-          text="Получить ссылку"
-          onPress={() => props.buyMoneyThunkCreator(price, currency)}
+          text="Я сделал это"
+          onPress={() =>
+            props.buyMoneyThunkCreator(price, sendingAdress as string)
+          }
           buttonStyle={{
             marginTop: 50,
             alignSelf: "center",

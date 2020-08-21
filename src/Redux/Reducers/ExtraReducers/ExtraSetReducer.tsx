@@ -88,3 +88,26 @@ export const buyTarifThunkCreator = (tarifID: string): ThunkType => {
       })
   }
 }
+
+// Create technical help chat
+export const createTechnicalHelpChatThunkCreator = (): ThunkType => {
+  return async (dispatch, getState: any) => {
+    const state = getState()
+
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "new_user_chat_to_admin_message",
+              uid: state.AuthSetState.userID,
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {})
+      .catch((err) => {})
+  }
+}

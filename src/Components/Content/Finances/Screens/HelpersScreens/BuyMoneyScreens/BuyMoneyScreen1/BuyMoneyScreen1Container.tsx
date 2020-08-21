@@ -14,6 +14,11 @@ import { AppStateType } from "~/Redux/ReduxStore"
 // TYPES
 type MapStateToPropsType = {
   navigation: any
+
+  CGCInfo: {
+    price: string
+    value2: string
+  }
 }
 
 type MapDispatchToPropsType = {}
@@ -23,6 +28,7 @@ type MapDispatchToPropsType = {}
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
+    CGCInfo: state.FinancesGetState.BudgetInfo.CGC,
   }
 }
 

@@ -114,20 +114,10 @@ export const sendCGCMoneyThunkCreator = (
 
 export const buyMoneyThunkCreator = (
   moneyAmount: number,
-  currency: string
+  sendingAdress: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
-
-    const renderCID = () => {
-      if (currency === "BTC") {
-        return 5
-      } else if (currency === "ETH") {
-        return 6
-      } else if (currency === "Payeer") {
-        return 8
-      }
-    }
 
     await axios
       .post(
@@ -137,7 +127,7 @@ export const buyMoneyThunkCreator = (
             {
               action: "cashin",
               uid: state.AuthSetState.userID,
-              cid: renderCID(),
+              adress: sendingAdress,
               sum: moneyAmount,
             },
             key

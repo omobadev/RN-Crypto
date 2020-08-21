@@ -3,7 +3,6 @@ import React, { useState } from "react"
 import { View, ScrollView, Text, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import RadioItem from "./RadioItem/RadioItem"
 import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
@@ -12,50 +11,43 @@ import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterI
 
 type PropsType = {
   navigation: any
+
+  CGCInfo: {
+    price: string
+    value2: string
+  }
 }
 
 const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
-  const [selectedCurrency, setSelectedCurrency] = useState("ETH" as string)
+  const [value, setValue] = useState("" as string)
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.content}>
-        <Text style={styles.title}>
-          Вы собираетесь пополнить баланс вашего персонального кошелька
-        </Text>
-        <Text style={styles.subtitle}>Выберите способ:</Text>
-        <RadioItem
-          value="ETH"
-          selectedCurrency={selectedCurrency}
-          setSelectedCurrency={setSelectedCurrency}
-        />
-        <RadioItem
-          value="BTC"
-          selectedCurrency={selectedCurrency}
-          setSelectedCurrency={setSelectedCurrency}
-        />
-        <RadioItem
-          value="Payeer"
-          selectedCurrency={selectedCurrency}
-          setSelectedCurrency={setSelectedCurrency}
-        />
+        <Text style={styles.title}>Текущий баланс:</Text>
+        <Text style={styles.subtitle}>{props.CGCInfo.value2 || 0} CGC</Text>
       </View>
 
-      <FooterInput
-        action={(values: { value: string }) => {
-          if (Number(values.value) > 0) {
-            props.navigation.navigate("BuyMoneyScreen2", {
-              currency: selectedCurrency,
-              price: values.value,
-            })
-          }
-        }}
-        buttonText="Далее"
-        valueName="Количество"
-        errorText="Укажите количество"
-        containerStyle={styles.footer_input}
-        isNumberPad
-      />
+      <View style={styles.footer_input}>
+        <Text style={styles.perc_price}>
+          Вы получите: {Number(value) - Number(value) / 10 / 2} CGC (включая 5%
+          комиссии)
+        </Text>
+        <FooterInput
+          action={(values: { value: string }) => {
+            if (Number(values.value) > 0) {
+              props.navigation.navigate("BuyMoneyScreen2", {
+                price: values.value,
+              })
+            }
+          }}
+          buttonText="Далее"
+          valueName="Количество"
+          errorText="Укажите количество"
+          onChangeText={(text: string) => setValue(text)}
+          isNumberPad
+        />
+      </View>
     </ScrollView>
   )
 }
@@ -66,25 +58,32 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    flex: 1,
+    marginTop: 30,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
   title: {
-    marginTop: 21,
-    marginBottom: 20,
     color: "#00392D",
     fontSize: 17,
   },
 
   subtitle: {
-    marginBottom: 20,
     color: "#00392D",
     fontSize: 16,
   },
 
-  footer_input: {
-    marginTop: "50%",
+  perc_price: {
+    fontSize: 16,
     marginBottom: 30,
+    textAlign: "center",
+  },
+
+  footer_input: {
+    marginTop: "60%",
+    marginBottom: 30,
+    alignItems: "center",
   },
 })
 
