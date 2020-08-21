@@ -10,6 +10,7 @@ import TarifsScreenContainer from "./Screens/TarifsScreen/TarifsScreenContainer"
 import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
 
 // EXTRA IMPORTS //
+import { Feather } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -55,8 +56,8 @@ const More: React.FC<PropsType> = (props) => {
         component={TarifsScreenContainer}
         options={({ navigation, route }: any) => ({
           headerRight: () => (
-            <TouchableOpacity>
-              <Text style={styles.right_text}>Оплатить</Text>
+            <TouchableOpacity style={styles.right_icon}>
+              <Feather name="info" size={24} color="#00392D" />
             </TouchableOpacity>
           ),
           headerStyle: {
@@ -93,9 +94,8 @@ const More: React.FC<PropsType> = (props) => {
 }
 
 const styles = StyleSheet.create({
-  right_text: {
+  right_icon: {
     marginRight: 20,
-    color: "#006F5F",
   },
 })
 

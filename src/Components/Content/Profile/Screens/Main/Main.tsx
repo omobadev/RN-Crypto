@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 27,
     marginHorizontal: 20,
+    flex: 1,
   },
 
   img_wrap: {
