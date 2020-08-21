@@ -14,27 +14,26 @@ type PropsType = {
 }
 
 const Header: React.FC<PropsType> = (props) => {
+  const prices =
+    props.GraphData && props.GraphData.map((graphObj: any) => graphObj.oSum)
+
+  const dates =
+    props.GraphData && props.GraphData.map((graphObj: any) => graphObj.oCTS)
+
   return (
     <View style={styles.container}>
       <LineChart
         data={{
-          labels: ["March", "April", "May", "June", "July"],
+          labels: dates || [],
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
+              data: prices || [],
             },
           ],
         }}
         width={Dimensions.get("window").width / 1.1} // from react-native
         height={220}
-        yAxisLabel="$"
-        yAxisSuffix="k"
+        yAxisSuffix=" ₽"
         yAxisInterval={1}
         chartConfig={{
           backgroundColor: "#006F5F",

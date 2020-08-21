@@ -32,6 +32,7 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
     MonthlyIncome: state.StatsGetState.MonthlyIncome,
     OverallIncome: state.StatsGetState.OverallIncome,
     ConnectionsAmount: state.StatsGetState.ConnectionsAmount,
+    GraphData: state.StatsGetState.GraphData,
   }
 }
 

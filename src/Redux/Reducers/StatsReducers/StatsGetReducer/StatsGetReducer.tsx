@@ -85,7 +85,7 @@ export const getStatsInfoThunkCreator = (): ThunkType => {
           JWT.encode(
             {
               action: "statistics",
-              uid: state.AuthSetState.userID,
+              uid: 2 || state.AuthSetState.userID,
             },
             key
           )
