@@ -9,7 +9,6 @@ import {
 
 // COMPONENTS IMPORTS //
 import DialogsInputPopup from "~/Components/Shared/Components/Popups/DialogsInputPopup/DialogsInputPopup"
- 
 
 // EXTRA IMPORTS //
 import CustomHeader from "~/Components/Shared/Components/CustomHeader/CustomHeader"
@@ -19,6 +18,9 @@ import { AntDesign } from "@expo/vector-icons"
 
 type PropsType = {
   navigation: any
+
+  queryValue: string
+  setQueryValue: (newQueryValue: string) => void
 
   createNewDialogThunkCreator: (
     selectedUsersIDs: Array<any>,
@@ -72,6 +74,8 @@ const TopBox: React.FC<PropsType> = (props) => {
           placeholder="Поиск"
           placeholderTextColor="rgba(0, 57, 45, 1)"
           style={styles.input}
+          value={props.queryValue}
+          onChangeText={(text: string) => props.setQueryValue(text)}
         />
       </ImageBackground>
 

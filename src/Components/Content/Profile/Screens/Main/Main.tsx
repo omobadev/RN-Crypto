@@ -16,6 +16,7 @@ type PropsType = {
   navigation: any
   route: any
 
+  userID: string
   UserCredentials: {
     ID: string
     name: string
@@ -37,6 +38,13 @@ type PropsType = {
 const Main: React.FC<PropsType> = (props) => {
   const [loading, setLoading] = useState(false as boolean)
   const routeUID = props.route.params.uid
+
+  useEffect(() => {
+    const isAdmin = props.userID === props.UserCredentials.ID
+    props.navigation.setParams({
+      isAdmin,
+    })
+  }, [props.UserCredentials])
 
   useEffect(() => {
     setLoading(true)

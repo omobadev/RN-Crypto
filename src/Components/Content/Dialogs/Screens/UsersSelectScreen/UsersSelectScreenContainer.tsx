@@ -37,7 +37,7 @@ const CreateNewDialogContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
     {
-      getUsersListThunkCreator: getUsersListThunkCreator,
+      getUsersListThunkCreator,
     }
   )
 )(UsersSelectScreen)

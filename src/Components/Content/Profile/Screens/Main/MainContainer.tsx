@@ -18,6 +18,7 @@ type MapStateToPropsType = {
   navigation: any
   route: any
 
+  userID: string
   UserCredentials: {
     ID: string
     name: string
@@ -45,6 +46,7 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
     navigation: props.navigation,
     route: props.route,
 
+    userID: state.AuthSetState.userID,
     UserCredentials: state.UserGetState.UserCredentials,
   }
 }
