@@ -53,6 +53,13 @@ const ExtraGetReducer = (
     }
   }
 
+  if (action.type === "SET_TECH_SUPPORT_CHATS") {
+    return {
+      ...state,
+      TechSupportChats: action.chatsList,
+    }
+  }
+
   return state
 }
 
@@ -88,6 +95,12 @@ export const ActionCreatorsList = {
     ({
       type: "SET_REFERAL_LINK",
       referalLink,
+    } as const),
+
+  setTechSupportChatsActionCreator: (chatsList: Array<any>) =>
+    ({
+      type: "SET_TECH_SUPPORT_CHATS",
+      chatsList,
     } as const),
 }
 
@@ -211,7 +224,8 @@ export const getTechSupportChatsThunkCreator = (): ThunkType => {
         )
       )
       .then(async (res: any) => {
-        console.log(JWT.decode(res.data.data, key))
+        const chats = JWT.decode(res.data.data, key).chats
+        dispatch(ActionCreatorsList.setTechSupportChatsActionCreator(chats))
       })
       .catch((err) => {
         if (err.response) {
