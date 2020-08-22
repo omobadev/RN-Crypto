@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import MainContainer from "./Screens/Main/MainContainer"
 import ReferalLinkScreenContainer from "./Screens/ReferalLinkScreen/ReferalLinkScreenContainer"
 import TarifsScreenContainer from "./Screens/TarifsScreen/TarifsScreenContainer"
+import TechSupportScreenContainer from "./Screens/TechSupportScreen/TechSupportScreenContainer"
 import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
 
 // EXTRA IMPORTS //
@@ -32,6 +33,22 @@ const More: React.FC<PropsType> = (props) => {
             color: "#00392D",
           },
           title: "Меню",
+          headerTitleAlign: "center",
+        })}
+      />
+
+      <Stack.Screen
+        name="TechSupportScreen"
+        component={TechSupportScreenContainer}
+        options={({ navigation, route }: any) => ({
+          headerStyle: {
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            color: "#00392D",
+            fontSize: 18,
+          },
+          title: "Техническая поддержка",
           headerTitleAlign: "center",
         })}
       />
