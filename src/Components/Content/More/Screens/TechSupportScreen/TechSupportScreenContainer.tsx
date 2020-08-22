@@ -7,13 +7,16 @@ import TechSupportScreen from "./TechSupportScreen"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
+import { getTechSupportChatsThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {}
 
-type MapDispatchToPropsType = {}
+type MapDispatchToPropsType = {
+  getTechSupportChatsThunkCreator: () => void
+}
 
 /////////////////////////////////////////////////////////////////
 
@@ -24,7 +27,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 const TechSupportScreenContainer = compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {}
+    {
+      getTechSupportChatsThunkCreator,
+    }
   )
 )(TechSupportScreen)
 

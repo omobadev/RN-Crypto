@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import { ScrollView, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
@@ -8,9 +8,15 @@ import { ScrollView, StyleSheet } from "react-native"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {}
+type PropsType = {
+  getTechSupportChatsThunkCreator: () => void
+}
 
 const TechSupportScreen: React.FC<PropsType> = (props) => {
+  useEffect(() => {
+    props.getTechSupportChatsThunkCreator()
+  }, [])
+
   return <ScrollView></ScrollView>
 }
 

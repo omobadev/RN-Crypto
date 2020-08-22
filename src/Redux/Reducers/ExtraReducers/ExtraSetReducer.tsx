@@ -102,12 +102,20 @@ export const createTechnicalHelpChatThunkCreator = (): ThunkType => {
             {
               action: "new_user_chat_to_admin_message",
               uid: state.AuthSetState.userID,
+              topic: "new_topic",
+              message: "new_user_chat_to_admin_message",
             },
             key
           )
         )
       )
-      .then(async (res: any) => {})
-      .catch((err) => {})
+      .then(async (res: any) => {
+        console.log(JWT.decode(res.data.data, key))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
