@@ -3,40 +3,30 @@ import { compose } from "redux"
 import { connect } from "react-redux"
 
 // COMPONENTS IMPORTS //
-import TechSupportScreen from "./TechSupportScreen"
+import More from "./More"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { getTechSupportChatsThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
+import { createTechnicalHelpChatThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
-type MapStateToPropsType = {
-  navigation: any
-  TechSupportChats: Array<any>
-}
+type MapStateToPropsType = {}
 
 type MapDispatchToPropsType = {
-  getTechSupportChatsThunkCreator: () => void
+  createTechnicalHelpChatThunkCreator: (topic: string, message: string) => void
 }
 
 /////////////////////////////////////////////////////////////////
 
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
-  return {
-    navigation: props.navigation,
-    TechSupportChats: state.ExtraGetState.TechSupportChats,
-  }
+  return {}
 }
 
-const TechSupportScreenContainer = compose(
+export default compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    {
-      getTechSupportChatsThunkCreator,
-    }
+    { createTechnicalHelpChatThunkCreator }
   )
-)(TechSupportScreen)
-
-export default TechSupportScreenContainer
+)(More)

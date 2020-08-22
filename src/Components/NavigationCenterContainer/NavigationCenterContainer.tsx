@@ -8,7 +8,7 @@ import Dialogs from "~/Components/Content/Dialogs/Dialogs"
 import Finances from "~/Components/Content/Finances/Finances"
 import Statistics from "~/Components/Content/Statistics/Statistics"
 import ProfileContainer from "~/Components/Content/Profile/ProfileContainer"
-import More from "~/Components/Content/More/More"
+import MoreContainer from "~/Components/Content/More/MoreContainer"
 
 // EXTRA IMPORTS //
 import { Ionicons } from "@expo/vector-icons"
@@ -91,7 +91,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
       />
       <Tab.Screen
         name="More"
-        component={More}
+        component={MoreContainer}
         options={{
           tabBarLabel: "Ещё",
           tabBarIcon: ({ focused }: any) => (
