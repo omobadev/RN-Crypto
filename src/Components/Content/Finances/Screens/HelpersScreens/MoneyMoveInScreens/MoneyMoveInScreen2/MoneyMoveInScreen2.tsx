@@ -68,7 +68,6 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
       <Popup
         title={props.transferStatusRes.title}
         description={props.transferStatusRes.text}
-        containerStyle={styles.popup}
         buttonsArray={[
           {
             text: "OK",
@@ -107,8 +106,6 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
-
-  popup: { width: "80%" },
 
   footer_input: {
     marginTop: 135,

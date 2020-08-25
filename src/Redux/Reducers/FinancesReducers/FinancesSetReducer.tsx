@@ -98,7 +98,18 @@ export const sendCGCMoneyThunkCreator = (
         }
       })
       .catch((err) => {
-        if (err.response) {
+        const errorMessage = err.response.data.message
+
+        if (errorMessage === "pass fail") {
+          dispatch(
+            ActionCreatorsList.setTransferStatusResActionCreator({
+              title: "Ошибка...",
+              text: "Пожалуйста введите корректный секретный код.",
+              positive: false,
+              visible: true,
+            })
+          )
+        } else {
           dispatch(
             ActionCreatorsList.setTransferStatusResActionCreator({
               title: "Ошибка...",
