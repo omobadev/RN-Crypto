@@ -51,9 +51,9 @@ const Main: React.FC<PropsType> = (props) => {
     getData()
   }, [routeUID])
 
+  const isAdmin = props.userID === props.UserCredentials.ID
   useEffect(() => {
     props.navigation.addListener("focus", () => {
-      const isAdmin = props.userID === props.UserCredentials.ID
       props.navigation.setParams({
         isAdmin,
       })
@@ -64,7 +64,6 @@ const Main: React.FC<PropsType> = (props) => {
   console.log(props.UserCredentials)
 
   useEffect(() => {
-    const isAdmin = props.userID === props.UserCredentials.ID
     props.navigation.setParams({
       isAdmin,
     })
@@ -96,7 +95,7 @@ const Main: React.FC<PropsType> = (props) => {
               </ImageBackground>
             )}
           </View>
-          {props.route.params.isAdmin ? (
+          {isAdmin ? (
             <AdminContent userData={props.UserCredentials} />
           ) : (
             <NonAdminContent
