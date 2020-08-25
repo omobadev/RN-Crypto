@@ -1,6 +1,10 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet } from "react-native"
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
 
@@ -19,15 +23,19 @@ type PropsType = {
 }
 
 const Header: React.FC<PropsType> = (props) => {
+  const [showSearch, setShowSearch] = useState(false as boolean)
+
   return (
     <>
-      <TextInput
-        style={styles.input}
-        placeholder="Поиск"
-        placeholderTextColor="rgba(0, 57, 45, 0.5)"
-        value={props.queryValue}
-        onChangeText={(text: string) => props.setQueryValue(text)}
-      />
+      {showSearch && (
+        <TextInput
+          style={styles.input}
+          placeholder="Поиск"
+          placeholderTextColor="rgba(0, 57, 45, 0.5)"
+          value={props.queryValue}
+          onChangeText={(text: string) => props.setQueryValue(text)}
+        />
+      )}
 
       <View style={styles.content}>
         <Text style={styles.text}>Ваш баланс</Text>
@@ -36,9 +44,17 @@ const Header: React.FC<PropsType> = (props) => {
         </Text>
       </View>
 
-      <Text style={[styles.text, { marginTop: 30, fontSize: 17 }]}>
-        Выберите получателя:
-      </Text>
+      {showSearch ? (
+        <Text style={[styles.text, { marginTop: 30, fontSize: 17 }]}>
+          Выберите получателя:
+        </Text>
+      ) : (
+        <TouchableOpacity onPress={() => setShowSearch(true)}>
+          <Text style={[styles.text, { marginTop: 30, fontSize: 17 }]}>
+            Нажмите для выбора получателя
+          </Text>
+        </TouchableOpacity>
+      )}
     </>
   )
 }
