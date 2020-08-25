@@ -1,14 +1,11 @@
 // PLUGINS IMPORTS //
-import React, { useEffect } from "react"
+import React from "react"
 import { TouchableOpacity, StyleSheet } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 
 // COMPONENTS IMPORTS //
 import MainContainer from "./Screens/Main/MainContainer"
 import TransactionsHistoryContainer from "./Screens/TransactionsHistory/TransactionsHistoryContainer"
-
-import MoneyMoveInScreen1 from "./Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen1/MoneyMoveInScreen1Container"
-import MoneyMoveInScreen2 from "./Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen2/MoneyMoveInScreen2Container"
 
 import MoneyMoveOutScreen1Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen1/MoneyMoveOutScreen1Container"
 import MoneyMoveOutScreen2Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen2/MoneyMoveOutScreen2Container"
@@ -33,10 +30,9 @@ const Finances: React.FC<PropsType> = (props) => {
   const Stack = createStackNavigator()
 
   const spcRoute = props.route.params && props.route.params.spcRoute
-  const spcRouteData = props.route.params && props.route.params.spcRouteData
 
   return (
-    <Stack.Navigator initialRouteName={spcRoute || "FinancesMain"}>
+    <Stack.Navigator initialRouteName={spcRoute}>
       <Stack.Screen
         name="FinancesMain"
         component={MainContainer}
@@ -60,56 +56,7 @@ const Finances: React.FC<PropsType> = (props) => {
         })}
       />
       {/* HELPERS SCREENS */}
-      {/* ПЕРЕВОД CGC */}
-      <Stack.Screen
-        name="MoneyMoveInScreen1"
-        component={MoneyMoveInScreen1}
-        options={({ navigation, route }: any) => ({
-          headerBackTitleVisible: false,
-          headerStyle: {
-            elevation: 0,
-          },
-          headerRight: () => (
-            <TouchableOpacity style={styles.right_icon}>
-              <Feather name="info" size={24} color="#006F5F" />
-            </TouchableOpacity>
-          ),
-          headerTitleStyle: {
-            color: "#00392D",
-          },
-          title: "Сделать перевод",
-          headerTitleAlign: "center",
-        })}
-        initialParams={{
-          selectedUserID: spcRouteData ? spcRouteData.selectedUserID : null,
-        }}
-        listeners={({ navigation, route }: any) => ({
-          focus: () => {
-            navigation.setParams({
-              selectedUserID: spcRouteData ? spcRouteData.selectedUserID : null,
-            })
-          },
-        })}
-      />
-      <Stack.Screen
-        name="MoneyMoveInScreen2"
-        component={MoneyMoveInScreen2}
-        options={({ navigation, route }: any) => ({
-          headerBackTitleVisible: false,
-          headerStyle: {
-            elevation: 0,
-          },
-          headerTitleStyle: {
-            color: "#00392D",
-          },
-          title: "Отправка",
-          headerTitleAlign: "center",
-        })}
-        initialParams={{
-          moneyAmount: 0 as number | string,
-          selectedUserID: null as string | null,
-        }}
-      />
+
       {/* Вывод CGC */}
       <Stack.Screen
         name="MoneyMoveOutScreen1"

@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { View, Text, TextInput, StyleSheet } from "react-native"
 import {
   TouchableHighlight,
@@ -18,12 +18,19 @@ type PropsType = {
     value2: string
   }
 
+  isCertainUser: boolean
   queryValue: string
   setQueryValue: (newQueryValue: string) => void
 }
 
 const Header: React.FC<PropsType> = (props) => {
   const [showSearch, setShowSearch] = useState(false as boolean)
+
+  useEffect(() => {
+    if (props.isCertainUser) {
+      setShowSearch(true)
+    }
+  }, [props.isCertainUser])
 
   return (
     <>

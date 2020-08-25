@@ -27,7 +27,11 @@ type PropsType = {
 
 const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
   const [selectedUserID, setSelectedUserID] = useState(null as string | null)
-  const [queryValue, setQueryValue] = useState("" as string)
+  const [queryValue, setQueryValue] = useState(
+    props.route.params.selectedUserID
+      ? props.route.params.selectedUserID
+      : ("" as string)
+  )
   const [filteredUsers, setFilteredUsers] = useState([] as Array<any>)
 
   useEffect(() => {
@@ -48,8 +52,6 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
     )
   }, [queryValue])
 
-  console.log(queryValue)
-
   useEffect(() => {
     setSelectedUserID(
       props.route.params.selectedUserID
@@ -57,6 +59,10 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
         : props.usersList && props.usersList[0] && props.usersList[0].id
     )
   }, [props.usersList])
+
+  const isCertainUser =
+    props.route.params.selectedUserID &&
+    props.route.params.selectedUserID.length > 0
 
   const ValidationSchema = yup.object({
     value: yup
@@ -71,6 +77,7 @@ const MoneyMoveInScreen1: React.FC<PropsType> = (props) => {
         CGCInfo={props.CGCInfo}
         queryValue={queryValue}
         setQueryValue={setQueryValue}
+        isCertainUser={isCertainUser}
       />
       <View style={styles.divider} />
       <UsersList

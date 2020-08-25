@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useEffect, useState } from "react"
-import { View, ActivityIndicator, StyleSheet } from "react-native"
+import { View, TouchableOpacity, StyleSheet } from "react-native"
 import { compose } from "redux"
 import { Provider, connect } from "react-redux"
 
@@ -14,8 +14,12 @@ import Auth from "~/Components/Content/Auth/Auth"
 
 import UsersSelectScreenContainer from "~/Components/Content/Dialogs/Screens/UsersSelectScreen/UsersSelectScreenContainer"
 
+import MoneyMoveInScreen1 from "~/Components/Content/Finances/Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen1/MoneyMoveInScreen1Container"
+import MoneyMoveInScreen2 from "~/Components/Content/Finances/Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen2/MoneyMoveInScreen2Container"
+
 // EXTRA IMPORTS //
 import { VerifyIfAuthentificatedThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
+import { Feather } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -68,6 +72,56 @@ const App: React.FC<PropsType> = (props) => {
                 function: () => console.log(),
               }}
             />
+            {/* ПЕРЕВОД CGC */}
+            <Stack.Screen
+              name="MoneyMoveInScreen1"
+              component={MoneyMoveInScreen1}
+              options={({ navigation, route }: any) => ({
+                headerBackTitleVisible: false,
+                headerStyle: {
+                  elevation: 0,
+                },
+                headerRight: () => (
+                  <TouchableOpacity style={styles.right_icon}>
+                    <Feather name="info" size={24} color="#006F5F" />
+                  </TouchableOpacity>
+                ),
+                headerTitleStyle: {
+                  color: "#00392D",
+                },
+                title: "Сделать перевод",
+                headerTitleAlign: "center",
+              })}
+              initialParams={{
+                selectedUserID: null,
+              }}
+              listeners={({ navigation, route }: any) => ({
+                focus: () => {
+                  navigation.setParams({
+                    selectedUserID: route.params.selectedUserID,
+                  })
+                },
+              })}
+            />
+            <Stack.Screen
+              name="MoneyMoveInScreen2"
+              component={MoneyMoveInScreen2}
+              options={({ navigation, route }: any) => ({
+                headerBackTitleVisible: false,
+                headerStyle: {
+                  elevation: 0,
+                },
+                headerTitleStyle: {
+                  color: "#00392D",
+                },
+                title: "Отправка",
+                headerTitleAlign: "center",
+              })}
+              initialParams={{
+                moneyAmount: 0 as number | string,
+                selectedUserID: null as string | null,
+              }}
+            />
           </Stack.Navigator>
         ) : (
           <Auth />
@@ -82,6 +136,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  right_icon: {
+    marginRight: 23,
   },
 })
 
