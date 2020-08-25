@@ -37,7 +37,9 @@ const App: React.FC<PropsType> = (props) => {
 
   return (
     <Provider store={store}>
-      <NavigationContainer theme={{ dark: true, colors: { background: "#E5E5E5" } as any }}>
+      <NavigationContainer
+        theme={{ dark: true, colors: { background: "#E5E5E5" } as any }}
+      >
         {loading ? (
           <View style={styles.loading_container}>
             {/* <ActivityIndicator color={"#004B3C"} size={"large"} /> */}

@@ -33,7 +33,7 @@ const Auth: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
           title: "Вход",
           headerStyle: {
-            backgroundColor: "#F2F2F2",
+            backgroundColor: "white",
             elevation: 0,
           },
         })}

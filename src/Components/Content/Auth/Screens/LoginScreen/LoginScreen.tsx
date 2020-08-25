@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React from "react"
-import { Image, ImageBackground, StyleSheet } from "react-native"
+import { Image, View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import InputSection from "./InputSection/InputSection"
@@ -10,18 +10,23 @@ import InputSection from "./InputSection/InputSection"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  LoginError: boolean
   LoginUserThunkCreator: (email: string, password: string) => void
+  setLoginErrorStatusActionCreator: (loginErrorStatus: boolean) => void
 }
 
 const LoginScreen: React.FC<PropsType> = (props) => {
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require("~/Images/bg-2.png")}
-    >
+    <View style={styles.container}>
       <Image style={styles.logo} source={require("~/Images/logo-big.png")} />
-      <InputSection LoginUserThunkCreator={props.LoginUserThunkCreator} />
-    </ImageBackground>
+      <InputSection
+        LoginError={props.LoginError}
+        LoginUserThunkCreator={props.LoginUserThunkCreator}
+        setLoginErrorStatusActionCreator={
+          props.setLoginErrorStatusActionCreator
+        }
+      />
+    </View>
   )
 }
 
@@ -31,6 +36,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 200,
+    backgroundColor: "white",
   },
 
   logo: {

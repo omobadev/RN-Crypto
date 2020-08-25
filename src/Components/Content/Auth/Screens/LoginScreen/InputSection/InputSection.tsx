@@ -1,9 +1,10 @@
 // PLUGINS IMPORTS //
-import React from "react"
+import React, { useEffect } from "react"
 import {
   View,
   Text,
   TextInput,
+  Keyboard,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -18,11 +19,12 @@ import Button from "~/Components/Shared/Components/Button/Button"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
+  LoginError: boolean
   LoginUserThunkCreator: (email: string, password: string) => void
+  setLoginErrorStatusActionCreator: (loginErrorStatus: boolean) => void
 }
 
-const { width, height } = Dimensions.get("window")
-
+const { height } = Dimensions.get("window")
 const InputSection: React.FC<PropsType> = (props) => {
   return (
     <Formik
@@ -31,46 +33,61 @@ const InputSection: React.FC<PropsType> = (props) => {
         password: "" as string,
       }}
       onSubmit={(values: any) => {
+        Keyboard.dismiss()
         props.LoginUserThunkCreator(values.email, values.password)
       }}
     >
-      {(FormikProps) => (
-        <>
-          <View style={styles.container}>
-            <TextInput
-              placeholder="Email или логин"
-              placeholderTextColor="rgba(0, 57, 45, 0.4)"
-              onChangeText={FormikProps.handleChange("email")}
-              onBlur={FormikProps.handleBlur("email")}
-              textContentType="emailAddress"
-              autoCompleteType="email"
-              keyboardType="email-address"
-              value={FormikProps.values.email}
-              style={styles.input}
+      {(FormikProps) => {
+        useEffect(() => {
+          props.setLoginErrorStatusActionCreator(false)
+        }, [FormikProps.values])
+
+        return (
+          <>
+            <View style={styles.container}>
+              {props.LoginError && (
+                <Text style={styles.error_text}>
+                  Введенный пароль или электронный адрес неверен. Попробуйте еще
+                  раз
+                </Text>
+              )}
+              <TextInput
+                placeholder="Email или логин"
+                placeholderTextColor="rgba(0, 57, 45, 0.4)"
+                onChangeText={FormikProps.handleChange("email")}
+                onBlur={FormikProps.handleBlur("email")}
+                textContentType="emailAddress"
+                autoCompleteType="email"
+                keyboardType="email-address"
+                value={FormikProps.values.email}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Пароль"
+                placeholderTextColor="rgba(0, 57, 45, 0.4)"
+                textContentType="newPassword"
+                autoCompleteType="password"
+                onChangeText={FormikProps.handleChange("password")}
+                onBlur={FormikProps.handleBlur("password")}
+                value={FormikProps.values.password}
+                style={styles.input}
+              />
+              <TouchableOpacity>
+                <Text style={styles.forgot_pass_text}>
+                  Forgot the password?
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <Button
+              onPress={FormikProps.handleSubmit}
+              text="Вход"
+              textStyle={{
+                fontWeight: "bold",
+              }}
             />
-            <TextInput
-              placeholder="Пароль"
-              placeholderTextColor="rgba(0, 57, 45, 0.4)"
-              textContentType="newPassword"
-              autoCompleteType="password"
-              onChangeText={FormikProps.handleChange("password")}
-              onBlur={FormikProps.handleBlur("password")}
-              value={FormikProps.values.password}
-              style={styles.input}
-            />
-            <TouchableOpacity>
-              <Text style={styles.forgot_pass_text}>Forgot the password?</Text>
-            </TouchableOpacity>
-          </View>
-          <Button
-            onPress={FormikProps.handleSubmit}
-            text="Вход"
-            textStyle={{
-              fontWeight: "bold",
-            }}
-          />
-        </>
-      )}
+          </>
+        )
+      }}
     </Formik>
   )
 }
@@ -99,6 +116,13 @@ const styles = StyleSheet.create({
     color: "#9E9E9E",
     fontSize: 13,
     marginHorizontal: 10,
+  },
+
+  error_text: {
+    color: "crimson",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 5,
   },
 })
 

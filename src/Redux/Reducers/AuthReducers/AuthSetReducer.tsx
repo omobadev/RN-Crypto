@@ -22,6 +22,8 @@ const initialState = {
   Email: null as string | null,
   Country: null as string | null,
   City: null as string | null,
+  //
+  LoginError: false as boolean,
 }
 
 type initialStateType = typeof initialState
@@ -61,6 +63,13 @@ const AuthGetReducer = (
       ...state,
       isAuthentificated: action.isAuthentificatedStatus,
       userID: action.uid,
+    }
+  }
+
+  if (action.type === "SET_LOGIN_ERROR_STATUS") {
+    return {
+      ...state,
+      LoginError: action.loginErrorStatus,
     }
   }
 
@@ -113,6 +122,12 @@ export const ActionCreatorsList = {
       type: "SET_AUTHENTIFICATED_INFO",
       isAuthentificatedStatus,
       uid,
+    } as const),
+
+  setLoginErrorStatusActionCreator: (loginErrorStatus: boolean) =>
+    ({
+      type: "SET_LOGIN_ERROR_STATUS",
+      loginErrorStatus,
     } as const),
 }
 
@@ -176,16 +191,16 @@ export const LoginUserThunkCreator = (
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
         if (res) {
+          dispatch(ActionCreatorsList.setLoginErrorStatusActionCreator(false))
           const uid = JWT.decode(res.data.data, key).uID
           await AsyncStorage.setItem("uid", uid)
-
           dispatch(
             ActionCreatorsList.setAuthentificatedInfoActionCreator(true, uid)
           )
         }
       })
       .catch((err) => {
-        console.log(err)
+        dispatch(ActionCreatorsList.setLoginErrorStatusActionCreator(true))
       })
   }
 }
