@@ -16,31 +16,15 @@ type PropsType = {
   navigation: any
   route: any
 
-  deriveMiningThunkCreator: (moneyAmount: string, currency: string) => any
+  deriveMiningThunkCreator: (moneyAmount: string) => any
 }
 
 const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
   const [popupVisible, setPopupVisible] = useState(false as boolean)
-  const [selectedCurrency, setSelectedCurrency] = useState("CGC" as string)
 
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.currency_wrap}>
-          <Text style={styles.title}>Валюта</Text>
-          <View>
-            <RadioItem
-              selectedCurrency={selectedCurrency}
-              value={"CGC"}
-              setSelectedCurrency={setSelectedCurrency}
-            />
-            <RadioItem
-              selectedCurrency={selectedCurrency}
-              value={"INPH"}
-              setSelectedCurrency={setSelectedCurrency}
-            />
-          </View>
-        </View>
         <InputSection
           buttonText="Пополнить"
           valueName="Укажите сумму"
@@ -48,10 +32,9 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
           action={(values: any) => {
             Keyboard.dismiss()
             props
-              .deriveMiningThunkCreator(values.value, selectedCurrency)
+              .deriveMiningThunkCreator(values.value)
               .then(() => setPopupVisible(true))
           }}
-          containerStyle={styles.footer_input}
         />
       </View>
       <Popup
@@ -75,20 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     alignItems: "center",
-  },
-
-  currency_wrap: {
-    marginHorizontal: 15,
-    flex: 1,
-    marginTop: 20,
-  },
-
-  title: {
-    color: "#9E9E9E",
-  },
-
-  footer_input: {
-    flex: 1,
   },
 })
 

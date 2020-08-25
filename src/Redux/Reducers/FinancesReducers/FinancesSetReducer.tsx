@@ -264,20 +264,9 @@ export const addMiningThunkCreator = (moneyAmount: string): ThunkType => {
   }
 }
 
-export const deriveMiningThunkCreator = (
-  moneyAmount: string,
-  currency: string
-): ThunkType => {
+export const deriveMiningThunkCreator = (moneyAmount: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
-
-    const renderCID = () => {
-      if (currency === "CGC") {
-        return 4
-      } else if (currency === "INPH") {
-        return 14
-      }
-    }
 
     await axios
       .post(
@@ -287,7 +276,6 @@ export const deriveMiningThunkCreator = (
             {
               action: "sub_depo",
               uid: state.AuthSetState.userID,
-              cid: renderCID(),
               sum: Number(moneyAmount),
             },
             key

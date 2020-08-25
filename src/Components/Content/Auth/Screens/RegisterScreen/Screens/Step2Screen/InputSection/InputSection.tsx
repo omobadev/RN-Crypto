@@ -114,11 +114,7 @@ const InputSection: React.FC<PropsType> = (props) => {
               {FormikProps.touched.city && FormikProps.errors.city}
             </Text>
           )}
-          <TouchableOpacity>
-            <Text style={styles.subtitle}>
-              Если у вас нет ID партнёра - нажмите сюда
-            </Text>
-          </TouchableOpacity>
+
           <Button
             text="Далее"
             onPress={FormikProps.handleSubmit}
