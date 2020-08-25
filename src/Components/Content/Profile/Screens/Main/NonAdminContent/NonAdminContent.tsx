@@ -29,7 +29,7 @@ const NonAdminContent: React.FC<PropsType> = (props) => {
   const submitNewChat = (values: any) => {
     setPopupVisible(false)
     props.createNewDialogThunkCreator(
-      [props.userData.name],
+      [props.userData.login],
       values.title,
       values.message
     )

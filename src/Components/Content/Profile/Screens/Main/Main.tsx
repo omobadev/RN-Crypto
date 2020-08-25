@@ -40,13 +40,6 @@ const Main: React.FC<PropsType> = (props) => {
   const routeUID = props.route.params.uid
 
   useEffect(() => {
-    const isAdmin = props.userID === props.UserCredentials.ID
-    props.navigation.setParams({
-      isAdmin,
-    })
-  }, [props.UserCredentials])
-
-  useEffect(() => {
     setLoading(true)
     const getData = async () => {
       const uid = await AsyncStorage.getItem("uid")
@@ -59,12 +52,23 @@ const Main: React.FC<PropsType> = (props) => {
   }, [routeUID])
 
   useEffect(() => {
-    props.navigation.addListener("blur", () => {
+    props.navigation.addListener("focus", () => {
+      const isAdmin = props.userID === props.UserCredentials.ID
       props.navigation.setParams({
-        uid: null,
+        isAdmin,
       })
     })
   }, [props.navigation])
+
+  console.log(props.userID)
+  console.log(props.UserCredentials)
+
+  useEffect(() => {
+    const isAdmin = props.userID === props.UserCredentials.ID
+    props.navigation.setParams({
+      isAdmin,
+    })
+  }, [props.UserCredentials])
 
   return (
     <>

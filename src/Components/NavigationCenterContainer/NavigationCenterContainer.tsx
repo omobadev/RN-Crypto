@@ -25,7 +25,7 @@ const NavigationCenterContainer: React.FC<PropsType> = (props) => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Dialogs"
+      initialRouteName="Finances"
       barStyle={styles.tab_bar}
       activeColor="#006F5F"
       inactiveColor="#9E9E9E"
