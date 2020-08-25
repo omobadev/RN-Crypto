@@ -14,11 +14,36 @@ type PropsType = {
   navigation: any
   route: any
 
+  BudgetInfo: {
+    CGC: {
+      price: string
+      value2: string
+    }
+
+    MiningCGC: {
+      price: string
+      value2: string
+    }
+
+    DailyIncome: {
+      price: string
+      value2: string
+    }
+    INPH: {
+      price: string
+      value2: string
+    }
+    wallet: string
+  }
   addMiningThunkCreator: (moneyAmount: string) => any
 }
 
 const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
-  const [popupVisible, setPopupVisible] = useState(false as boolean)
+  const [popupData, setPopupData] = useState({
+    title: null as string | null,
+    body: null as string | null,
+    visible: false as boolean,
+  })
 
   return (
     <>
@@ -30,9 +55,21 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
           isNumberPad
           action={(values: any) => {
             Keyboard.dismiss()
-            props
-              .addMiningThunkCreator(values.value)
-              .then(() => setPopupVisible(true))
+            if (Number(props.BudgetInfo.MiningCGC.price) > 0) {
+              props.addMiningThunkCreator(values.value).then(() =>
+                setPopupData({
+                  title: "Спасибо!",
+                  body: "Спасибо! Депозит осуществлён.",
+                  visible: true,
+                })
+              )
+            } else {
+              setPopupData({
+                title: "Низкий баланс",
+                body: "Операция отменена. Пополните пожалуйста ваш баланс",
+                visible: true,
+              })
+            }
           }}
         />
       </View>
@@ -43,13 +80,15 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
             action: () => props.navigation.navigate("FinancesMain"),
           },
         ]}
-        title="Спасибо!"
-        description="Спасибо! Депозит осуществлён."
+        title={popupData.title as string}
+        description={popupData.body as string}
         containerStyle={{
           width: "90%",
         }}
-        popupVisible={popupVisible}
-        setPopupVisible={setPopupVisible}
+        popupVisible={popupData.visible}
+        setPopupVisible={(popupVisibility: boolean) =>
+          setPopupData({ ...popupData, visible: popupVisibility })
+        }
       />
     </>
   )

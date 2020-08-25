@@ -87,7 +87,6 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
       <PopUp
         title={props.transferStatusRes.title}
         description={props.transferStatusRes.text}
-        link={props.transferStatusRes.link}
         buttonsArray={[
           {
             text: "OK",

@@ -140,7 +140,7 @@ export const buyMoneyThunkCreator = (
         dispatch(
           ActionCreatorsList.setTransferStatusResActionCreator({
             title: "Спасибо!",
-            text: `Перейдите по этому адресу для оплаты`,
+            text: `Операция выполнена успешно`,
             positive: true,
             visible: true,
             link: data.url,
@@ -245,7 +245,6 @@ export const addMiningThunkCreator = (moneyAmount: string): ThunkType => {
           JWT.encode(
             {
               action: "add_depo",
-              cid: 14,
               uid: state.AuthSetState.userID,
               sum: Number(moneyAmount),
             },

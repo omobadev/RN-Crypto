@@ -14,6 +14,28 @@ import { deriveMiningThunkCreator } from "~/Redux/Reducers/FinancesReducers/Fina
 // TYPES
 type MapStateToPropsType = {
   navigation: any
+
+  BudgetInfo: {
+    CGC: {
+      price: string
+      value2: string
+    }
+
+    MiningCGC: {
+      price: string
+      value2: string
+    }
+
+    DailyIncome: {
+      price: string
+      value2: string
+    }
+    INPH: {
+      price: string
+      value2: string
+    }
+    wallet: string
+  }
 }
 
 type MapDispatchToPropsType = {
@@ -25,6 +47,7 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
+    BudgetInfo: state.FinancesGetState.BudgetInfo,
   }
 }
 

@@ -1,12 +1,10 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { View, Text, Keyboard, StyleSheet } from "react-native"
+import { View, Keyboard, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import InputSection from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
-
-import RadioItem from "~/Components/Shared/Components/RadioItem/RadioItem"
 
 // EXTRA IMPORTS //
 
@@ -16,11 +14,36 @@ type PropsType = {
   navigation: any
   route: any
 
+  BudgetInfo: {
+    CGC: {
+      price: string
+      value2: string
+    }
+
+    MiningCGC: {
+      price: string
+      value2: string
+    }
+
+    DailyIncome: {
+      price: string
+      value2: string
+    }
+    INPH: {
+      price: string
+      value2: string
+    }
+    wallet: string
+  }
   deriveMiningThunkCreator: (moneyAmount: string) => any
 }
 
-const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
-  const [popupVisible, setPopupVisible] = useState(false as boolean)
+const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
+  const [popupData, setPopupData] = useState({
+    title: null as string | null,
+    body: null as string | null,
+    visible: false as boolean,
+  })
 
   return (
     <>
@@ -29,11 +52,24 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
           buttonText="Пополнить"
           valueName="Укажите сумму"
           errorText="Сумма указана неверно"
+          isNumberPad
           action={(values: any) => {
             Keyboard.dismiss()
-            props
-              .deriveMiningThunkCreator(values.value)
-              .then(() => setPopupVisible(true))
+            if (Number(props.BudgetInfo.MiningCGC.price) > 0) {
+              props.deriveMiningThunkCreator(values.value).then(() =>
+                setPopupData({
+                  title: "Спасибо!",
+                  body: "Ваша заявка поступила в обработку",
+                  visible: true,
+                })
+              )
+            } else {
+              setPopupData({
+                title: "Низкий баланс",
+                body: "Операция отменена. Пополните пожалуйста ваш баланс",
+                visible: true,
+              })
+            }
           }}
         />
       </View>
@@ -44,10 +80,15 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
             action: () => props.navigation.navigate("FinancesMain"),
           },
         ]}
-        title="Спасибо!"
-        description="Ваша заявка поступила в обработку"
-        popupVisible={popupVisible}
-        setPopupVisible={setPopupVisible}
+        title={popupData.title as string}
+        description={popupData.body as string}
+        containerStyle={{
+          width: "90%",
+        }}
+        popupVisible={popupData.visible}
+        setPopupVisible={(popupVisibility: boolean) =>
+          setPopupData({ ...popupData, visible: popupVisibility })
+        }
       />
     </>
   )
@@ -56,9 +97,10 @@ const MiningOutMoneyScreen: React.FC<PropsType> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    height: "100%",
+    justifyContent: "center",
     alignItems: "center",
   },
 })
 
-export default MiningOutMoneyScreen
+export default MiningInMoneyScreen
