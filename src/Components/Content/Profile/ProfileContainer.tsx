@@ -14,6 +14,17 @@ import { AppStateType } from "~/Redux/ReduxStore"
 type MapStateToPropsType = {
   navigation: any
   route: any
+
+  userID: string
+  UserCredentials: {
+    ID: string
+    name: string
+    avatar: string
+    login: string
+    email: string
+    location: string
+    invitedID: string
+  }
 }
 
 type MapDispatchToPropsType = {}
@@ -24,6 +35,9 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
     route: props.route,
+
+    userID: state.AuthSetState.userID,
+    UserCredentials: state.UserGetState.UserCredentials,
   }
 }
 

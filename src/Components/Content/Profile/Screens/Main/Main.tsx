@@ -52,22 +52,6 @@ const Main: React.FC<PropsType> = (props) => {
   }, [routeUID])
 
   const isAdmin = props.userID === props.UserCredentials.ID
-  useEffect(() => {
-    props.navigation.addListener("focus", () => {
-      props.navigation.setParams({
-        isAdmin,
-      })
-    })
-  }, [props.navigation])
-
-  console.log(props.userID)
-  console.log(props.UserCredentials)
-
-  useEffect(() => {
-    props.navigation.setParams({
-      isAdmin,
-    })
-  }, [props.UserCredentials])
 
   return (
     <>

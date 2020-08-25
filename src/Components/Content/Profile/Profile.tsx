@@ -1,5 +1,5 @@
 // PLUGINS IMPORTS //
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { View, TouchableOpacity, Image, StyleSheet } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 
@@ -17,11 +17,23 @@ import { Feather } from "@expo/vector-icons"
 type PropsType = {
   navigation: any
   route: any
+
+  userID: string
+  UserCredentials: {
+    ID: string
+    name: string
+    avatar: string
+    login: string
+    email: string
+    location: string
+    invitedID: string
+  }
 }
 
 const Profile: React.FC<PropsType> = (props) => {
   const Stack = createStackNavigator()
 
+  const isAdmin = props.userID === props.UserCredentials.ID
   return (
     <Stack.Navigator initialRouteName="ProfileMain">
       <Stack.Screen
@@ -35,7 +47,7 @@ const Profile: React.FC<PropsType> = (props) => {
             color: "#00392D",
           },
           headerRight: () =>
-            route.params.isAdmin ? (
+            isAdmin ? (
               <View style={styles.icons_wrap}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("EditProfile")}
@@ -53,17 +65,15 @@ const Profile: React.FC<PropsType> = (props) => {
               </View>
             ) : null,
           title: "Профиль",
-          headerTitleAlign: route.params.isAdmin ? "left" : "center",
+          headerTitleAlign: isAdmin ? "left" : "center",
         })}
         initialParams={{
           uid: props.route.params.uid,
-          isAdmin: false as boolean,
         }}
         listeners={({ navigation, route }: any) => ({
           focus: () => {
             navigation.setParams({
               uid: props.route.params.uid,
-              isAdmin: false as boolean,
             })
           },
           blur: () => {
