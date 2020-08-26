@@ -1,7 +1,7 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { Text, StyleSheet } from "react-native"
-import { RectButton } from "react-native-gesture-handler"
+import { Text, StyleSheet, ImageBackground } from "react-native"
+import { RectButton, TouchableOpacity } from "react-native-gesture-handler"
 import dayjs from "dayjs"
 
 // COMPONENTS IMPORTS //
@@ -23,7 +23,7 @@ type PropsType = {
     duration: string
   }
 
-  backgroundColor: string
+  background: string
   textColor: string
 
   setResponseStatusActionCreator: (responseStatus: {
@@ -48,19 +48,22 @@ const TarifItem: React.FC<PropsType> = (props) => {
   return (
     <>
       <Text style={styles.title}> Тариф за {renderDuration()}</Text>
-      <RectButton
-        style={[styles.container, { backgroundColor: props.backgroundColor }]}
-        onPress={() => setPopupVisible(true)}
-      >
-        <Text style={[styles.price, { color: props.textColor }]}>
-          {props.tarif.price} CGC
-        </Text>
-        {props.tarif.title && (
-          <Text style={[styles.sale_text, { color: props.textColor }]}>
-            Скидка {props.tarif.title}
+      <TouchableOpacity onPress={() => setPopupVisible(true)}>
+        <ImageBackground
+          source={props.background as any}
+          style={styles.container}
+          imageStyle={styles.image}
+        >
+          <Text style={[styles.price, { color: props.textColor }]}>
+            {props.tarif.price} CGC
           </Text>
-        )}
-      </RectButton>
+          {props.tarif.title && (
+            <Text style={[styles.sale_text, { color: props.textColor }]}>
+              Скидка {props.tarif.title}
+            </Text>
+          )}
+        </ImageBackground>
+      </TouchableOpacity>
 
       <PopUp
         popupVisible={popupVisible}
@@ -118,9 +121,12 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    borderRadius: 10,
     height: 100,
     paddingHorizontal: 15,
+  },
+
+  image: {
+    borderRadius: 10,
   },
 
   price: {

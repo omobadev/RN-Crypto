@@ -29,7 +29,12 @@ type PropsType = {
 }
 
 const Body: React.FC<PropsType> = (props) => {
-  const colors = ["#F2F2F2", "#006F5F", "#C0A33D", "#C0A33D"]
+  const images = [
+    require("~/Images/tarif1.png"),
+    require("~/Images/tarif2.png"),
+    require("~/Images/tarif3.png"),
+    require("~/Images/tarif3.png"),
+  ]
   const textColors = ["#006F5F", "white", "white", "white"]
 
   return (
@@ -49,7 +54,7 @@ const Body: React.FC<PropsType> = (props) => {
             return (
               <TarifItem
                 tarif={tarif}
-                backgroundColor={colors[index]}
+                background={images[index]}
                 textColor={textColors[index]}
                 responseStatus={props.responseStatus}
                 buyTarifThunkCreator={props.buyTarifThunkCreator}
