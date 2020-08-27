@@ -25,7 +25,7 @@ const BuyMoneyScreen1: React.FC<PropsType> = (props) => {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.content}>
         <Text style={styles.title}>Текущий баланс:</Text>
-        <Text style={styles.subtitle}>{props.CGCInfo.value2 || 0} CGC</Text>
+        <Text style={styles.subtitle}>{props.CGCInfo.price || 0} CGC</Text>
       </View>
 
       <View style={styles.footer_input}>

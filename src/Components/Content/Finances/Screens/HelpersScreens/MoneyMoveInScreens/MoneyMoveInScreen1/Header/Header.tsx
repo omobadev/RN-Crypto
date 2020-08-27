@@ -1,10 +1,7 @@
 // PLUGINS IMPORTS //
 import React, { useState, useEffect } from "react"
 import { View, Text, TextInput, StyleSheet } from "react-native"
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native-gesture-handler"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 // COMPONENTS IMPORTS //
 
@@ -47,7 +44,7 @@ const Header: React.FC<PropsType> = (props) => {
       <View style={styles.content}>
         <Text style={styles.text}>Ваш баланс</Text>
         <Text style={[styles.text, { fontWeight: "bold" }]}>
-          {props.CGCInfo.value2 || 0} CGC
+          {props.CGCInfo.price || 0} CGC
         </Text>
       </View>
 

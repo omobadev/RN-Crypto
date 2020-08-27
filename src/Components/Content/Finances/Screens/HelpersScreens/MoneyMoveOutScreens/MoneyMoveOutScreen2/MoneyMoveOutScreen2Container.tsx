@@ -31,7 +31,6 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   deriveMoneyThunkCreator: (
     moneyAmount: number,
-    currency: string,
     wallet: string,
     password: string
   ) => void

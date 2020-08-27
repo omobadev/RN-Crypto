@@ -175,20 +175,11 @@ export const buyMoneyThunkCreator = (
 
 export const deriveMoneyThunkCreator = (
   moneyAmount: number,
-  currency: string,
   wallet: string,
   password: string
 ): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
-
-    const renderCID = () => {
-      if (currency === "CGC") {
-        return 1
-      } else if (currency === "INPH") {
-        return 2
-      }
-    }
 
     await axios
       .post(
@@ -199,7 +190,6 @@ export const deriveMoneyThunkCreator = (
               action: "cashout",
               uid: state.AuthSetState.userID,
               pass: password,
-              fromcid: renderCID(),
               cid: 6,
               wallet: wallet,
               sum: Number(moneyAmount),

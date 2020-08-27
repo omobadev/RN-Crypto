@@ -1,10 +1,9 @@
 // PLUGINS IMPORTS //
-import React, { useState } from "react"
+import React from "react"
 import { ScrollView, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import Header from "./Header/Header"
-import Body from "./Body/Body"
 import FooterInput from "~/Components/Shared/Sections/FooterInputSection/FooterInputSection"
 
 // EXTRA IMPORTS //
@@ -16,22 +15,15 @@ type PropsType = {
 }
 
 const MoneyMoveOutScreen1: React.FC<PropsType> = (props) => {
-  const [selectedCurrency, setSelectedCurrency] = useState("CGC" as string)
-
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header />
-      <Body
-        selectedCurrency={selectedCurrency}
-        setSelectedCurrency={setSelectedCurrency}
-      />
 
       <FooterInput
         buttonText="Далее"
         action={(values: { value: string }) =>
           props.navigation.navigate("MoneyMoveOutScreen2", {
             moneyAmount: values.value,
-            currency: selectedCurrency,
           })
         }
         valueName="Количество"

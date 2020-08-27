@@ -25,7 +25,6 @@ type PropsType = {
 
   deriveMoneyThunkCreator: (
     moneyAmount: number,
-    currency: string,
     wallet: string,
     password: string
   ) => any
@@ -63,7 +62,6 @@ const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
   }, [props.navigation])
 
   const moneyAmount = props.route.params.moneyAmount
-  const currency = props.route.params.currency
 
   return (
     <>
@@ -97,7 +95,6 @@ const MoneyMoveOutScreen2: React.FC<PropsType> = (props) => {
             }
             props.deriveMoneyThunkCreator(
               moneyAmount,
-              currency,
               wallet as string,
               values.value
             )
