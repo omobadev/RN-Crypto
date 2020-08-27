@@ -36,6 +36,7 @@ const Body: React.FC<PropsType> = (props) => {
     require("~/Images/tarif3.png"),
   ]
   const textColors = ["#006F5F", "white", "white", "white"]
+  const salesText = ["", "Скидка 10%", "Скидка 15%", "Скидка 20%"]
 
   return (
     <View style={styles.container}>
@@ -56,6 +57,7 @@ const Body: React.FC<PropsType> = (props) => {
                 tarif={tarif}
                 background={images[index]}
                 textColor={textColors[index]}
+                saleText={salesText[index]}
                 responseStatus={props.responseStatus}
                 buyTarifThunkCreator={props.buyTarifThunkCreator}
                 setResponseStatusActionCreator={

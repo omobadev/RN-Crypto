@@ -25,6 +25,7 @@ type PropsType = {
 
   background: string
   textColor: string
+  saleText: string
 
   setResponseStatusActionCreator: (responseStatus: {
     positive: boolean
@@ -55,11 +56,13 @@ const TarifItem: React.FC<PropsType> = (props) => {
           imageStyle={styles.image}
         >
           <Text style={[styles.price, { color: props.textColor }]}>
-            {props.tarif.price} CGC
+            {props.tarif.price &&
+              String(props.tarif.price).replace(".", "").slice(0, 4)}{" "}
+            CGC
           </Text>
           {props.tarif.title && (
             <Text style={[styles.sale_text, { color: props.textColor }]}>
-              Скидка {props.tarif.title}
+              {props.saleText}
             </Text>
           )}
         </ImageBackground>

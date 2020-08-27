@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native"
 import { Formik } from "formik"
+import * as Linking from "expo-linking"
 
 // COMPONENTS IMPORTS //
 
@@ -72,10 +73,10 @@ const InputSection: React.FC<PropsType> = (props) => {
                 value={FormikProps.values.password}
                 style={styles.input}
               />
-              <TouchableOpacity>
-                <Text style={styles.forgot_pass_text}>
-                  Forgot the password?
-                </Text>
+              <TouchableOpacity
+                onPress={() => Linking.openURL("https://cgc.capital/resetpass")}
+              >
+                <Text style={styles.forgot_pass_text}>Забыли пароль?</Text>
               </TouchableOpacity>
             </View>
             <Button
