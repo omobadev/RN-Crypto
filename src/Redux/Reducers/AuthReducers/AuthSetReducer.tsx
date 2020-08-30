@@ -38,6 +38,7 @@ const AuthGetReducer = (
       ...state,
       UserLogin: action.UserLogin,
       UserPassword: action.UserPassword,
+      UserInvitedID: action.inviteID,
     }
   }
 
@@ -86,12 +87,14 @@ type ActionTypes = InferActionsTypes<typeof ActionCreatorsList>
 export const ActionCreatorsList = {
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string
+    UserPassword: string,
+    inviteID: string
   ) =>
     ({
       type: "SET_FIRST_SCREEN_VALUES",
       UserLogin,
       UserPassword,
+      inviteID,
     } as const),
 
   setSecondScreenValuesActionCreator: (

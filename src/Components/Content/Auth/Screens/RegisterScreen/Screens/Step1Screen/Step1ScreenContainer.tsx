@@ -1,5 +1,4 @@
 // PLUGINS IMPORTS //
-import React from "react"
 import { compose } from "redux"
 import { connect } from "react-redux"
 
@@ -20,7 +19,8 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string
+    UserPassword: string,
+    inviteID: string
   ) => void
 }
 

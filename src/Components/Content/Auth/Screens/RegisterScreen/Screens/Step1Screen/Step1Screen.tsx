@@ -15,7 +15,8 @@ type PropsType = {
 
   setFirstScreenValuesActionCreator: (
     UserLogin: string,
-    UserPassword: string
+    UserPassword: string,
+    inviteID: string
   ) => void
 }
 
