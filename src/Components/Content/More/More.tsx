@@ -1,6 +1,6 @@
 // PLUGINS IMPORTS //
 import React, { useState } from "react"
-import { TouchableOpacity, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 
 // COMPONENTS IMPORTS //
@@ -11,6 +11,7 @@ import TechSupportScreenContainer from "./Screens/TechSupportScreen/TechSupportS
 import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
 
 import DialogsInputPopup from "~/Components/Shared/Components/Popups/DialogsInputPopup/DialogsInputPopup"
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 // EXTRA IMPORTS //
 import { Feather } from "@expo/vector-icons"
@@ -24,6 +25,8 @@ type PropsType = {
 
 const More: React.FC<PropsType> = (props) => {
   const [popupVisible, setPopupVisible] = useState(false as boolean)
+  const [tarifsPopupVisible, setTarifsPopupVisible] = useState(false as boolean)
+
   const Stack = createStackNavigator()
 
   const submitNewChat = (values: any) => {
@@ -89,7 +92,10 @@ const More: React.FC<PropsType> = (props) => {
           component={TarifsScreenContainer}
           options={({ navigation, route }: any) => ({
             headerRight: () => (
-              <TouchableOpacity style={styles.right_icon}>
+              <TouchableOpacity
+                style={styles.right_icon}
+                onPress={() => setTarifsPopupVisible(true)}
+              >
                 <Feather name="info" size={24} color="#00392D" />
               </TouchableOpacity>
             ),
@@ -124,6 +130,24 @@ const More: React.FC<PropsType> = (props) => {
         popupVisible={popupVisible}
         setPopupVisible={setPopupVisible}
         onSubmit={submitNewChat}
+      />
+
+      <Popup
+        title="Тарифы"
+        description={
+          "Оплата абонентской платы необходима для активации функции майнинга. Ниже вы можете выбрать несколько вариантов оплаты от 1 месяца до 1 года. Чем больший тариф вы оплачиваете, тем больший дисконт получаете. Информации о майнинге вы можете прочитать открыв вкладку финансы, затем майнинг и нажав на информационную секуцию."
+        }
+        buttonsArray={[
+          {
+            text: "OK",
+            action: () => setPopupVisible(false),
+          },
+        ]}
+        descriptionStyle={{
+          textAlign: "center",
+        }}
+        popupVisible={tarifsPopupVisible}
+        setPopupVisible={setTarifsPopupVisible}
       />
     </>
   )
