@@ -1,9 +1,9 @@
 // PLUGINS IMPORTS //
 import React, { useEffect } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import LineDialogItem from "~/Components/Content/Dialogs/Screens/Main/Dialogs/LineDialogItem/LineDialogItem"
+import ChatBody from "~/Components/Content/Dialogs/Screens/DialogItem/Body/Body"
 
 // EXTRA IMPORTS //
 
@@ -11,28 +11,37 @@ import LineDialogItem from "~/Components/Content/Dialogs/Screens/Main/Dialogs/Li
 
 type PropsType = {
   navigation: any
-  TechSupportChats: Array<any>
+  TechSupportChat: any
 
-  getTechSupportChatsThunkCreator: () => void
+  getTechSupportChatThunkCreator: () => void
+  sendTechChatMessageThunkCreator: (message: string) => void
 }
 
 const TechSupportScreen: React.FC<PropsType> = (props) => {
-  console.log(props.TechSupportChats)
   useEffect(() => {
-    props.getTechSupportChatsThunkCreator()
+    props.getTechSupportChatThunkCreator()
   }, [])
 
+  console.log(props.TechSupportChat)
+
   return (
-    <ScrollView>
-      {props.TechSupportChats &&
-        props.TechSupportChats.length > 0 &&
-        props.TechSupportChats.map((chat: any) => {
-          return <LineDialogItem navigation={props.navigation} dialog={chat} />
-        })}
-    </ScrollView>
+    <View style={styles.container}>
+      <ChatBody
+        navigation={props.navigation}
+        currentChatMessages={props.TechSupportChat}
+        sendMessage={(message: string) =>
+          props.sendTechChatMessageThunkCreator(message)
+        }
+      />
+    </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 5,
+    flex: 1,
+  },
+})
 
 export default TechSupportScreen

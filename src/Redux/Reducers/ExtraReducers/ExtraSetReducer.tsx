@@ -7,7 +7,7 @@ import JWT from "expo-jwt"
 import { AppStateType, InferActionsTypes } from "~/Redux/ReduxStore"
 const key = "shh"
 
-import { getTechSupportChatsThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
+import { getTechSupportChatThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -91,11 +91,8 @@ export const buyTarifThunkCreator = (tarifID: string): ThunkType => {
   }
 }
 
-// Create technical help chat
-export const createTechnicalHelpChatThunkCreator = (
-  topic: string,
-  message: string
-): ThunkType => {
+// Send tech help message
+export const sendTechChatMessageThunkCreator = (message: string): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
@@ -105,9 +102,8 @@ export const createTechnicalHelpChatThunkCreator = (
         JSON.stringify(
           JWT.encode(
             {
-              action: "new_user_chat_to_admin_message",
+              action: "write_admin_chat",
               uid: state.AuthSetState.userID,
-              topic: topic,
               message: message,
             },
             key
@@ -115,7 +111,7 @@ export const createTechnicalHelpChatThunkCreator = (
         )
       )
       .then(async (res: any) => {
-        dispatch(getTechSupportChatsThunkCreator())
+        dispatch(getTechSupportChatThunkCreator())
       })
       .catch((err) => {
         if (err.response) {

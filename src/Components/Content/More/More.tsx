@@ -10,7 +10,6 @@ import TarifsScreenContainer from "./Screens/TarifsScreen/TarifsScreenContainer"
 import TechSupportScreenContainer from "./Screens/TechSupportScreen/TechSupportScreenContainer"
 import DialogItemContainer from "~/Components/Content/Dialogs/Screens/DialogItem/DialogItemContainer"
 
-import DialogsInputPopup from "~/Components/Shared/Components/Popups/DialogsInputPopup/DialogsInputPopup"
 import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 // EXTRA IMPORTS //
@@ -19,20 +18,12 @@ import { AntDesign } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 
-type PropsType = {
-  createTechnicalHelpChatThunkCreator: (topic: string, message: string) => void
-}
+type PropsType = {}
 
 const More: React.FC<PropsType> = (props) => {
-  const [popupVisible, setPopupVisible] = useState(false as boolean)
   const [tarifsPopupVisible, setTarifsPopupVisible] = useState(false as boolean)
 
   const Stack = createStackNavigator()
-
-  const submitNewChat = (values: any) => {
-    setPopupVisible(false)
-    props.createTechnicalHelpChatThunkCreator(values.title, values.message)
-  }
 
   return (
     <>
@@ -63,14 +54,6 @@ const More: React.FC<PropsType> = (props) => {
             headerTintColor: "#00392D",
             title: "Техническая поддержка",
             headerTitleAlign: "center",
-            headerRight: () => (
-              <TouchableOpacity
-                style={styles.right_icon}
-                onPress={() => setPopupVisible(true)}
-              >
-                <AntDesign name="plus" size={24} color="#00392D" />
-              </TouchableOpacity>
-            ),
           })}
         />
 
@@ -126,12 +109,6 @@ const More: React.FC<PropsType> = (props) => {
         />
       </Stack.Navigator>
 
-      <DialogsInputPopup
-        popupVisible={popupVisible}
-        setPopupVisible={setPopupVisible}
-        onSubmit={submitNewChat}
-      />
-
       <Popup
         title="Тарифы"
         description={
@@ -140,7 +117,7 @@ const More: React.FC<PropsType> = (props) => {
         buttonsArray={[
           {
             text: "OK",
-            action: () => setPopupVisible(false),
+            action: () => setTarifsPopupVisible(false),
           },
         ]}
         descriptionStyle={{

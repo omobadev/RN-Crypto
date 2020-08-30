@@ -1,9 +1,6 @@
 // PLUGINS IMPORTS //
-import React, { useState, useEffect } from "react"
-import { View, Keyboard, TextInput, StyleSheet } from "react-native"
-import * as ImagePicker from "expo-image-picker"
-import Constants from "expo-constants"
-import * as Permissions from "expo-permissions"
+import React, { useState } from "react"
+import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
 import MainSection from "./MainSection/MainSection"
@@ -14,13 +11,7 @@ import ImagesSection from "./ImagesSection/ImagesSection"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  chatID: string
-
-  sendMessageThunkCreator: (
-    message: string,
-    images: Array<string>,
-    chatID: string
-  ) => void
+  sendMessage: (newMessage: string, images: Array<any>) => void
 }
 
 const BottomInput: React.FC<PropsType> = (props) => {
@@ -29,10 +20,9 @@ const BottomInput: React.FC<PropsType> = (props) => {
   return (
     <View style={styles.container}>
       <MainSection
-        chatID={props.chatID}
         images={images}
         setImages={setImages}
-        sendMessageThunkCreator={props.sendMessageThunkCreator}
+        sendMessage={props.sendMessage}
       />
       <ImagesSection images={images} setImages={setImages} />
     </View>

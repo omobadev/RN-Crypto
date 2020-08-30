@@ -15,16 +15,10 @@ import { BorderlessButton } from "react-native-gesture-handler"
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  chatID: string
-
   images: Array<any>
   setImages: (newImages: Array<any>) => void
 
-  sendMessageThunkCreator: (
-    message: string,
-    images: Array<string>,
-    chatID: string
-  ) => void
+  sendMessage: (newMessage: string, images: Array<any>) => void
 }
 
 const MainSection: React.FC<PropsType> = (props) => {
@@ -59,11 +53,7 @@ const MainSection: React.FC<PropsType> = (props) => {
 
   const sendMessage = () => {
     if (message && message?.length > 0) {
-      props.sendMessageThunkCreator(
-        message as string,
-        props.images,
-        props.chatID
-      )
+      props.sendMessage(message, props.images)
       setMessage(null)
       props.setImages([])
       Keyboard.dismiss()

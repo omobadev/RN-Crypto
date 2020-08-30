@@ -7,16 +7,13 @@ import More from "./More"
 
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
-import { createTechnicalHelpChatThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraSetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TYPES
 type MapStateToPropsType = {}
 
-type MapDispatchToPropsType = {
-  createTechnicalHelpChatThunkCreator: (topic: string, message: string) => void
-}
+type MapDispatchToPropsType = {}
 
 /////////////////////////////////////////////////////////////////
 
@@ -27,6 +24,6 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
 export default compose(
   connect<MapStateToPropsType, MapDispatchToPropsType, AppStateType>(
     mapStateToProps,
-    { createTechnicalHelpChatThunkCreator }
+    {}
   )
 )(More)

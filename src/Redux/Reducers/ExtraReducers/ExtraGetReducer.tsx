@@ -21,7 +21,7 @@ const initialState = {
     duration: string
   }>,
 
-  TechSupportChats: [] as Array<any>,
+  TechSupportChat: [] as any,
 }
 
 type initialStateType = typeof initialState
@@ -53,10 +53,10 @@ const ExtraGetReducer = (
     }
   }
 
-  if (action.type === "SET_TECH_SUPPORT_CHATS") {
+  if (action.type === "SET_TECH_SUPPORT_CHAT") {
     return {
       ...state,
-      TechSupportChats: action.chatsList,
+      TechSupportChat: action.chat,
     }
   }
 
@@ -97,10 +97,10 @@ export const ActionCreatorsList = {
       referalLink,
     } as const),
 
-  setTechSupportChatsActionCreator: (chatsList: Array<any>) =>
+  setTechSupportChatActionCreator: (chat: any) =>
     ({
-      type: "SET_TECH_SUPPORT_CHATS",
-      chatsList,
+      type: "SET_TECH_SUPPORT_CHAT",
+      chat,
     } as const),
 }
 
@@ -206,7 +206,7 @@ export const getReferalLinkThunkCreator = (): ThunkType => {
 }
 
 // Get tech support chats
-export const getTechSupportChatsThunkCreator = (): ThunkType => {
+export const getTechSupportChatThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
@@ -216,7 +216,7 @@ export const getTechSupportChatsThunkCreator = (): ThunkType => {
         JSON.stringify(
           JWT.encode(
             {
-              action: "read_user_admin_chats",
+              action: "read_admin_chat",
               uid: state.AuthSetState.userID,
             },
             key
@@ -224,12 +224,14 @@ export const getTechSupportChatsThunkCreator = (): ThunkType => {
         )
       )
       .then(async (res: any) => {
-        const chats = JWT.decode(res.data.data, key).chats
-        dispatch(ActionCreatorsList.setTechSupportChatsActionCreator(chats))
+        const data = JWT.decode(res.data.data, key).messages
+        console.log(data)
+        dispatch(ActionCreatorsList.setTechSupportChatActionCreator(data || []))
       })
       .catch((err) => {
         if (err.response) {
           console.log(err.response)
+          dispatch(ActionCreatorsList.setTechSupportChatActionCreator([]))
         }
       })
   }
