@@ -1,6 +1,7 @@
 // PLUGINS IMPORTS //
 import React, { useEffect, useState } from "react"
-import { View, TouchableOpacity, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+
 import { compose } from "redux"
 import { Provider, connect } from "react-redux"
 
@@ -16,6 +17,8 @@ import UsersSelectScreenContainer from "~/Components/Content/Dialogs/Screens/Use
 
 import MoneyMoveInScreen1 from "~/Components/Content/Finances/Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen1/MoneyMoveInScreen1Container"
 import MoneyMoveInScreen2 from "~/Components/Content/Finances/Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen2/MoneyMoveInScreen2Container"
+
+import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
 // EXTRA IMPORTS //
 import { VerifyIfAuthentificatedThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
@@ -33,6 +36,8 @@ console.disableYellowBox = true
 
 const App: React.FC<PropsType> = (props) => {
   const [loading, setLoading] = useState(true as boolean)
+  const [popupVisible, setPopupVisible] = useState(false as boolean)
+
   const Stack = createStackNavigator()
 
   useEffect(() => {
@@ -40,94 +45,128 @@ const App: React.FC<PropsType> = (props) => {
   }, [])
 
   return (
-    <Provider store={store}>
-      <NavigationContainer
-        theme={{ dark: true, colors: { background: "#E5E5E5" } as any }}
-      >
-        {loading ? (
-          <View style={styles.loading_container}>
-            {/* <ActivityIndicator color={"#004B3C"} size={"large"} /> */}
+    <>
+      <Provider store={store}>
+        <NavigationContainer
+          theme={{ dark: true, colors: { background: "#E5E5E5" } as any }}
+        >
+          {loading ? (
+            <View style={styles.loading_container}>
+              {/* <ActivityIndicator color={"#004B3C"} size={"large"} /> */}
+            </View>
+          ) : props.isAuthentificated ? (
+            <Stack.Navigator initialRouteName="NavigationCenterContainer">
+              <Stack.Screen
+                name="NavigationCenterContainer"
+                component={NavigationCenterContainer}
+                options={({ navigation, route }: any) => ({
+                  headerShown: false,
+                })}
+              />
+              <Stack.Screen
+                name="UsersSelectScreen"
+                component={UsersSelectScreenContainer}
+                options={({ navigation, route }: any) => ({
+                  title: route.params.title,
+                  headerStyle: {
+                    backgroundColor: "#006F5F",
+                  },
+                  headerTintColor: "white",
+                })}
+                initialParams={{
+                  title: null as string | null,
+                  function: () => console.log(),
+                }}
+              />
+              {/* ПЕРЕВОД CGC */}
+              <Stack.Screen
+                name="MoneyMoveInScreen1"
+                component={MoneyMoveInScreen1}
+                options={({ navigation, route }: any) => ({
+                  headerBackTitleVisible: false,
+                  headerStyle: {
+                    elevation: 0,
+                  },
+                  headerRight: () => (
+                    <TouchableOpacity
+                      style={styles.right_icon}
+                      onPress={() => setPopupVisible(true)}
+                    >
+                      <Feather name="info" size={24} color="#006F5F" />
+                    </TouchableOpacity>
+                  ),
+                  headerTitleStyle: {
+                    color: "#00392D",
+                  },
+                  title: "Сделать перевод",
+                  headerTitleAlign: "center",
+                })}
+                initialParams={{
+                  selectedUserID: null,
+                }}
+                listeners={({ navigation, route }: any) => ({
+                  focus: () => {
+                    navigation.setParams({
+                      selectedUserID: route.params.selectedUserID,
+                    })
+                  },
+                })}
+              />
+              <Stack.Screen
+                name="MoneyMoveInScreen2"
+                component={MoneyMoveInScreen2}
+                options={({ navigation, route }: any) => ({
+                  headerBackTitleVisible: false,
+                  headerStyle: {
+                    elevation: 0,
+                  },
+                  headerTitleStyle: {
+                    color: "#00392D",
+                  },
+                  title: "Отправка",
+                  headerTitleAlign: "center",
+                })}
+                initialParams={{
+                  moneyAmount: 0 as number | string,
+                  selectedUserID: null as string | null,
+                }}
+              />
+            </Stack.Navigator>
+          ) : (
+            <Auth />
+          )}
+        </NavigationContainer>
+      </Provider>
+
+      <Popup
+        title="Перевод CGC"
+        elements={
+          <View>
+            <Text>
+              Для осуществления перевода необходимо выбрать получателя. Либо
+              открыть окно профиля пользователя и нажать на знак “финансов”.
+            </Text>
+            <Text>
+              Убедитесь, что сумма перевода соответствует вашему текущему
+              балансу, В случае совершения ошибочной транзакции, пожалуйста
+              обратитесь в техническую поддержку на почту support@cgc.capital
+              или же в разделе главного меню во вкладке “техническая поддержка”
+            </Text>
           </View>
-        ) : props.isAuthentificated ? (
-          <Stack.Navigator initialRouteName="NavigationCenterContainer">
-            <Stack.Screen
-              name="NavigationCenterContainer"
-              component={NavigationCenterContainer}
-              options={({ navigation, route }: any) => ({
-                headerShown: false,
-              })}
-            />
-            <Stack.Screen
-              name="UsersSelectScreen"
-              component={UsersSelectScreenContainer}
-              options={({ navigation, route }: any) => ({
-                title: route.params.title,
-                headerStyle: {
-                  backgroundColor: "#006F5F",
-                },
-                headerTintColor: "white",
-              })}
-              initialParams={{
-                title: null as string | null,
-                function: () => console.log(),
-              }}
-            />
-            {/* ПЕРЕВОД CGC */}
-            <Stack.Screen
-              name="MoneyMoveInScreen1"
-              component={MoneyMoveInScreen1}
-              options={({ navigation, route }: any) => ({
-                headerBackTitleVisible: false,
-                headerStyle: {
-                  elevation: 0,
-                },
-                headerRight: () => (
-                  <TouchableOpacity style={styles.right_icon}>
-                    <Feather name="info" size={24} color="#006F5F" />
-                  </TouchableOpacity>
-                ),
-                headerTitleStyle: {
-                  color: "#00392D",
-                },
-                title: "Сделать перевод",
-                headerTitleAlign: "center",
-              })}
-              initialParams={{
-                selectedUserID: null,
-              }}
-              listeners={({ navigation, route }: any) => ({
-                focus: () => {
-                  navigation.setParams({
-                    selectedUserID: route.params.selectedUserID,
-                  })
-                },
-              })}
-            />
-            <Stack.Screen
-              name="MoneyMoveInScreen2"
-              component={MoneyMoveInScreen2}
-              options={({ navigation, route }: any) => ({
-                headerBackTitleVisible: false,
-                headerStyle: {
-                  elevation: 0,
-                },
-                headerTitleStyle: {
-                  color: "#00392D",
-                },
-                title: "Отправка",
-                headerTitleAlign: "center",
-              })}
-              initialParams={{
-                moneyAmount: 0 as number | string,
-                selectedUserID: null as string | null,
-              }}
-            />
-          </Stack.Navigator>
-        ) : (
-          <Auth />
-        )}
-      </NavigationContainer>
-    </Provider>
+        }
+        buttonsArray={[
+          {
+            text: "OK",
+            action: () => setPopupVisible(false),
+          },
+        ]}
+        descriptionStyle={{
+          textAlign: "center",
+        }}
+        popupVisible={popupVisible}
+        setPopupVisible={setPopupVisible}
+      />
+    </>
   )
 }
 
