@@ -6,6 +6,10 @@ import JWT from "expo-jwt"
 
 import { AppStateType, InferActionsTypes } from "../../ReduxStore"
 const key = "shh"
+import {
+  getUserGeneralFinancesInfoThunkCreator,
+  getTransactionsHistoryThunkCreator,
+} from "~/Redux/Reducers/FinancesReducers/FinancesGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -95,6 +99,9 @@ export const sendCGCMoneyThunkCreator = (
               visible: true,
             })
           )
+
+          dispatch(getUserGeneralFinancesInfoThunkCreator())
+          dispatch(getTransactionsHistoryThunkCreator())
         }
       })
       .catch((err) => {
@@ -160,6 +167,9 @@ export const buyMoneyThunkCreator = (
             link: data.url,
           })
         )
+
+        dispatch(getUserGeneralFinancesInfoThunkCreator())
+        dispatch(getTransactionsHistoryThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
@@ -210,6 +220,9 @@ export const deriveMoneyThunkCreator = (
             visible: true,
           })
         )
+
+        dispatch(getUserGeneralFinancesInfoThunkCreator())
+        dispatch(getTransactionsHistoryThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
@@ -258,6 +271,8 @@ export const addMiningThunkCreator = (moneyAmount: string): ThunkType => {
       )
       .then(async (res: any) => {
         console.log(JWT.decode(res.data.data, key))
+        dispatch(getUserGeneralFinancesInfoThunkCreator())
+        dispatch(getTransactionsHistoryThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
@@ -287,6 +302,8 @@ export const deriveMiningThunkCreator = (moneyAmount: string): ThunkType => {
       )
       .then(async (res: any) => {
         console.log(JWT.decode(res.data.data, key))
+        dispatch(getUserGeneralFinancesInfoThunkCreator())
+        dispatch(getTransactionsHistoryThunkCreator())
       })
       .catch((err) => {
         if (err.response) {
