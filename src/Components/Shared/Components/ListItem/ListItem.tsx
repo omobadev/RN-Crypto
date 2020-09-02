@@ -27,7 +27,7 @@ const ListItem: React.FC<PropsType> = (props) => {
       onPress={() => {
         props.navigationDestination
           ? props.navigation.navigate(props.navigationDestination)
-          : props.action()
+          : props.action && props.action()
       }}
     >
       {props.icon}

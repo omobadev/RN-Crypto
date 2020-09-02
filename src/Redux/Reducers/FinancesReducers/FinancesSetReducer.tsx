@@ -100,6 +100,8 @@ export const sendCGCMoneyThunkCreator = (
       .catch((err) => {
         const errorMessage = err.response.data.message
 
+        console.log(err.response)
+
         if (errorMessage === "pass fail") {
           dispatch(
             ActionCreatorsList.setTransferStatusResActionCreator({
@@ -147,6 +149,7 @@ export const buyMoneyThunkCreator = (
       )
       .then(async (res: any) => {
         const data = JWT.decode(res.data.data, key)
+        console.log(data)
 
         dispatch(
           ActionCreatorsList.setTransferStatusResActionCreator({

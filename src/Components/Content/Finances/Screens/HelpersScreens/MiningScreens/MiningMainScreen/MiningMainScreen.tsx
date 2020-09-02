@@ -3,7 +3,6 @@ import React from "react"
 import { View, Text, Image, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import Header from "./Header/Header"
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
 
 // EXTRA IMPORTS //
@@ -25,7 +24,6 @@ const MiningMainScreen: React.FC<PropsType> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Header />
       <View style={styles.btns_wrap}>
         <ListItem
           navigation={props.navigation}

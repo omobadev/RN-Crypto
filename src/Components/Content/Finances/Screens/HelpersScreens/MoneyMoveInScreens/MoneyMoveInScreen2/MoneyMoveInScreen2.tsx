@@ -41,15 +41,6 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          <Text style={styles.bold}>Внимание! </Text>
-          Вы собираетесь сделать перевод средств.
-        </Text>
-        <Text style={styles.paragraph}>
-          Имейте ввиду что перевод средств, как правило, занимает 1-2 часа с
-          момента осуществления перевода.
-        </Text>
-
         <FooterInput
           buttonText="Перевести"
           action={(values: { value: string }) =>

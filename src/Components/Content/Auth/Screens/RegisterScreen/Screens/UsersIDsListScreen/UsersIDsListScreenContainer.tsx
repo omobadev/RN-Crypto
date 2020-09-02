@@ -8,7 +8,7 @@ import UsersIDsListScreen from "./UsersIDsListScreen"
 // EXTRA IMPORTS //
 import { AppStateType } from "~/Redux/ReduxStore"
 import { ActionCreatorsList } from "~/Redux/Reducers/AuthReducers/AuthSetReducer"
-import { getUsersListThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthGetReducer"
+import { getRegUsersListThunkCreator } from "~/Redux/Reducers/AuthReducers/AuthGetReducer"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,12 +17,12 @@ type MapStateToPropsType = {
   navigation: any
 
   UserInvitedID: string | null
-  usersList: Array<any>
+  regUsersList: Array<any>
 }
 
 type MapDispatchToPropsType = {
   setUserInvitedIDActionCreator: (userInvitedID: string) => void
-  getUsersListThunkCreator: () => void
+  getRegUsersListThunkCreator: () => void
 }
 
 /////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
     UserInvitedID: state.AuthSetState.UserInvitedID,
-    usersList: state.AuthGetState.usersList,
+    regUsersList: state.AuthGetState.regUsersList,
   }
 }
 
@@ -41,7 +41,7 @@ const UsersIDsListScreenContainer = compose(
     {
       setUserInvitedIDActionCreator:
         ActionCreatorsList.setUserInvitedIDActionCreator,
-      getUsersListThunkCreator: getUsersListThunkCreator,
+      getRegUsersListThunkCreator,
     }
   )
 )(UsersIDsListScreen)

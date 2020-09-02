@@ -6,7 +6,6 @@ import { View, Image, StyleSheet } from "react-native"
 import ListItem from "~/Components/Shared/Components/ListItem/ListItem"
 
 // EXTRA IMPORTS //
-import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 /////////////////////////////////////////////////////////////////////////////
 

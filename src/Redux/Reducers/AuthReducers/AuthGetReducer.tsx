@@ -10,17 +10,28 @@ const key = "shh"
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
+  regUsersList: [] as Array<any>,
   usersList: [] as Array<any>,
 }
 
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const AuthGetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const AuthGetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
   if (action.type === "SET_USERS_IDS_LIST") {
     return {
       ...state,
       usersList: action.usersList,
+    }
+  }
+
+  if (action.type === "SET_REG_USERS_LIST") {
+    return {
+      ...state,
+      regUsersList: action.regUsersList,
     }
   }
 
@@ -40,12 +51,18 @@ export const ActionCreatorsList = {
       type: "SET_USERS_IDS_LIST",
       usersList,
     } as const),
+
+  setRegUsersListActionCreator: (regUsersList: Array<any>) =>
+    ({
+      type: "SET_REG_USERS_LIST",
+      regUsersList,
+    } as const),
 }
 
 //    *THUNKS*   //
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
-// Login user
+// Get users list
 export const getUsersListThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     const data = JWT.encode(
@@ -59,11 +76,39 @@ export const getUsersListThunkCreator = (): ThunkType => {
       .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
         const usersList = JWT.decode(res.data.data, key)
-        console.log(usersList)
         dispatch(ActionCreatorsList.setUsersIDsListActionCreator(usersList))
       })
       .catch((err) => {
         console.log(err)
+      })
+  }
+}
+
+// Get reg users list
+export const getRegUsersListThunkCreator = (): ThunkType => {
+  return async (dispatch, getState: any) => {
+    await axios
+      .post(
+        "http://cgc.cgc.capital/api_interface",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "select_reg_id",
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        const data = JWT.decode(res.data.data, key)
+
+        console.log(data)
+        dispatch(ActionCreatorsList.setRegUsersListActionCreator(data))
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
       })
   }
 }

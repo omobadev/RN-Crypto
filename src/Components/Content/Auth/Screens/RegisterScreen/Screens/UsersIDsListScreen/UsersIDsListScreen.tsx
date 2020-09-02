@@ -1,36 +1,36 @@
 // PLUGINS IMPORTS //
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { List } from "react-native-paper";
+import React, { useState, useEffect } from "react"
+import { View, Text, StyleSheet } from "react-native"
+import { List } from "react-native-paper"
 
 // COMPONENTS IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button";
-import { ScrollView } from "react-native-gesture-handler";
+import Button from "~/Components/Shared/Components/Button/Button"
+import { ScrollView } from "react-native-gesture-handler"
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any;
-  UserInvitedID: string | null;
-  usersList: Array<any>;
+  navigation: any
+  UserInvitedID: string | null
+  regUsersList: Array<any>
 
-  setUserInvitedIDActionCreator: (userInvitedID: string) => void;
-  getUsersListThunkCreator: () => void;
-};
+  setUserInvitedIDActionCreator: (userInvitedID: string) => void
+  getRegUsersListThunkCreator: () => void
+}
 
 const UsersIDsListScreen: React.FC<PropsType> = (props) => {
   const [selectedUserID, setSelectedUserID] = useState(
-    props.UserInvitedID || props.usersList[0] && props.usersList[0].id,
-  );
-  const [expanded, setExpanded] = React.useState(false);
+    props.UserInvitedID || (props.regUsersList[0] && props.regUsersList[0].id)
+  )
+  const [expanded, setExpanded] = React.useState(false)
 
-  const handlePress = () => setExpanded(!expanded);
+  const handlePress = () => setExpanded(!expanded)
 
   useEffect(() => {
-    props.getUsersListThunkCreator();
-  }, []);
+    props.getRegUsersListThunkCreator()
+  }, [])
 
   return (
     <ScrollView>
@@ -41,16 +41,16 @@ const UsersIDsListScreen: React.FC<PropsType> = (props) => {
           titleStyle={styles.accord_title}
           onPress={handlePress}
         >
-          {props.usersList.map((userID: { id: string }) => {
+          {props.regUsersList.map((userID: { id: string }) => {
             return (
               <List.Item
                 title={userID.id}
                 onPress={() => {
-                  handlePress();
-                  setSelectedUserID(userID.id);
+                  handlePress()
+                  setSelectedUserID(userID.id)
                 }}
               />
-            );
+            )
           })}
         </List.Accordion>
       </List.Section>
@@ -64,16 +64,16 @@ const UsersIDsListScreen: React.FC<PropsType> = (props) => {
           text="Готово"
           buttonStyle={styles.button}
           onPress={() => {
-            props.setUserInvitedIDActionCreator(selectedUserID);
+            props.setUserInvitedIDActionCreator(selectedUserID)
             props.navigation.navigate("RegisterStep1Screen", {
               userInvitedID: selectedUserID,
-            });
+            })
           }}
         />
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -111,6 +111,6 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 50,
   },
-});
+})
 
-export default UsersIDsListScreen;
+export default UsersIDsListScreen
