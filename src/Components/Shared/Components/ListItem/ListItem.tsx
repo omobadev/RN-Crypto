@@ -25,9 +25,9 @@ const ListItem: React.FC<PropsType> = (props) => {
     <RectButton
       style={styles.container}
       onPress={() => {
-        props.navigationDestination
-          ? props.navigation.navigate(props.navigationDestination)
-          : props.action && props.action()
+        props.action
+          ? props.action && props.action()
+          : props.navigation.navigate(props.navigationDestination)
       }}
     >
       {props.icon}

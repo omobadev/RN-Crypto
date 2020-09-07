@@ -1,63 +1,61 @@
 // PLUGINS IMPORTS //
-import React, { useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useEffect } from "react"
+import { View, StyleSheet } from "react-native"
 
 // COMPONENTS IMPORTS //
-import TopBox from "./TopBox/TopBox";
-import BottomSection from "./BottomSection/BottomSection";
+import TopBox from "./TopBox/TopBox"
+import BottomSection from "./BottomSection/BottomSection"
 
 // EXTRA IMPORTS //
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  navigation: any;
+  navigation: any
 
+  hasAbon: boolean
   BudgetInfo: {
     CGC: {
-      price: string;
-      value2: string;
-    };
+      price: string
+      value2: string
+    }
 
     MiningCGC: {
-      price: string;
-      value2: string;
-    };
+      price: string
+      value2: string
+    }
 
     DailyIncome: {
-      price: string;
-      value2: string;
-    };
+      price: string
+      value2: string
+    }
     INPH: {
-      price: string;
-      value2: string;
-    };
-    wallet: string;
-  };
+      price: string
+      value2: string
+    }
+    wallet: string
+  }
 
-  getUserGeneralFinancesInfoThunkCreator: () => void;
-};
+  getUserGeneralFinancesInfoThunkCreator: () => void
+}
 
 const Main: React.FC<PropsType> = (props) => {
   useEffect(() => {
-    props.getUserGeneralFinancesInfoThunkCreator();
-  }, []);
+    props.getUserGeneralFinancesInfoThunkCreator()
+  }, [])
 
   return (
     <View style={styles.container}>
-      <TopBox
-        navigation={props.navigation}
-        BudgetInfo={props.BudgetInfo}
-      />
-      <BottomSection navigation={props.navigation} />
+      <TopBox navigation={props.navigation} BudgetInfo={props.BudgetInfo} />
+      <BottomSection navigation={props.navigation} hasAbon={props.hasAbon} />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-});
+})
 
-export default Main;
+export default Main

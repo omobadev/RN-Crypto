@@ -73,7 +73,7 @@ export const getUsersListThunkCreator = (): ThunkType => {
     )
 
     await axios
-      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
+      .post("https://cgc.capital", JSON.stringify(data))
       .then(async (res) => {
         const usersList = JWT.decode(res.data.data, key)
         dispatch(ActionCreatorsList.setUsersIDsListActionCreator(usersList))
@@ -89,7 +89,7 @@ export const getRegUsersListThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {

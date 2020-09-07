@@ -15,6 +15,7 @@ import { getUserGeneralFinancesInfoThunkCreator } from "~/Redux/Reducers/Finance
 type MapStateToPropsType = {
   navigation: any
 
+  hasAbon: boolean
   BudgetInfo: {
     CGC: {
       price: string
@@ -48,6 +49,7 @@ const mapStateToProps = (state: any, props: any): MapStateToPropsType => {
   return {
     navigation: props.navigation,
     BudgetInfo: state.FinancesGetState.BudgetInfo,
+    hasAbon: state.FinancesGetState.hasAbon,
   }
 }
 

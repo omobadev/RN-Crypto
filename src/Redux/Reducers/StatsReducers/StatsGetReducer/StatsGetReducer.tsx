@@ -80,7 +80,7 @@ export const getStatsInfoThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {

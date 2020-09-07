@@ -74,7 +74,7 @@ export const sendCGCMoneyThunkCreator = (
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -141,7 +141,7 @@ export const buyMoneyThunkCreator = (
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -161,7 +161,7 @@ export const buyMoneyThunkCreator = (
         dispatch(
           ActionCreatorsList.setTransferStatusResActionCreator({
             title: "Спасибо!",
-            text: `Операция выполнена успешно`,
+            text: `Ваш перевод поступил в обработку`,
             positive: true,
             visible: true,
             link: data.url,
@@ -196,7 +196,7 @@ export const deriveMoneyThunkCreator = (
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -257,7 +257,7 @@ export const addMiningThunkCreator = (moneyAmount: string): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -288,7 +288,7 @@ export const deriveMiningThunkCreator = (moneyAmount: string): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {

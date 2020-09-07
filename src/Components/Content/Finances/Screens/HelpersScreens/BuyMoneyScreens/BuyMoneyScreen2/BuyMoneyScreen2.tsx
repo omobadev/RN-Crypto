@@ -44,18 +44,18 @@ type PropsType = {
 const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
   const [sendingAdress, setSendingAdress] = useState(null as string | null)
   const price = props.route.params.price
-  const adress = "MSJKNSKJANSKAMSA"
+  const adress = "0x07ac2775674ea6ab5737973e0850b78c1af1cb75"
 
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          Внимание перевод можно делать только с персонального кошелька, не с
+          Внимание! Перевод можно делать только с персонального кошелька, не с
           кошелька биржи!
         </Text>
 
         <Text style={[styles.paragraph, { marginTop: 25 }]}>
-          Сделайте перевод на сумму <Text style={styles.bold}>{price} </Text>
+          Сделайте перевод на сумму <Text style={styles.bold}>{price} CGC</Text>
           на указанный ETH адрес:
         </Text>
 
@@ -72,6 +72,7 @@ const BuyMoneyScreen2: React.FC<PropsType> = (props) => {
           value={sendingAdress as string}
           onChangeText={(text: string) => setSendingAdress(text)}
           theme={{ colors: { primary: "#00392D" } }}
+          label={"Пожалуйста укажите адрес с которого совершаете перевод"}
         />
         <Button
           text="Я сделал это"

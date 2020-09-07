@@ -35,8 +35,8 @@ const Header: React.FC<PropsType> = (props) => {
           onPress={() => Linking.openURL("https://cgc.capital/cabinet")}
         >
           <Text>https://cgc.capital/cabinet</Text>
-        </TouchableOpacity>{" "}
-        <Text>И перейдите во вкладку: INPH P2P</Text>
+        </TouchableOpacity>
+        <Text> И перейдите во вкладку: INPH P2P</Text>
       </View>
     </View>
   )

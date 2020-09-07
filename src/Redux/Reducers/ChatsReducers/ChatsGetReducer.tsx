@@ -18,7 +18,10 @@ const initialState = {
 type initialStateType = typeof initialState
 
 // *REDUCER* //
-const ChatsGetReducer = (state = initialState, action: ActionTypes): initialStateType => {
+const ChatsGetReducer = (
+  state = initialState,
+  action: ActionTypes
+): initialStateType => {
   if (action.type === "SET_DIALOGS_CHATS_LIST") {
     return {
       ...state,
@@ -67,7 +70,7 @@ export const getDialogsChatsListThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -91,13 +94,15 @@ export const getDialogsChatsListThunkCreator = (): ThunkType => {
 }
 
 // Get current chat messages
-export const getCurrentChatMessagesThunkCreator = (chatID: string): ThunkType => {
+export const getCurrentChatMessagesThunkCreator = (
+  chatID: string
+): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -112,7 +117,9 @@ export const getCurrentChatMessagesThunkCreator = (chatID: string): ThunkType =>
       .then(async (res: any) => {
         const messages = JWT.decode(res.data.data, key).messages
 
-        dispatch(ActionCreatorsList.setCurrentChatMessagesActionCreator(messages))
+        dispatch(
+          ActionCreatorsList.setCurrentChatMessagesActionCreator(messages)
+        )
       })
       .catch((err) => {
         if (err.response) {

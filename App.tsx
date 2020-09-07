@@ -17,6 +17,7 @@ import UsersSelectScreenContainer from "~/Components/Content/Dialogs/Screens/Use
 
 import MoneyMoveInScreen1 from "~/Components/Content/Finances/Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen1/MoneyMoveInScreen1Container"
 import MoneyMoveInScreen2 from "~/Components/Content/Finances/Screens/HelpersScreens/MoneyMoveInScreens/MoneyMoveInScreen2/MoneyMoveInScreen2Container"
+import TarifsScreenContainer from "~/Components/Content/More/Screens/TarifsScreen/TarifsScreenContainer"
 
 import Popup from "~/Components/Shared/Components/Popups/PopUp/PopUp"
 
@@ -37,6 +38,7 @@ console.disableYellowBox = true
 const App: React.FC<PropsType> = (props) => {
   const [loading, setLoading] = useState(true as boolean)
   const [popupVisible, setPopupVisible] = useState(false as boolean)
+  const [tarifsPopupVisible, setTarifsPopupVisible] = useState(false as boolean)
 
   const Stack = createStackNavigator()
 
@@ -131,6 +133,27 @@ const App: React.FC<PropsType> = (props) => {
                   selectedUserID: null as string | null,
                 }}
               />
+
+              <Stack.Screen
+                name="TarifsScreen"
+                component={TarifsScreenContainer}
+                options={({ navigation, route }: any) => ({
+                  headerRight: () => (
+                    <TouchableOpacity
+                      style={styles.right_icon}
+                      onPress={() => setTarifsPopupVisible(true)}
+                    >
+                      <Feather name="info" size={24} color="#00392D" />
+                    </TouchableOpacity>
+                  ),
+                  headerStyle: {
+                    elevation: 0,
+                  },
+                  headerTintColor: "#00392D",
+                  title: "Тарифы",
+                  headerTitleAlign: "center",
+                })}
+              />
             </Stack.Navigator>
           ) : (
             <Auth />
@@ -154,6 +177,24 @@ const App: React.FC<PropsType> = (props) => {
         }}
         popupVisible={popupVisible}
         setPopupVisible={setPopupVisible}
+      />
+
+      <Popup
+        title="Тарифы"
+        description={
+          "Внесение абонентской необходима для активации функции майнинга. Ниже вы можете выбрать несколько вариантов оплаты от 1 месяца до 1 года. Чем больший тариф вы оплачиваете, тем больший дисконт получаете. Информации о майнинге вы можете прочитать открыв вкладку финансы, затем майнинг и нажав на информационную секуцию."
+        }
+        buttonsArray={[
+          {
+            text: "OK",
+            action: () => setTarifsPopupVisible(false),
+          },
+        ]}
+        descriptionStyle={{
+          textAlign: "center",
+        }}
+        popupVisible={tarifsPopupVisible}
+        setPopupVisible={setTarifsPopupVisible}
       />
     </>
   )

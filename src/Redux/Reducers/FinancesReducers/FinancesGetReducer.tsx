@@ -10,6 +10,8 @@ const key = "shh"
 ////////////////////////////////////////////////////////////////////////
 
 const initialState = {
+  hasAbon: false as boolean,
+
   BudgetInfo: {
     CGC: {
       price: null as string | null,
@@ -60,6 +62,13 @@ const UserGetReducer = (
     }
   }
 
+  if (action.type === "SET_ABON_STATUS") {
+    return {
+      ...state,
+      hasAbon: action.abonStatus,
+    }
+  }
+
   if (action.type === "SET_TRANSACTIONS_HISTORY") {
     return {
       ...state,
@@ -106,6 +115,12 @@ export const ActionCreatorsList = {
       wallet,
     } as const),
 
+  setAbonStatusActionCreator: (abonStatus: boolean) =>
+    ({
+      type: "SET_ABON_STATUS",
+      abonStatus,
+    } as const),
+
   setTransactionsHistoryActionCreator: (
     transactionsList: Array<{
       isIncome: boolean
@@ -130,7 +145,7 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -171,6 +186,33 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
           console.log(err.response)
         }
       })
+
+    await axios
+      .post(
+        "https://cgc.capital",
+        JSON.stringify(
+          JWT.encode(
+            {
+              action: "get_abon_time",
+              uid: state.AuthSetState.userID,
+            },
+            key
+          )
+        )
+      )
+      .then(async (res: any) => {
+        const data = JWT.decode(res.data.data, key)
+        dispatch(
+          ActionCreatorsList.setAbonStatusActionCreator(
+            data.time === 0 ? false : true
+          )
+        )
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response)
+        }
+      })
   }
 }
 
@@ -188,7 +230,7 @@ export const getTransactionsHistoryThunkCreator = (): ThunkType => {
     )
 
     await axios
-      .post("http://cgc.cgc.capital/api_interface", JSON.stringify(data))
+      .post("https://cgc.capital", JSON.stringify(data))
       .then((res: any) => {
         dispatch(
           ActionCreatorsList.setTransactionsHistoryActionCreator(

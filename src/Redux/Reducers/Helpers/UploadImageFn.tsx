@@ -13,7 +13,7 @@ const uploadImageAsync = async (uri: string, json: any) => {
 
       return axios({
         method: "post",
-        url: "http://cgc.cgc.capital/api_interface",
+        url: "https://cgc.capital",
         data: fd,
         headers: { "Content-Type": "multipart/form-data" },
       })

@@ -49,7 +49,7 @@ const MiningInMoneyScreen: React.FC<PropsType> = (props) => {
     <>
       <View style={styles.container}>
         <InputSection
-          buttonText="Пополнить"
+          buttonText="Вывести"
           valueName="Укажите сумму"
           errorText="Сумма указана неверно"
           isNumberPad

@@ -114,7 +114,7 @@ export const getTarifsInfoThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -144,7 +144,7 @@ export const getTarifsListThunkCreator = (): ThunkType => {
   return async (dispatch, getState: any) => {
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -182,7 +182,7 @@ export const getReferalLinkThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {
@@ -212,7 +212,7 @@ export const getTechSupportChatThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "http://cgc.cgc.capital/api_interface",
+        "https://cgc.capital",
         JSON.stringify(
           JWT.encode(
             {

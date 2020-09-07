@@ -57,7 +57,7 @@ const TarifItem: React.FC<PropsType> = (props) => {
         >
           <Text style={[styles.price, { color: props.textColor }]}>
             {props.tarif.price &&
-              String(props.tarif.price).replace(".", "").slice(0, 4)}{" "}
+              String(props.tarif.price).replace(".", "").slice(0, 3)}{" "}
             CGC
           </Text>
           {props.tarif.title && (

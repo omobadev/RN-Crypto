@@ -23,7 +23,7 @@ const Header: React.FC<PropsType> = (props) => {
       <>
         <ListItem
           title="Абонентсая плата"
-          desc={`${props.PaymentAmount || "0"} СGC`}
+          desc={`${props.PaymentAmount || "100"} СGC`}
           descStyle={{ fontSize: 16, fontWeight: "bold", color: "#006F5F" }}
         />
         <ListItem

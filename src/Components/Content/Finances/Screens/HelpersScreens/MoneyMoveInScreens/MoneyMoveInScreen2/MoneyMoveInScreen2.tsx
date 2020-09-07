@@ -51,8 +51,8 @@ const MoneyMoveInScreen2: React.FC<PropsType> = (props) => {
             )
           }
           containerStyle={styles.footer_input}
-          valueName="Введите пароль"
-          errorText="Введите пароль"
+          valueName="Введите пин-код"
+          errorText="Введите пин-код"
         />
       </View>
 

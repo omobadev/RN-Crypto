@@ -1,59 +1,61 @@
 // PLUGINS IMPORTS //
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Dialog, { DialogContent } from "react-native-popup-dialog";
-import * as Linking from "expo-linking";
+import React from "react"
+import { View, Text, StyleSheet } from "react-native"
+import Dialog, { DialogContent } from "react-native-popup-dialog"
+import * as Linking from "expo-linking"
 
 // COMPONENTS IMPORTS //
-import Button from "~/Components/Shared/Components/Button/Button";
+import Button from "~/Components/Shared/Components/Button/Button"
 
 // EXTRA IMPORTS //
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler"
 
 /////////////////////////////////////////////////////////////////////////////
 
 type PropsType = {
-  popupVisible: boolean;
+  popupVisible: boolean
 
-  title?: string;
-  description?: string;
-  buttonsArray: Array<any>;
-  elements?: any;
-  link?: string;
+  title?: string
+  description?: string
+  buttonsArray: Array<any>
+  elements?: any
+  link?: string
+  linkOpen?: () => void
 
-  containerStyle?: any;
-  descriptionStyle?: any;
+  containerStyle?: any
+  descriptionStyle?: any
 
-  setPopupVisible: (popupVisibilityStatus: boolean) => void;
-};
+  setPopupVisible: (popupVisibilityStatus: boolean) => void
+}
 
 const PopUp: React.FC<PropsType> = (props) => {
   const handleOpenLink = () => {
-    Linking.openURL(props.link as string);
-  };
+    Linking.openURL(props.link as string)
+  }
 
   return (
     <Dialog
       visible={props.popupVisible}
       onTouchOutside={() => {
-        props.setPopupVisible(false);
+        props.setPopupVisible(false)
       }}
     >
       <DialogContent style={{ ...styles.container, ...props.containerStyle }}>
         <View style={styles.content_wrap}>
           <Text style={styles.title}>{props.title}</Text>
-          {props.description && (
+          {props.description ? (
             <Text style={{ ...styles.description, ...props.descriptionStyle }}>
               {props.description}
             </Text>
-          )}
+          ) : null}
           {props.elements && props.elements}
-          {props.link &&
+          {props.link && (
             <Button
               text="Открыть ссылку"
-              onPress={handleOpenLink}
+              onPress={props.linkOpen ? props.linkOpen : handleOpenLink}
               buttonStyle={styles.link_button}
-            />}
+            />
+          )}
         </View>
         <View style={styles.btns_wrap}>
           {props.buttonsArray?.map((button: any) => {
@@ -64,19 +66,19 @@ const PopUp: React.FC<PropsType> = (props) => {
                   width: `${100 / props.buttonsArray.length}%`,
                 }}
                 onPress={() => {
-                  props.setPopupVisible(false);
-                  button.action();
+                  props.setPopupVisible(false)
+                  button.action()
                 }}
               >
                 <Text style={styles.btn_text}>{button.text}</Text>
               </RectButton>
-            );
+            )
           })}
         </View>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -130,6 +132,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     height: 33,
   },
-});
+})
 
-export default PopUp;
+export default PopUp
