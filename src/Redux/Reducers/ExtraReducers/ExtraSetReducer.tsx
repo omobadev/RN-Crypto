@@ -60,7 +60,7 @@ export const buyTarifThunkCreator = (tarifID: string): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -98,7 +98,7 @@ export const sendTechChatMessageThunkCreator = (message: string): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {

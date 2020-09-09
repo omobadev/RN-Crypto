@@ -74,7 +74,7 @@ const BottomSection: React.FC<PropsType> = (props) => {
       </View>
 
       <PopUp
-        title={"У вас не оплачена тариф"}
+        title={"У вас не оплачен тариф"}
         description={
           "Оплатите абоненсткую плату перед тем как воспользоваться майнингом"
         }

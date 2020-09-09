@@ -74,7 +74,9 @@ const InputSection: React.FC<PropsType> = (props) => {
                 style={styles.input}
               />
               <TouchableOpacity
-                onPress={() => Linking.openURL("https://cgc.capital/resetpass")}
+                onPress={() =>
+                  Linking.openURL("https://cgc.capital/api_interface/resetpass")
+                }
               >
                 <Text style={styles.forgot_pass_text}>Забыли пароль?</Text>
               </TouchableOpacity>

@@ -8,7 +8,6 @@ import MainContainer from "./Screens/Main/MainContainer"
 import TransactionsHistoryContainer from "./Screens/TransactionsHistory/TransactionsHistoryContainer"
 
 import MoneyMoveOutScreen1Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen1/MoneyMoveOutScreen1Container"
-import MoneyMoveOutScreen2Container from "./Screens/HelpersScreens/MoneyMoveOutScreens/MoneyMoveOutScreen2/MoneyMoveOutScreen2Container"
 
 import BuyMoneyScreen1Container from "./Screens/HelpersScreens/BuyMoneyScreens/BuyMoneyScreen1/BuyMoneyScreen1Container"
 import BuyMoneyScreen2Container from "./Screens/HelpersScreens/BuyMoneyScreens/BuyMoneyScreen2/BuyMoneyScreen2Container"
@@ -73,25 +72,7 @@ const Finances: React.FC<PropsType> = (props) => {
           headerTitleAlign: "center",
         })}
       />
-      <Stack.Screen
-        name="MoneyMoveOutScreen2"
-        component={MoneyMoveOutScreen2Container}
-        options={({ navigation, route }: any) => ({
-          headerBackTitleVisible: false,
-          headerStyle: {
-            elevation: 0,
-          },
-          headerTitleStyle: {
-            color: "#00392D",
-          },
-          title: "Вывод CGC",
-          headerTitleAlign: "center",
-        })}
-        initialParams={{
-          moneyAmount: null as string | null,
-          currency: "CGC" as string,
-        }}
-      />
+
       {/* Покупка CGC */}
       <Stack.Screen
         name="BuyMoneyScreen1"

@@ -145,7 +145,7 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -189,7 +189,7 @@ export const getUserGeneralFinancesInfoThunkCreator = (): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -230,7 +230,7 @@ export const getTransactionsHistoryThunkCreator = (): ThunkType => {
     )
 
     await axios
-      .post("https://cgc.capital", JSON.stringify(data))
+      .post("https://cgc.capital/api_interface", JSON.stringify(data))
       .then((res: any) => {
         dispatch(
           ActionCreatorsList.setTransactionsHistoryActionCreator(

@@ -158,7 +158,7 @@ export const RegisterUserThunkCreator = (secretCode: string): ThunkType => {
     )
 
     await axios
-      .post("https://cgc.capital", JSON.stringify(data))
+      .post("https://cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
         const uid = JSON.stringify(JWT.decode(res.data.data, key).uid)
         await AsyncStorage.setItem("uid", uid)
@@ -191,7 +191,7 @@ export const LoginUserThunkCreator = (
     )
 
     await axios
-      .post("https://cgc.capital", JSON.stringify(data))
+      .post("https://cgc.capital/api_interface", JSON.stringify(data))
       .then(async (res) => {
         if (res) {
           dispatch(ActionCreatorsList.setLoginErrorStatusActionCreator(false))
@@ -203,6 +203,8 @@ export const LoginUserThunkCreator = (
         }
       })
       .catch((err) => {
+        console.log("eeo")
+        console.log(err)
         dispatch(ActionCreatorsList.setLoginErrorStatusActionCreator(true))
       })
   }

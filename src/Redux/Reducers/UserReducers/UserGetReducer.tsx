@@ -83,7 +83,7 @@ export const getUserCredentialsThunkCreator = (uid: string): ThunkType => {
   return async (dispatch, getState: any) => {
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {

@@ -74,7 +74,7 @@ export const sendCGCMoneyThunkCreator = (
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -89,25 +89,20 @@ export const sendCGCMoneyThunkCreator = (
         )
       )
       .then(async (res: any) => {
-        const status = JWT.decode(res.status, key)
-        if (Number(status) === 200) {
-          dispatch(
-            ActionCreatorsList.setTransferStatusResActionCreator({
-              title: "Спасибо!",
-              text: "Ваш перевод прошёл успешно!",
-              positive: true,
-              visible: true,
-            })
-          )
+        dispatch(
+          ActionCreatorsList.setTransferStatusResActionCreator({
+            title: "Спасибо!",
+            text: "Ваш перевод прошёл успешно!",
+            positive: true,
+            visible: true,
+          })
+        )
 
-          dispatch(getUserGeneralFinancesInfoThunkCreator())
-          dispatch(getTransactionsHistoryThunkCreator())
-        }
+        dispatch(getUserGeneralFinancesInfoThunkCreator())
+        dispatch(getTransactionsHistoryThunkCreator())
       })
       .catch((err) => {
         const errorMessage = err.response.data.message
-
-        console.log(err.response)
 
         if (errorMessage === "pass fail") {
           dispatch(
@@ -141,7 +136,7 @@ export const buyMoneyThunkCreator = (
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -186,25 +181,19 @@ export const buyMoneyThunkCreator = (
   }
 }
 
-export const deriveMoneyThunkCreator = (
-  moneyAmount: number,
-  wallet: string,
-  password: string
-): ThunkType => {
+export const deriveMoneyThunkCreator = (moneyAmount: number): ThunkType => {
   return async (dispatch, getState: any) => {
     const state = getState()
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
               action: "cashout",
               uid: state.AuthSetState.userID,
-              pass: password,
               cid: 6,
-              wallet: wallet,
               sum: Number(moneyAmount),
             },
             key
@@ -257,7 +246,7 @@ export const addMiningThunkCreator = (moneyAmount: string): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -288,7 +277,7 @@ export const deriveMiningThunkCreator = (moneyAmount: string): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {

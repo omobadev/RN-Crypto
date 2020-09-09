@@ -52,7 +52,7 @@ export const createNewDialogThunkCreator = (
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -87,7 +87,7 @@ export const addUsersToChatThunkCreator = (
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -119,7 +119,7 @@ export const leaveChatThunkCreator = (chatID: string): ThunkType => {
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
         JSON.stringify(
           JWT.encode(
             {
@@ -153,7 +153,7 @@ export const sendMessageThunkCreator = (
 
     await axios
       .post(
-        "https://cgc.capital",
+        "https://cgc.capital/api_interface",
 
         JSON.stringify(
           JWT.encode(
