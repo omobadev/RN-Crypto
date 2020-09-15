@@ -21,7 +21,7 @@ const Body: React.FC<PropsType> = (props) => {
       <LineDataItem title="Логин" desc={props.userData.login} />
       <LineDataItem title="Email" desc={props.userData.email} />
       <LineDataItem title="Страна, Город" desc={props.userData.location} />
-      <LineDataItem title="ID пригласившего" desc={props.userData.ID} />
+      <LineDataItem title="ID пригласившего" desc={props.userData.invitedID} />
     </View>
   )
 }

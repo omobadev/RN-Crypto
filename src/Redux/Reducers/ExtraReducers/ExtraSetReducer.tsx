@@ -8,6 +8,7 @@ import { AppStateType, InferActionsTypes } from "~/Redux/ReduxStore"
 const key = "shh"
 
 import { getTechSupportChatThunkCreator } from "~/Redux/Reducers/ExtraReducers/ExtraGetReducer"
+import { getUserGeneralFinancesInfoThunkCreator } from "~/Redux/Reducers/FinancesReducers/FinancesGetReducer"
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +80,8 @@ export const buyTarifThunkCreator = (tarifID: string): ThunkType => {
             show: true,
           })
         )
+
+        dispatch(getUserGeneralFinancesInfoThunkCreator())
       })
       .catch((err) => {
         dispatch(

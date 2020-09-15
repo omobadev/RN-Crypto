@@ -53,7 +53,7 @@ const InputSection: React.FC<PropsType> = (props) => {
           values.city
         )
         props.navigation.navigate("PasswordScreen", {
-          title: "Придумайте секретный код",
+          title: "Придумайте секретный пин-код",
           callbackFnTitle: "Register",
         })
       }}
